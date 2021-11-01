@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block title %}{{ picture.name }} - {{ picture.author }}{% endblock %}
+
+{% block content %}
+    <header class="header">
+        <div class="container">
+
+            <div class="header-main">
+
+                <div class="header-main-logo">
+                    <img src="https://via.placeholder.com/150x100" alt="hello">
+                    <div class="header-main-logo-name">Name</div>
+                </div>
+
+                <div class="header-main-info">Info</div>
+
+            </div>
+        </div>
+        <hr>
+    </header>
+
+    <section class="section">
+        <aside class="aside-gallery">
+            <div class="gallery-item">
+                <img src="square.jpg" alt="gallery-img" class="gallery-item-img">
+            </div>
+            <div class="gallery-item">
+                <img src="https://via.placeholder.com/100x100" alt="gallery-img">
+            </div>
+            <div class="gallery-item">
+                <img src="https://via.placeholder.com/100x100" alt="gallery-img">
+            </div>
+            <div class="gallery-item">
+                <img src="https://via.placeholder.com/100x100" alt="gallery-img">
+            </div>
+        </aside>
+
+        <main class="main">
+            <div class="main-tittle">
+                <div class="main-title-item">
+                    <h2>{{ picture.name }}</h2>
+                </div>
+                <div class="main-title-item">{{ picture.author }}</div>
+                <div class="main-title-item">{{ picture.dimensions }}</div>
+            </div>
+            <div>
+                <img src="{{ images.first.url }}" alt="main-img" class="main-picture">
+            </div>
+
+        </main>
+
+        <aside class="aside-info">
+            <div class="aside-info-item">Категория: {{ picture.category }}</div>
+            <div class="aside-info-item">Тема:  {{ picture.theme }}</div>
+            <div class="aside-info-item">Стиль:  {{ picture.style }}</div>
+            <div class="aside-info-item">Жанр:  {{ picture.genre }}</div>
+            <br>
+            <div class="aside-info-item">Описание:  {{ picture.description }}</div>
+        </aside>
+        <div class="section-2-row">
+            <div class="gallery-info">
+                <p>Я не увидел какой текст написан в макете поэтому импровизация</p>
+            </div>
+
+            <div class="author">
+                <img src="https://via.placeholder.com/75x100" alt="author-photo"
+                     class="author-img">
+                <div class="author-info">
+                    <div class="author-name">
+                        <h3>Имя Фамилия</h3>
+                    </div>
+                    <div class="author-description">Автор данного проекта гений</div>
+                </div>
+            </div>
+            <div class="space"></div>
+        </div>
+    </section>
+{% endblock %}
+

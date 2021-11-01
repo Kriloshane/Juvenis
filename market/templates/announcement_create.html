@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block title %}Добавить объявление{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <form action="{% url 'market:announcement_create_url' %}" method="POST">
+        <h1 class="h4 mb-3 font-weight-normal">Добавить объявление</h1>
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button id="btn_announcement_create" class="btn btn-primary btn-block mt-2" type="submit">Добавить</button>
+    </form>
+</div>
+{% endblock %}
