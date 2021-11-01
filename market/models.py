@@ -4,6 +4,10 @@ from django.shortcuts import reverse
 from django.utils.text import slugify
 from django.db.models import F, ExpressionWrapper, FloatField, Sum
 from time import time
+from googletrans import Translator
+
+
+translator = Translator()
 
 # {% for image in ????? %}
 #                 <div class="gallery-item">
@@ -17,7 +21,7 @@ class Customer(AbstractUser):  # username, password, f_n, l_n, email
     name = models.CharField(verbose_name="Имя", max_length=20, null=True, blank=True)
     surname = models.CharField(verbose_name="Фамилия", max_length=40, null=True, blank=True)
     email = models.EmailField(verbose_name="Электронная почта", max_length=100, unique=True)
-#   pictures = models.ManyToManyField("Picture", verbose_name="Картины", through="CustomerPicture")
+    #   pictures = models.ManyToManyField("Picture", verbose_name="Картины", through="CustomerPicture")
     followers = models.ManyToManyField("Customer", verbose_name='Подписчики', null=True, blank=True,
                                        related_name="follower_set")
     subscriptions = models.ManyToManyField("Customer", verbose_name='Подписки', null=True, blank=True)
@@ -34,11 +38,12 @@ class Customer(AbstractUser):  # username, password, f_n, l_n, email
         verbose_name_plural = "Пользователи"
 
 
-class Picture(models.Model):
+class Picture(models.Model):  # TODO:  разделить размеры на два поля
     """Модель картины"""
+
     class PictureGenre(models.TextChoices):
         """Подмодель жанров картин"""
-        is_absent = "NUL","Отсутствует"
+        is_absent = "NUL", "Отсутствует"
         abstraction = "ABS", "Абстракция"
         portrait = "PRT", "Портрет"
         landscape = "LSC", "Пейзаж"
@@ -78,7 +83,8 @@ class Picture(models.Model):
         hyperrealism = "HYP", "Гиппереализм"
 
     name = models.CharField(max_length=100, verbose_name="Название", db_index=True)
-    author = models.ForeignKey("Customer", on_delete=models.CASCADE, verbose_name="Автор", db_index=True, related_name="pictures")
+    author = models.ForeignKey("Customer", on_delete=models.CASCADE, verbose_name="Автор", db_index=True,
+                               related_name="pictures")
     price = models.FloatField(verbose_name="Цена", help_text="Цену указывать в рублях", db_index=True)
     dimensions = models.CharField(verbose_name="Размеры", help_text="например, 1x1 (в метрах)", max_length=30)
     description = models.TextField(verbose_name="Описание", null=True, blank=True)
@@ -103,7 +109,9 @@ class Picture(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.slug = slugify(f"{self.name}--{self.author.email.split('@')[0]}-{str(time())}", allow_unicode=True)
+            translator = Translator()
+
+            self.slug = slugify(f"{translator.translate(self.name).text.replace(' ', '-')}--{self.author.email.split('@')[0]}-{str(time())}", allow_unicode=True)
         super().save(*args, **kwargs)
         # self.slug = slugify(f"{self.name}-{self.id}--{self.author.email.split('@')[0]}", allow_unicode=True)
         print(self.slug)

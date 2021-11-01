@@ -2,6 +2,8 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from django.template.context_processors import request
+from PIL import Image
+import io
 
 from django.views import View
 
@@ -34,18 +36,21 @@ class AnnouncementCreate(View):
         return render(request, 'announcement_create.html', {'form': form})
 
     def post(self, request):
-        form = PictureForm(request.POST)
+        form = PictureForm(request.POST, request.FILES)
 
         if form.is_valid():
             announcement = form.save(commit=False)
             announcement.author = request.user
             announcement.save()
             # for image in request.FILES.getlist('images'):
-            print(request.FILES.getlist('images'))
+            # print(request.FILES.getlist('images'))
+
+            # for image in form.cleaned_data["images"]:
+            l = []
             for image in request.FILES.getlist('images'):
-                print(image)
-                announcement_image = PictureImg(image=image, announcement=announcement)
-                announcement_image.save()
+                l.append(PictureImg(image=image, announcement=announcement))
+
+            PictureImg.objects.bulk_create(l)
             return redirect(reverse(f"{MarketConfig.name}:announcement_url", kwargs={"slug": announcement.slug}))
         return redirect("/")
 
@@ -73,7 +78,7 @@ class AnnouncementEdit(View):
 
 
 class AnnouncementView(View):
-    def get(self, request, pk):
-        picture = get_object_or_404(Picture, id=pk)
-        images = PictureImg.objects.get(announcement=picture)
+    def get(self, request, slug):
+        picture = get_object_or_404(Picture, slug__iexact=slug)
+        images = PictureImg.objects.filter(announcement=picture)
         return render(request, template_name="announcement.html", context={"picture": picture, "images": images})

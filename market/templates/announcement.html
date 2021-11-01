@@ -23,18 +23,13 @@
 
     <section class="section">
         <aside class="aside-gallery">
-            <div class="gallery-item">
-                <img src="square.jpg" alt="gallery-img" class="gallery-item-img">
-            </div>
-            <div class="gallery-item">
-                <img src="https://via.placeholder.com/100x100" alt="gallery-img">
-            </div>
-            <div class="gallery-item">
-                <img src="https://via.placeholder.com/100x100" alt="gallery-img">
-            </div>
-            <div class="gallery-item">
-                <img src="https://via.placeholder.com/100x100" alt="gallery-img">
-            </div>
+            {% for image in images %}
+                {% if forloop.counter != 1 %}
+                    <div class="gallery-item">
+                        <img src="{{ image.url }}" alt="gallery-img" class="gallery-item-img">
+                    </div>
+                {% endif %}
+            {% endfor %}
         </aside>
 
         <main class="main">

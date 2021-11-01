@@ -10,7 +10,7 @@ urlpatterns = [
     path('accounts/register/', Register.as_view(), name='register_url'),
     path('announcement/create/', AnnouncementCreate.as_view(), name='announcement_create_url'),
     # path('announcement/<str:slug>/', AnnouncementView.as_view(), name="announcement_url"),
-    path('announcement/<int:pk>/', AnnouncementView.as_view(), name="announcement_url"),
+    path('announcement/<str:slug>/', AnnouncementView.as_view(), name="announcement_url"),
     path('announcement/edit/<str:slug>/', AnnouncementEdit.as_view(), name="announcement_edit_url")
 ]
 
