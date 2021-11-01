@@ -7,15 +7,6 @@ from time import time
 from googletrans import Translator
 
 
-translator = Translator()
-
-# {% for image in ????? %}
-#                 <div class="gallery-item">
-#                     <img src="{{ image.url }}" alt="gallery-img">
-#                 </div>
-#             {% endfor %}
-
-
 class Customer(AbstractUser):  # username, password, f_n, l_n, email
     """Модель пользователя"""
     name = models.CharField(verbose_name="Имя", max_length=20, null=True, blank=True)
