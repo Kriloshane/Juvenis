@@ -29,11 +29,12 @@ class Customer(AbstractUser):  # username, password, f_n, l_n, email
         verbose_name_plural = "Пользователи"
 
 
-class Picture(models.Model):  # TODO:  разделить размеры на два поля
+class Picture(models.Model):
     """Модель картины"""
 
     class PictureGenre(models.TextChoices):
         """Подмодель жанров картин"""
+
         is_absent = "NUL", "Отсутствует"
         abstraction = "ABS", "Абстракция"
         portrait = "PRT", "Портрет"
@@ -77,8 +78,10 @@ class Picture(models.Model):  # TODO:  разделить размеры на д
     author = models.ForeignKey("Customer", on_delete=models.CASCADE, verbose_name="Автор", db_index=True,
                                related_name="pictures")
     price = models.FloatField(verbose_name="Цена", help_text="Цену указывать в рублях", db_index=True)
-    dimensions = models.CharField(verbose_name="Размеры", help_text="например, 1x1 (в метрах)", max_length=30)
+    # dimensions = models.CharField(verbose_name="Размеры", help_text="например, 1x1 (в метрах)", max_length=30)
     description = models.TextField(verbose_name="Описание", null=True, blank=True)
+    length = models.CharField(verbose_name="Длина", max_length=40, null=True, blank=True)
+    width = models.CharField(verbose_name="Ширина", max_length=40, null=True, blank=True)
     genre = models.CharField(verbose_name="Жанр", choices=PictureGenre.choices, max_length=3,
                              default=PictureGenre.is_absent, db_index=True)
     style = models.CharField(verbose_name="Стиль", choices=PictureStyle.choices, max_length=3,
@@ -104,7 +107,6 @@ class Picture(models.Model):  # TODO:  разделить размеры на д
 
             self.slug = slugify(f"{translator.translate(self.name).text.replace(' ', '-')}--{self.author.email.split('@')[0]}-{str(time())}", allow_unicode=True)
         super().save(*args, **kwargs)
-        # self.slug = slugify(f"{self.name}-{self.id}--{self.author.email.split('@')[0]}", allow_unicode=True)
         print(self.slug)
 
     def get_absolute_url_edit(self):

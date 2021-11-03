@@ -26,7 +26,6 @@ class CustomerForm(forms.ModelForm):
 class PictureForm(forms.ModelForm):
     name = forms.CharField(label='Название', widget=forms.TextInput())
     price = forms.IntegerField(label='Стоимость', min_value=0, widget=forms.NumberInput())
-    dimensions = forms.CharField(label='Размеры', widget=forms.TextInput())
     description = forms.CharField(label='Описание', widget=forms.Textarea(), required=False)
     images = forms.ImageField(
         label='Выберите изображение для загрузки',
@@ -34,16 +33,16 @@ class PictureForm(forms.ModelForm):
 
     class Meta:
         model = Picture
-        fields = ['name', 'price', 'dimensions', 'description', 'genre', 'style', 'category',
+        fields = ['name', 'price', 'length', 'width', 'description', 'genre', 'style', 'category',
                   'theme', 'technique', 'tags']
 
-    def clean_dimensions(self):  # TODO: Сделать нормальный метод
-        s = self.cleaned_data.get('dimensions')
-        l = s.split('x')
-        if len(l) == 2:
-            if l[0].isdigit() and l[1].isdigit():
-                return s
-        return ValueError('Формат размеров введен некорректно...')
+    # def clean_dimensions(self):
+    #    s = self.cleaned_data.get('dimensions')
+    #    l = s.split('x')
+    #    if len(l) == 2:
+    #        if l[0].isdigit() and l[1].isdigit():
+    #            return s
+    #    return ValueError('Формат размеров введен некорректно...')
 
 
 class PictureImgForm(forms.ModelForm):

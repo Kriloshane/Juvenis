@@ -23,10 +23,10 @@
 
     <section class="section">
         <aside class="aside-gallery">
-            {% for image in images %}
+            {% for pic_img in picture_images %}
                 {% if forloop.counter != 1 %}
                     <div class="gallery-item">
-                        <img src="{{ image.url }}" alt="gallery-img" class="gallery-item-img">
+                        <img src="{{ pic_img.image.url }}" alt="gallery-img" class="gallery-item-img">
                     </div>
                 {% endif %}
             {% endfor %}
@@ -38,25 +38,25 @@
                     <h2>{{ picture.name }}</h2>
                 </div>
                 <div class="main-title-item">{{ picture.author }}</div>
-                <div class="main-title-item">{{ picture.dimensions }}</div>
+                <div class="main-title-item">Длина: {{ picture.length }}; Ширина: {{ picture.width }}</div>
             </div>
             <div>
-                <img src="{{ images.first.url }}" alt="main-img" class="main-picture">
+                <img src="{{ picture_images.first.image.url }}" alt="main-img" class="main-picture">
             </div>
 
         </main>
 
         <aside class="aside-info">
-            <div class="aside-info-item">Категория: {{ picture.category }}</div>
-            <div class="aside-info-item">Тема:  {{ picture.theme }}</div>
-            <div class="aside-info-item">Стиль:  {{ picture.style }}</div>
-            <div class="aside-info-item">Жанр:  {{ picture.genre }}</div>
+            <div class="aside-info-item">Категория: {{ picture.get_category_display }}</div>
+            <div class="aside-info-item">Тема:  {{ picture.get_theme_display }}</div>
+            <div class="aside-info-item">Стиль:  {{ picture.get_style_display }}</div>
+            <div class="aside-info-item">Жанр:  {{ picture.get_genre_display }}</div>
             <br>
             <div class="aside-info-item">Описание:  {{ picture.description }}</div>
         </aside>
         <div class="section-2-row">
             <div class="gallery-info">
-                <p>Я не увидел какой текст написан в макете поэтому импровизация</p>
+                <p></p>
             </div>
 
             <div class="author">

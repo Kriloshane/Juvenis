@@ -81,4 +81,7 @@ class AnnouncementView(View):
     def get(self, request, slug):
         picture = get_object_or_404(Picture, slug__iexact=slug)
         images = PictureImg.objects.filter(announcement=picture)
-        return render(request, template_name="announcement.html", context={"picture": picture, "images": images})
+        print(images)
+        return render(request, template_name="announcement.html",
+                      context={"picture": picture, "picture_images": images})
+
