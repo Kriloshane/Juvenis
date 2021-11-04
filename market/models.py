@@ -7,22 +7,34 @@ from time import time
 from googletrans import Translator
 
 
+# TODO:  разобраться с последней активностью пользователя
+
+
 class Customer(AbstractUser):  # username, password, f_n, l_n, email
     """Модель пользователя"""
-    name = models.CharField(verbose_name="Имя", max_length=20, null=True, blank=True)
-    surname = models.CharField(verbose_name="Фамилия", max_length=40, null=True, blank=True)
+    first_name = models.CharField(verbose_name="Имя", max_length=20)
+    last_name = models.CharField(verbose_name="Фамилия", max_length=30)
     email = models.EmailField(verbose_name="Электронная почта", max_length=100, unique=True)
-    #   pictures = models.ManyToManyField("Picture", verbose_name="Картины", through="CustomerPicture")
     followers = models.ManyToManyField("Customer", verbose_name='Подписчики', null=True, blank=True,
                                        related_name="follower_set")
+    photo = models.ImageField(verbose_name="Фотография", upload_to="users_photo", null=True, blank=True,
+                              default="/media/default_user_photo.jpg")
     subscriptions = models.ManyToManyField("Customer", verbose_name='Подписки', null=True, blank=True)
     last_activity = models.DateTimeField(blank=True, null=True, verbose_name="Последняя активность")
     art_currency = models.IntegerField(default=0, verbose_name="Валюта")
+    slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, verbose_name='Ссылка')
 
     def __str__(self):
-        if self.name and self.surname:
-            return f"{self.surname} {self.name} "
+        if self.first_name and self.last_name:
+            return f"{self.first_name} {self.last_name}"
         return f"{self.username} - {self.email}"
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            translator = Translator()
+            self.slug = slugify(
+                f"{translator.translate(self.first_name).text.replace(' ', '-')}-{translator.translate(self.last_name).text.replace(' ', '-')}")
+            print(self.slug)
 
     class Meta:
         verbose_name = "Пользователь"
@@ -105,9 +117,10 @@ class Picture(models.Model):
         if not self.id:
             translator = Translator()
 
-            self.slug = slugify(f"{translator.translate(self.name).text.replace(' ', '-')}--{self.author.email.split('@')[0]}-{str(time())}", allow_unicode=True)
+            self.slug = slugify(
+                f"{translator.translate(self.name).text.replace(' ', '-')}--{self.author.email.split('@')[0]}-{str(time())}",
+                allow_unicode=True)
         super().save(*args, **kwargs)
-        print(self.slug)
 
     def get_absolute_url_edit(self):
         return reverse('market:announcement_edit_url', kwargs={'slug': self.slug})

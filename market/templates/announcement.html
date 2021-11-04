@@ -37,7 +37,6 @@
                 <div class="main-title-item">
                     <h2>{{ picture.name }}</h2>
                 </div>
-                <div class="main-title-item">{{ picture.author }}</div>
                 <div class="main-title-item">Длина: {{ picture.length }}; Ширина: {{ picture.width }}</div>
             </div>
             <div>
@@ -64,7 +63,11 @@
                      class="author-img">
                 <div class="author-info">
                     <div class="author-name">
-                        <h3>Имя Фамилия</h3>
+                        {% if picture.author.name and picture.author.surname %}
+                            <h3>{{ picture.author.name }} {{ picture.author.surname }}</h3>
+                        {% else %}
+                            <h3>{{ picture.author.username }}</h3>
+                        {% endif %}
                     </div>
                     <div class="author-description">Автор данного проекта гений</div>
                 </div>

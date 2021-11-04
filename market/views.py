@@ -2,14 +2,19 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from django.template.context_processors import request
+from django.core.mail import send_mail
 from PIL import Image
 import io
-
 from django.views import View
 
 from .apps import MarketConfig
 from .forms import CustomerForm, PictureForm
 from .models import *
+
+# from ..core import settings  ???????????
+
+
+EMAIL_HOST_USER = 'filipp05050505@gmail.com'
 
 
 class Register(View):
@@ -24,6 +29,10 @@ class Register(View):
             customer = form.save(commit=False)
             customer.set_password(form.cleaned_data['password'])
             customer.save()
+            send_mail("Спасибо за регистрацию на нашем сайте!",
+                      f"{customer.first_name}, сенксссссссс!!",
+                      EMAIL_HOST_USER,
+                      [customer.email])
             user = authenticate(username=customer.username, password=form.cleaned_data['password'])
             if user is not None:
                 login(request, user)
@@ -84,4 +93,3 @@ class AnnouncementView(View):
         print(images)
         return render(request, template_name="announcement.html",
                       context={"picture": picture, "picture_images": images})
-
