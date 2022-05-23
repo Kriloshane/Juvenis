@@ -1,95 +1,86 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from django.template.context_processors import request
 from django.core.mail import send_mail
+from django.core.paginator import Paginator
 from PIL import Image
 import io
 from django.views import View
+from django.db.models import Max, Min
+from django.db.models import Q, F
 
 from .apps import MarketConfig
 from .forms import CustomerForm, PictureForm
 from .models import *
 
-# from ..core import settings  ???????????
+from django.conf import settings
 
 
-EMAIL_HOST_USER = 'filipp05050505@gmail.com'
+# TODO: проверить еще раз работу почты
 
 
-class Register(View):
+class GalleryView(View):
+
     def get(self, request):
-        form = CustomerForm()
-        return render(request, 'registration/register.html', {'form': form})
+        max_price = Picture.objects.all().aggregate(Max('price'))['price__max']
+        min_price = Picture.objects.all().aggregate(Min('price'))['price__min']
 
-    def post(self, request):
-        form = CustomerForm(request.POST)
+        categories_filter = request.GET.getlist('category[]', Picture.PictureCategory)
+        styles_filter = request.GET.getlist('style[]', Picture.PictureStyle)
+        genres_filter = request.GET.getlist('genre[]', Picture.PictureGenre)
+        input_price = request.GET.get('input_price', max_price)
+        print(categories_filter)
+        print(styles_filter)
+        print(genres_filter)
+        print(input_price)
 
-        if form.is_valid():
-            customer = form.save(commit=False)
-            customer.set_password(form.cleaned_data['password'])
-            customer.save()
-            send_mail("Спасибо за регистрацию на нашем сайте!",
-                      f"{customer.first_name}, сенксссссссс!!",
-                      EMAIL_HOST_USER,
-                      [customer.email])
-            user = authenticate(username=customer.username, password=form.cleaned_data['password'])
-            if user is not None:
-                login(request, user)
-            return redirect('/')
+        pics = Picture.objects.filter(
+            Q(category__in=categories_filter) & Q(style__in=styles_filter) & Q(genre__in=genres_filter) &
+            Q(price__lt=int(input_price) + 1))
+
+        # Второй аргумент — кол-во фоток на странице
+        paginator = Paginator(pics, 8)
+        page = paginator.get_page(request.GET.get('page', 1))
+        cnt = page.object_list.all().count()
+        column1 = page.object_list.all()[0:cnt // 2 + cnt % 2]
+        column2 = page.object_list.all()[cnt // 2 + cnt % 2:]
+        is_paginated = page.has_other_pages()
+
+        if page.has_previous():
+            previous_url = '?page={}'.format(page.previous_page_number())
+        else:
+            previous_url = ''
+
+        if page.has_next():
+            next_url = '?page={}'.format(page.next_page_number())
+        else:
+            next_url = ''
+
+        categories = Picture.PictureCategory
+        styles = Picture.PictureStyle
+        genres = Picture.PictureGenre
+
+        return render(request, 'gallery.html',
+                      {
+                          'col1': column1,
+                          'col2': column2,
+                          'categories': categories,
+                          'styles': styles,
+                          'genres': genres,
+                          'max_price': int(max_price),
+                          'min_price': int(min_price),
+                          'page': page,
+                          'is_paginated': is_paginated,
+                          'previous_url': previous_url,
+                          'next_url': next_url,
+                      })
 
 
-class AnnouncementCreate(View):
-    def get(self, request):
-        form = PictureForm()
-        return render(request, 'announcement_create.html', {'form': form})
+class LotView(View):
 
-    def post(self, request):
-        form = PictureForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            announcement = form.save(commit=False)
-            announcement.author = request.user
-            announcement.save()
-            # for image in request.FILES.getlist('images'):
-            # print(request.FILES.getlist('images'))
-
-            # for image in form.cleaned_data["images"]:
-            l = []
-            for image in request.FILES.getlist('images'):
-                l.append(PictureImg(image=image, announcement=announcement))
-
-            PictureImg.objects.bulk_create(l)
-            return redirect(reverse(f"{MarketConfig.name}:announcement_url", kwargs={"slug": announcement.slug}))
-        return redirect("/")
-
-
-class AnnouncementEdit(View):
     def get(self, request, slug):
-        picture = get_object_or_404(Picture, slug=slug)
-        form = PictureForm(instance=picture)
-        return render(request, 'announcement_edit.html', {'form': form})
-
-    def post(self, request, slug):
-        picture = get_object_or_404(Picture, slug=slug)
-        form = PictureForm(request.POST, instance=picture)
-
-        if form.is_valid():
-            announcement = form.save(commit=False)
-            announcement.author = request.user
-            announcement.save()
-            print(request.FILES.getlist('images'))
-            for image in request.FILES.getlist('images'):
-                announcement_image = PictureImg(image=image, announcement=announcement)
-                announcement_image.save()
-            return redirect(reverse(f"{MarketConfig.name}:announcement_url", kwargs={"slug": announcement.slug}))
-        return redirect("/")
-
-
-class AnnouncementView(View):
-    def get(self, request, slug):
-        picture = get_object_or_404(Picture, slug__iexact=slug)
-        images = PictureImg.objects.filter(announcement=picture)
-        print(images)
-        return render(request, template_name="announcement.html",
-                      context={"picture": picture, "picture_images": images})
+        lot = Picture.objects.get(slug=slug)
+        print(lot.reviews.all())
+        return render(request, 'lot.html', {'lot': lot})

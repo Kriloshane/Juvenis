@@ -10,17 +10,19 @@ class CustomerForm(forms.ModelForm):
     password1 = forms.CharField(widget=forms.PasswordInput())
 
     def is_valid(self, *args, **kwargs):
-        super(CustomerForm, self).is_valid(*args, **kwargs)
+        is_base_valid = super(CustomerForm, self).is_valid(*args, **kwargs)
 
         if self.cleaned_data['password'] != self.cleaned_data['password1']:
             self.errors['password'] = ErrorList(['введенные пароли не одинаковы'])
             return False
-        return True
+        return is_base_valid
 
     class Meta:
         model = Customer
         fields = ['username', 'first_name', 'last_name', 'email', 'password', 'password1']
-        widgets = {'phone': forms.TextInput(attrs={'pattern': '\+?\d{11}', 'placeholder': '+79650000000'})}
+        widgets = {
+            "password": forms.PasswordInput()
+        }
 
 
 class PictureForm(forms.ModelForm):

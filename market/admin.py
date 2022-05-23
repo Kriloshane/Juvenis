@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 from .forms import PictureImgForm
-from .models import Picture, Customer, PictureImg, Tag
+from .models import *
 
 
 class InlinePictureImg(admin.TabularInline):
@@ -21,3 +21,4 @@ admin.site.register(Picture, PictureAdmin)
 admin.site.register(Customer)
 admin.site.register(PictureImg)
 admin.site.register(Tag)
+admin.site.register(Review)

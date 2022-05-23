@@ -1,0 +1,203 @@
+
+*{
+    box-sizing:border-box;
+    margin: 0;
+    padding: 0;
+    font-family: CenturyGothic;
+}
+header{
+    display: block;
+    height: 60px;
+    background-color: aliceblue;
+    box-shadow: inset 0px 0px 10px 2px gray;
+}
+.menu {
+    display: flex;
+    padding: 13px 70px;
+    justify-content: space-between;
+    margin: 0;  
+    list-style-type: none;
+}
+.menu .menu_link{
+    color: gray;
+    font-size: 15px;
+}
+.intro{
+    height: 800px;
+    background: url('../img/фонполный.png') center center/cover no-repeat;
+    box-shadow: 0px 0px 15px 3px gray;
+}
+.container{
+    width: 1140px;
+    margin: 0 auto;
+}
+.pol{
+    position: relative;
+    text-align: center;
+}
+.pol .polimage{
+    display: block;
+    margin: auto;
+    padding-top: 15%;
+}
+.pol .introtext{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: aliceblue;
+    font-size: 37px;
+    line-height: 24px;  
+}
+.pol .introtext2{
+    position: absolute;
+    top: 82%;
+    left: 40%;
+    transform: translate(-30%, -50%);
+    color: aliceblue;
+    font-size: 23px;
+    line-height: 30px;  
+}
+.pol .introtext3{
+    position: absolute;
+    top: 150%;
+    left: 20%;
+    transform: translate(0%, -50%);
+    color: aliceblue;
+    font-size: 20px;
+    line-height: 30px;  
+}
+
+.category{
+    padding: 100px 0 60px 0;
+    min-height: 600px;
+}
+
+.styles{
+    padding: 100px 0 60px 0;
+    min-height: 600px;
+}
+.genres{
+    padding: 100px 0 60px 0;
+    min-height: 600px;
+}
+.category .label{
+    color: black;
+    font-size: 28px;
+}
+
+.category .row{
+    position: relative;
+    margin-top: 60px;
+}
+
+.category_card{
+    position: relative;
+    width: 280px;
+    height: 400px;
+    text-align: center;
+
+    
+
+}
+.category_card #picture {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 0;
+    box-shadow: 0px 0px 25px 0.5px gray;
+}
+.category_card #picture:hover{
+    opacity: 55%;
+    transition: 0.5s;
+}
+.category_card #cover {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 75%;
+    bottom: 0;
+    margin: auto;
+    z-index: 1;
+}
+.category_card p{
+    display: inline-block;
+    position: absolute;
+    top: 85%;
+    transform: translate(-50%, 0%);
+    color: black;
+    font-size: 23px;
+    z-index: 5;
+}
+button{
+    margin: 0 21%;
+    margin-bottom: 40px;
+    display: block;
+    padding: 15px;
+    border: none;
+    font-family: CenturyGothic;
+}
+button:hover{
+    background-color: rgb(62, 159, 55);
+    transition: 0.5s;
+}
+
+
+
+.formreg{
+    position: relative;
+    margin: 0 auto;
+    margin-top: 100px;
+    width: 626px;
+    height: 420px;
+    background-color: rgb(226, 193, 193);
+    box-shadow: 0px 0px 25px 2px gray;
+}
+.titlereg{
+    position: absolute;
+    top: 8%;
+    left: 34%;
+    text-align: center;
+    font-size: 30px;
+
+}
+.actualform {
+    position: absolute;
+    font-size: 18px;
+    left: 20%;
+    top: 30%;
+}
+.mb-1{
+    padding-bottom: 20px;
+}
+.mb-2{
+    padding-bottom: 5px;
+}
+.form-check div{
+    padding: 5px;
+}
+.form-check{
+    padding: 8px;
+}
+#closer{
+    font-size: 15px;
+    color: gray;
+}
+.ready{
+    margin: 0 auto;
+    margin-top: 35px;
+    padding: 15px;
+    font-size: 18px;
+    border: none;
+}
+@font-face {
+    font-family: "CenturyGothic";  
+    src: url("../fonts/centurygothic.ttf") format("truetype"); 
+    font-style: normal; 
+    font-weight: normal;
+     }

@@ -4,7 +4,6 @@ from django.shortcuts import reverse
 from django.utils.text import slugify
 from django.db.models import F, ExpressionWrapper, FloatField, Sum
 from time import time
-from googletrans import Translator
 
 
 # TODO:  разобраться с последней активностью пользователя
@@ -15,11 +14,11 @@ class Customer(AbstractUser):  # username, password, f_n, l_n, email
     first_name = models.CharField(verbose_name="Имя", max_length=20)
     last_name = models.CharField(verbose_name="Фамилия", max_length=30)
     email = models.EmailField(verbose_name="Электронная почта", max_length=100, unique=True)
-    followers = models.ManyToManyField("Customer", verbose_name='Подписчики', null=True, blank=True,
+    followers = models.ManyToManyField("Customer", verbose_name='Подписчики', blank=True,
                                        related_name="follower_set")
     photo = models.ImageField(verbose_name="Фотография", upload_to="users_photo", null=True, blank=True,
-                              default="/media/default_user_photo.jpg")
-    subscriptions = models.ManyToManyField("Customer", verbose_name='Подписки', null=True, blank=True)
+                              default="/media/default_user_photo.jpg' %}")
+    subscriptions = models.ManyToManyField("Customer", verbose_name='Подписки', blank=True)
     last_activity = models.DateTimeField(blank=True, null=True, verbose_name="Последняя активность")
     art_currency = models.IntegerField(default=0, verbose_name="Валюта")
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, verbose_name='Ссылка')
@@ -27,14 +26,16 @@ class Customer(AbstractUser):  # username, password, f_n, l_n, email
     def __str__(self):
         if self.first_name and self.last_name:
             return f"{self.first_name} {self.last_name}"
-        return f"{self.username} - {self.email}"
+        return f"{self.username}"
 
     def save(self, *args, **kwargs):
         if not self.id:
-            translator = Translator()
             self.slug = slugify(
-                f"{translator.translate(self.first_name).text.replace(' ', '-')}-{translator.translate(self.last_name).text.replace(' ', '-')}")
+                f"{self.first_name}-"
+                f"{self.last_name}"
+                f"{self.pk}")
             print(self.slug)
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Пользователь"
@@ -102,12 +103,12 @@ class Picture(models.Model):
                                 default=PictureCategory.is_absent, db_index=True)
     theme = models.TextField(verbose_name="Тема")
     technique = models.CharField(verbose_name="Техника", max_length=50)
-    tags = models.ManyToManyField("Tag", verbose_name="Тэги", null=True, blank=True)
+    tags = models.ManyToManyField("Tag", verbose_name="Тэги", blank=True)
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, verbose_name='Ссылка')
     year_created = models.SmallIntegerField(verbose_name="Год создания", null=True, blank=True)
 
     def __str__(self):
-        return f"{self.name}--{self.author}"
+        return f"{self.name} - {self.author}"
 
     class Meta:
         verbose_name = "Картина"
@@ -115,18 +116,20 @@ class Picture(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            translator = Translator()
-
             self.slug = slugify(
-                f"{translator.translate(self.name).text.replace(' ', '-')}--{self.author.email.split('@')[0]}-{str(time())}",
+                f"{self.name}-{self.author.email.split('@')[0]}-{str(time())}",
                 allow_unicode=True)
         super().save(*args, **kwargs)
 
     def get_absolute_url_edit(self):
-        return reverse('market:announcement_edit_url', kwargs={'slug': self.slug})
+        return reverse('market:lot-edit-view', kwargs={'slug': self.slug})
 
     def get_absolute_url(self):
-        return reverse('market:announcement_url', kwargs={'slug': self.slug})
+        return reverse('market:lot-view', kwargs={'slug': self.slug})
+
+    def muzzle(self):
+        if self.images:
+            return self.images.all()[0]
 
     def get_price(self):
         return '{0:,}'.format(self.price).replace(',', ' ')
@@ -173,7 +176,7 @@ class Tag(models.Model):
         ordering = ['name']
 
 
-class Reviews(models.Model):
+class Review(models.Model):
     """Отзывы"""
     email = models.EmailField()
     name = models.CharField("Имя", max_length=100)
@@ -181,7 +184,8 @@ class Reviews(models.Model):
     parent = models.ForeignKey(
         'self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True
     )
-    movie = models.ForeignKey(Picture, verbose_name="Картина", on_delete=models.CASCADE)
+    movie = models.ForeignKey(Picture, verbose_name="Картина", on_delete=models.CASCADE, related_name="reviews")
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.name} - {self.movie}"
