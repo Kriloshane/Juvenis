@@ -132,7 +132,8 @@ class Picture(models.Model):
             return self.images.all()[0]
 
     def get_price(self):
-        return '{0:,}'.format(self.price).replace(',', ' ')
+        n = str(int(self.price))[::-1]
+        return ' '.join(n[i:i + 3] for i in range(0, len(n), 3))[::-1]
 
 
 class CustomerPicture(models.Model):

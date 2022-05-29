@@ -46,14 +46,14 @@
                 {% endfor %}
             </ul>
             <div class="pricepol">
-                <button data-bs-toggle="modal" data-bs-target="#Modal1">
+                <button  data-bs-toggle="modal" data-bs-target="#Modal1">
                     <img src="{% static 'img/add.png' %}" alt="">
                 </button>
-                <button data-bs-toggle="modal" data-bs-target="#Modal2">
+                <button class="mt-5" data-bs-toggle="modal" data-bs-target="#Modal2">
                     <img src="{% static 'img/cart.png' %}" alt="">
                 </button>
-                <h2 class="price">
-                    {{ lot.price }}р
+                <h2 class="mt-5" class="price">
+                    {{ lot.get_price }} <span class="text-dark fs-5">₽</span>
                 </h2>
                 <div class="modal fade" id="Modal1" tabindex="-1" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
