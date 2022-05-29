@@ -5,7 +5,6 @@ from django.http import Http404
 from django.template.context_processors import request
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
-from PIL import Image
 import io
 from django.views import View
 from django.db.models import Max, Min
@@ -26,6 +25,11 @@ class GalleryView(View):
     def get(self, request):
         max_price = Picture.objects.all().aggregate(Max('price'))['price__max']
         min_price = Picture.objects.all().aggregate(Min('price'))['price__min']
+
+        if not max_price:
+            max_price = 1000
+        if not min_price:
+            min_price = 0
 
         categories_filter = request.GET.getlist('category[]', Picture.PictureCategory)
         styles_filter = request.GET.getlist('style[]', Picture.PictureStyle)
