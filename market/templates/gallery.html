@@ -9,32 +9,11 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap-reboot.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>JuvenisArts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
-<header>
-    <div class="container">
-        <nav>
-            <ul class="menu">
-                <li class="menu_item"><a href="index.html" class="menu_link">Главная</a></li>
-                <li class="menu_item"><a href="#" class="menu_link">О нас</a></li>
-                <li class="menu_item"><a href="#" class="menu_link">Галерея</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Мой профиль
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                        <li><a class="dropdown-item" href="registration.html">Зарегестрироваться</a></li>
-                        <li><a class="dropdown-item" href="login.html">Войти</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</header>
+{% include 'navbar.html' %}
 <section class="gallery">
     <div class="container">
         <h1>Галерея</h1>
@@ -54,11 +33,12 @@
                                 <div class="card card-body">
                                     <ul class="list-group">
                                         {% for category in categories %}
-                                            <li class="list-group-item">
-                                                <input class="form-check-input me-1" type="checkbox" name="category[]" value="{{ category }}"
-                                                       aria-label="...">
-                                                {{ category.label }}
-                                            </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input me-1" type="checkbox" name="category[]"
+                                                   value="{{ category }}"
+                                                   aria-label="...">
+                                            {{ category.label }}
+                                        </li>
                                         {% endfor %}
                                     </ul>
                                 </div>
@@ -75,11 +55,12 @@
                                 <div class="card card-body">
                                     <ul class="list-group">
                                         {% for style in styles %}
-                                            <li class="list-group-item">
-                                                <input class="form-check-input me-1" type="checkbox" name="style[]" value="{{ style }}"
-                                                       aria-label="...">
-                                                {{ style.label }}
-                                            </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input me-1" type="checkbox" name="style[]"
+                                                   value="{{ style }}"
+                                                   aria-label="...">
+                                            {{ style.label }}
+                                        </li>
                                         {% endfor %}
 
                                     </ul>
@@ -97,11 +78,12 @@
                                 <div class="card card-body">
                                     <ul class="list-group">
                                         {% for genre in genres %}
-                                            <li class="list-group-item">
-                                                <input class="form-check-input me-1" type="checkbox" name="genre[]" value="{{ genre }}"
-                                                       aria-label="...">
-                                                {{ genre.label }}
-                                            </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input me-1" type="checkbox" name="genre[]"
+                                                   value="{{ genre }}"
+                                                   aria-label="...">
+                                            {{ genre.label }}
+                                        </li>
                                         {% endfor %}
                                     </ul>
                                 </div>
@@ -113,7 +95,8 @@
                                 <div class="pricetag">
                                     Цена
                                 </div>
-                                <input type="range" name="input_price" class="form-range" id="customRange1" min="{{ min_price }}" max="{{ max_price }}">
+                                <input type="range" name="input_price" class="form-range" id="customRange1"
+                                       min="{{ min_price }}" max="{{ max_price }}">
                             </div>
                         </div>
                     </ul>
@@ -127,89 +110,89 @@
                     <div class="col-6">
                         <ul class="cardcol">
                             {% for pic in col1 %}
-                                <div class="cardcol-card">
-                                    <a href="{{ pic.get_absolute_url }}"><img src="{{ pic.muzzle.image.url }}" alt=""></a>
-                                    <div class="description">
-                                        <p id="name">
-                                            {{ pic.name }}
-                                        </p>
-                                        <p id="time">
-                                            {{ pic.year_created }}
-                                        </p>
-                                        <p id="author">
-                                            {{ pic.author }}
-                                        </p>
-                                        <p id="price">
-                                            {{ pic.get_price }}р
-                                        </p>
-                                    </div>
+                            <div class="cardcol-card">
+                                <a href="{{ pic.get_absolute_url }}"><img src="{{ pic.muzzle.image.url }}" alt=""></a>
+                                <div class="description">
+                                    <p id="name">
+                                        {{ pic.name }}
+                                    </p>
+                                    <p id="time">
+                                        {{ pic.year_created }}
+                                    </p>
+                                    <p id="author">
+                                        {{ pic.author }}
+                                    </p>
+                                    <p id="price">
+                                        {{ pic.get_price }}р
+                                    </p>
                                 </div>
+                            </div>
                             {% endfor %}
                         </ul>
                     </div>
                     <div class="col-6">
                         <ul class="cardcol">
                             {% for pic in col2 %}
-                                <div class="cardcol-card">
-                                    <a href="{{ pic.get_absolute_url }}"><img src="{{ pic.muzzle.image.url }}" alt=""></a>
-                                    <div class="description">
-                                        <p id="name">
-                                            {{ pic.name }}
-                                        </p>
-                                        <p id="time">
-                                            {{ pic.year_created }}
-                                        </p>
-                                        <p id="author">
-                                            {{ pic.author }}
-                                        </p>
-                                        <p id="price">
-                                            {{ pic.get_price }}р
-                                        </p>
-                                    </div>
+                            <div class="cardcol-card">
+                                <a href="{{ pic.get_absolute_url }}"><img src="{{ pic.muzzle.image.url }}" alt=""></a>
+                                <div class="description">
+                                    <p id="name">
+                                        {{ pic.name }}
+                                    </p>
+                                    <p id="time">
+                                        {{ pic.year_created }}
+                                    </p>
+                                    <p id="author">
+                                        {{ pic.author }}
+                                    </p>
+                                    <p id="price">
+                                        {{ pic.get_price }}р
+                                    </p>
                                 </div>
+                            </div>
                             {% endfor %}
                         </ul>
                     </div>
                 </div>
             </div>
             {% if is_paginated %}
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item {% if not previous_url %} disabled {% endif %}">
-                            <a class="page-link" type="submit"
-                               href="{{ previous_url }}">Previous</a>
-                        </li>
-                        {% for n in page.paginator.page_range %}
-                            {% if page.number == n %}
-                                <li class="page-item active">
-                                    <a class="page-link" type="submit"
-                                       href="?page={{ n }}">{{ n }}</a>
-                                </li>
-                            {% elif n > page.number|add:-3 and n < page.number|add:3 %}
-                                <li class="page-item">
-                                    <a class="page-link" type="submit"
-                                       href="?page={{ n }}">{{ n }}</a>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                        <li class="page-item {% if not next_url %} disabled {% endif %}">
-                            <a class="page-link" href="{{ next_url }}">Next</a>
-                        </li>
-                    </ul>
-                </nav>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item {% if not previous_url %} disabled {% endif %}">
+                        <a class="page-link" type="submit"
+                           href="{{ previous_url }}">Previous</a>
+                    </li>
+                    {% for n in page.paginator.page_range %}
+                    {% if page.number == n %}
+                    <li class="page-item active">
+                        <a class="page-link" type="submit"
+                           href="?page={{ n }}">{{ n }}</a>
+                    </li>
+                    {% elif n > page.number|add:-3 and n < page.number|add:3 %}
+                    <li class="page-item">
+                        <a class="page-link" type="submit"
+                           href="?page={{ n }}">{{ n }}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    <li class="page-item {% if not next_url %} disabled {% endif %}">
+                        <a class="page-link" href="{{ next_url }}">Next</a>
+                    </li>
+                </ul>
+            </nav>
             {% endif %}
         </div>
     </div>
     </div>
 </section>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+        integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
         crossorigin="anonymous"></script>
-<script src="{% static "js/ajax.js" %}"></script>
+<script src="{% static 'js/ajax.js' %}"></script>
 </body>

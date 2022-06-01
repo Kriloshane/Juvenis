@@ -88,3 +88,26 @@ class LotView(View):
         lot = Picture.objects.get(slug=slug)
         print(lot.reviews.all())
         return render(request, 'lot.html', {'lot': lot})
+
+
+class ProfileView(View):
+
+    def get(self, request, slug):
+        profile = Customer.objects.get(slug=slug)
+        is_mine = request.user == profile
+        if profile.is_artist():
+            return render(request, 'artist.html', {'is_mine': is_mine})
+        elif profile.is_buyer():
+            return render(request, 'buyer.html', {'is_mine': is_mine})
+
+
+class MyAlbumsView(View):
+
+    def get(self, request):
+        return render(request, 'albums.html')
+
+
+class FavouritesView(View):
+
+    def get(self, request):
+        return render(request, "liked.html")

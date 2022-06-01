@@ -8,7 +8,10 @@ app_name = MarketConfig.name
 
 urlpatterns = [
     path('', GalleryView.as_view(), name="gallery-view"),
-    path('lots/<str:slug>', LotView.as_view(), name="lot-view")
+    path('lots/<str:slug>', LotView.as_view(), name="lot-view"),
+    path('profiles/<str:slug>', ProfileView.as_view(), name="profile-view"),
+    path('my_albums', MyAlbumsView.as_view(), name="my-albums-view"),
+    path('favourites', FavouritesView.as_view(), name="favourites-view")
 ]
 
 if settings.DEBUG:

@@ -1,6 +1,4 @@
-{% load static %}
-{% load bootstrap4 %}
-{% load i18n %}<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>JuvenisArts</title>
+
 </head>
 <body>
     <header>
@@ -38,16 +37,19 @@
         <div class="row">
             <div class="col-2">
                 <div class="follows">
-                    <img src="{% static 'img/подписки.png' %}" alt="">
+                    <a href="#">
+                        <img src="../img/подписки.png" alt="">
                     <h2>
                         Подписки
                     </h2>
                     <h3>
                         1000
                     </h3>
+                    </a>
                 </div>
                 <div class="followers">
-                    <img src="{% static 'img/подписчики.png' %}" alt="">
+                    <a href="#">
+                        <img src="../img/подписчики.png" alt="">
                     <h2>
                         Подписчики
                     </h2>
@@ -63,13 +65,14 @@
                         Войдите, чтобы подписаться
                     </h5>
                 {% endif %}
+                    </a>
                 </div>
             </div>
             <div class="col-3" id="avatar">
-                <img id="avatarpic" src="{% static 'img/аватарка.png' %}" alt="">
+                <img id="avatarpic" src="../img/аватарка.png" alt="">
                 <div class="networks">
-                    <a href=""><img src="{% static 'img/instaicon.png' %}" alt=""></a>
-                    <a href=""><img src="{% static 'img/vkicon.png' %}" alt=""></a>
+                    <a href=""><img src="../img/instaicon.png" alt=""></a>
+                    <a href=""><img src="../img/vkicon.png" alt=""></a>
                 </div>
                 <div class="contacts">
                     <h3>
@@ -89,9 +92,6 @@
                     <h1>
                         Имя
                     </h1>
-                    <h2>
-                        Псевдоним
-                    </h2>
                     <h3>
                         Город
                     </h3>
@@ -107,41 +107,31 @@
                 </div>
             </div>
             <div class="col-4">
-                <ul class="cardcol">
-                    <div class="cardcol-card">
-                        <a href="lot.html"><img src="{% static 'img/джоцкер.jpg' %}" alt=""></a>
-                        <div class="description">
-                            <p id="name">
-                                Название
-                            </p>
-                            <p id="time">
-                                10/10/2010
-                            </p>   
-                            <p id="price">
-                                1000р
-                            </p>
-                        </div>                                   
-                    </div>                               
-                    <div class="cardcol-card">
-                        <a href=""><img src="{% static 'img/пейзаж.png' %}" alt=""></a>
-                        <div class="description">
-                            <p id="name">
-                                Название
-                            </p>
-                            <p id="time">
-                                10/10/2010
-                            </p>  
-                            <p id="price">
-                                1000р
-                            </p>
-                        </div> 
-                    </div>
+                <ul class="albumcol">
+                        <div class="card">
+                            <a href="#"><img src="../img/1bbc.jpg" class="card-img-top" alt="обложка альбома"></a>
+                            <div class="card-body">
+                              <h5 class="card-title">Название альбома</h5>
+                            </div>
+                          </div>
+                        <div class="card">
+                            <a href="#"><img src="../img/джоцкер.jpg" class="card-img-top" alt="обложка альбома"></a>
+                            <div class="card-body">
+                              <h5 class="card-title">Название альбома</h5>
+                            </div>
+                          </div>
+                          <div class="card">
+                            <a href="#"><img src="../img/скульптура.png" class="card-img-top" alt="обложка альбома"></a>
+                            <div class="card-body">
+                              <h5 class="card-title">Название альбома</h5>
+                            </div>
+                          </div>
                     <a href="artistsgallery.html" class="">
                         <button>
-                            Cмотреть все работы
+                            Cмотреть все доски
                         </button>
                     </a>
-                </ul>  
+                </ul>
             </div>
         </div>
     </section>
@@ -154,5 +144,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{% static "js/ajax.js" %}"></script>
 </body>

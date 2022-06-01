@@ -1,6 +1,7 @@
 {% load static %}
 {% load bootstrap4 %}
-{% load i18n %}<!DOCTYPE html>
+{% load i18n %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>JuvenisArts</title>
 </head>
 <body>
@@ -46,138 +48,126 @@
                 {% endfor %}
             </ul>
             <div class="pricepol">
+<!--                liked modal-->
                 <button  data-bs-toggle="modal" data-bs-target="#Modal1">
                     <img src="{% static 'img/add.png' %}" alt="">
                 </button>
+<!--                cart modal-->
                 <button class="mt-5" data-bs-toggle="modal" data-bs-target="#Modal2">
                     <img src="{% static 'img/cart.png' %}" alt="">
                 </button>
                 <h2 class="mt-5" class="price">
                     {{ lot.get_price }} <span class="text-dark fs-5">₽</span>
                 </h2>
-                <div class="modal fade" id="Modal1" tabindex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h3>
-                                    {% if request.user.is_authenticated %}
-                                        <div class="modal fade" id="exampleModal" tabindex="-1"
-                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Добавить в
-                                                            альбом</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="row row-cols-1 row-cols-md-2 g-4">
-                                                            <div class="col">
-                                                                <div class="card">
-                                                                    <img src="{% static 'img/1bbc.jpg' %}"
-                                                                         class="card-img-top" alt="обложка альбома">
-                                                                    <div class="card-body">
-                                                                        <h5 class="card-title">Название альбома</h5>
-                                                                        <input type="checkbox" class="btn-check"
-                                                                               id="btn-check-2-outlined1"
-                                                                               autocomplete="off">
-                                                                        <label class="btn btn-outline-success"
-                                                                               for="btn-check-2-outlined1">+</label><br>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="card">
-                                                                    <img src="{% static 'img/пейзаж.png' %}"
-                                                                         class="card-img-top" alt="обложка альбома">
-                                                                    <div class="card-body">
-                                                                        <h5 class="card-title">Название альбома</h5>
-                                                                        <input type="checkbox" class="btn-check"
-                                                                               id="btn-check-2-outlined2"
-                                                                               autocomplete="off">
-                                                                        <label class="btn btn-outline-success"
-                                                                               for="btn-check-2-outlined2">+</label><br>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="card">
-                                                                    <img src="{% static 'img/джоцкер.jpg' %}"
-                                                                         class="card-img-top" alt="обложка альбома">
-                                                                    <div class="card-body">
-                                                                        <h5 class="card-title">Название альбома</h5>
-                                                                        <input type="checkbox" class="btn-check"
-                                                                               id="btn-check-2-outlined3"
-                                                                               autocomplete="off">
-                                                                        <label class="btn btn-outline-success"
-                                                                               for="btn-check-2-outlined3">+</label><br>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="card">
-                                                                    <img src="{% static 'img/цветыгалерея.png' %}"
-                                                                         class="card-img-top" alt="обложка альбома">
-                                                                    <div class="card-body">
-                                                                        <h5 class="card-title">Название альбома</h5>
-                                                                        <input type="checkbox" class="btn-check"
-                                                                               id="btn-check-2-outlined4"
-                                                                               autocomplete="off">
-                                                                        <label class="btn btn-outline-success"
-                                                                               for="btn-check-2-outlined4">+</label><br>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Закрыть
-                                                        </button>
-                                                        <button type="button" class="btn btn-primary">Сохранить</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% else %}
-                                        Войдите, чтобы добавить в избранное.
-                                    {% endif %}
-                                </h3>
-                            </div>
-                            <div class="modal-footer">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            {% if request.user.is_authenticated %}
-
-                            {% else %}
-                                <div class="modal-body">
-                                    <h3>
-                                        Войдите, чтобы добавить в корзину.
-                                    </h3>
+                <div class="modal fade" id="Modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    {% if request.user.is_authenticated %}
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Добавить в альбом</h5>
                                 </div>
-                            {% endif %}
-                            <div class="modal-footer">
+                                <div class="modal-body">
+                                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                                        <div class="col">
+                                          <div class="card">
+                                            <img src="{% static 'img/джоцкер.jpg' %}" class="card-img-top" alt="обложка альбома">
+                                            <div class="card-body">
+                                              <h5 class="card-title">Название альбома</h5>
+                                              <input type="checkbox" class="btn-check" id="btn-check-2-outlined1" autocomplete="off">
+                                              <label class="btn btn-outline-success" for="btn-check-2-outlined1">+</label><br>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col">
+                                          <div class="card">
+                                            <img src="{% static 'img/попарт.png' %}" class="card-img-top" alt="обложка альбома">
+                                            <div class="card-body">
+                                              <h5 class="card-title">Название альбома</h5>
+                                              <input type="checkbox" class="btn-check" id="btn-check-2-outlined2" autocomplete="off">
+                                              <label class="btn btn-outline-success" for="btn-check-2-outlined2">+</label><br>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col">
+                                          <div class="card">
+                                            <img src="{% static 'img/анималистика.png' %}" class="card-img-top" alt="обложка альбома">
+                                            <div class="card-body">
+                                              <h5 class="card-title">Название альбома</h5>
+                                              <input type="checkbox" class="btn-check" id="btn-check-2-outlined3" autocomplete="off">
+                                              <label class="btn btn-outline-success" for="btn-check-2-outlined3">+</label><br>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col">
+                                          <div class="card">
+                                            <img src="{% static 'img/1bbc.jpg' %}" class="card-img-top" alt="обложка альбома">
+                                            <div class="card-body">
+                                              <h5 class="card-title">Название альбома</h5>
+                                              <input type="checkbox" class="btn-check" id="btn-check-2-outlined4" autocomplete="off">
+                                              <label class="btn btn-outline-success" for="btn-check-2-outlined4">+</label><br>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                  <button type="button" class="btn btn-primary">Сохранить</button>
+                                </div>
+                              </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                          </div>
+                    {% else %}
+                        <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                   <h3>
+                                     Войдите, чтобы добавить в избранное.
+                                   </h3>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                              </div>
+                            </div>
+                    {% endif %}
             </div>
+            <div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                {% if request.user.is_authenticated %}
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                   <h3>
+                                     Добавлено в корзину.
+                                   </h3>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                {% else %}
+                             <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                   <h3>
+                                     Войдите, чтобы добавить в корзину.
+                                   </h3>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                {% endif %}
         </div>
         <div class="col-8">
             <div class="mainpic">
@@ -229,35 +219,6 @@
                 </tbody>
             </table>
         </div>
-        <div class="comments">
-            {% if request.user.is_authenticated %}
-                <h3>
-                    Комментарии
-                </h3>
-                {% for review in lot.reviews.all %}
-                <div class="card">
-                    <div class="imageblock">
-                        <img src="{% static 'img/1bbc.jpg' %}" alt="">
-                    </div>
-                    <div class="text">
-                        <p class="name">
-                            {{ review.name }}
-                        </p>
-                        <p>
-                            {{ review.text }}
-                        </p>
-                        <p class="time">
-                            {{ review.date|date:'d/m/y' }}
-                        </p>
-                    </div>
-                </div>
-                {% endfor %}
-            {% else %}
-                <h3>
-                    Войдите, чтобы увидеть комментарии.
-                </h3>
-            {% endif %}
-        </div>
     </div>
 </section>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -269,5 +230,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{% static "js/ajax.js" %}"></script>
 </body>

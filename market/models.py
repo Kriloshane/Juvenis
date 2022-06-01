@@ -10,10 +10,15 @@ from time import time
 
 
 class Customer(AbstractUser):  # username, password, f_n, l_n, email
+    class CustomerStatus(models.TextChoices):
+        artist = "A", "Художник"
+        buyer = "B", "Покупатель"
     """Модель пользователя"""
     first_name = models.CharField(verbose_name="Имя", max_length=20)
     last_name = models.CharField(verbose_name="Фамилия", max_length=30)
     email = models.EmailField(verbose_name="Электронная почта", max_length=100, unique=True)
+    status = models.CharField(max_length=3, choices=CustomerStatus.choices, default=CustomerStatus.buyer, db_index=True,
+                              verbose_name="Статус пользователя")
     followers = models.ManyToManyField("Customer", verbose_name='Подписчики', blank=True,
                                        related_name="follower_set")
     photo = models.ImageField(verbose_name="Фотография", upload_to="users_photo", null=True, blank=True,
@@ -36,6 +41,12 @@ class Customer(AbstractUser):  # username, password, f_n, l_n, email
                 f"{self.pk}")
             print(self.slug)
         super().save(*args, **kwargs)
+
+    def is_artist(self):
+        return self.status == Customer.CustomerStatus.artist
+
+    def is_buyer(self):
+        return self.status == Customer.CustomerStatus.buyer
 
     class Meta:
         verbose_name = "Пользователь"
