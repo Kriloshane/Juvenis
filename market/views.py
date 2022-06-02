@@ -111,3 +111,27 @@ class FavouritesView(View):
 
     def get(self, request):
         return render(request, "liked.html")
+
+
+class MyArtsView(View):
+
+    def get(self, request):
+        return render(request, 'artistgallery.html')
+
+
+class CartView(View):
+
+    def get(self):
+        return render(request, 'cart.html')
+
+
+class SignUp(View):
+
+    def get(self, request):
+        return (request, "registration.html")
+
+
+class SignIn(View):
+
+    def get(self, request):
+        return (request, "login.html")

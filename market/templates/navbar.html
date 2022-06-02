@@ -18,20 +18,20 @@
     <div class="container">
         <nav>
             <ul class="menu">
-                <li class="menu_item"><a href="index.html" class="menu_link">Главная</a></li>
+                <li class="menu_item"><a href="#" class="menu_link">Главная</a></li>
                 <li class="menu_item"><a href="#" class="menu_link">О нас</a></li>
-                <li class="menu_item"><a href="gallery.html" class="menu_link">Галерея</a></li>
-                <li class="menu_item"><a href="cart.html"><img style="width: 25px; height:25px;" src="{% static 'img/cart.png' %}" alt=""></a></li>
+                <li class="menu_item"><a href="{% url 'market:gallery-view' %}" class="menu_link">Галерея</a></li>
+                <li class="menu_item"><a href="{% url 'market:cart-view' %}"><img style="width: 25px; height:25px;" src="{% static 'img/cart.png' %}" alt=""></a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Мой профиль
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
-                        <li><a class="dropdown-item" href="registration.html">Профиль</a></li>
-                        <li><a class="dropdown-item" href="login.html">Мои работы</a></li>
-                        <li><a class="dropdown-item" href="login.html">Понравившиеся</a></li>
-                        <li><a class="dropdown-item" href="login.html">Загрузить работу</a></li>
+                        <li><a class="dropdown-item" href="{{ request.user.get_absolute_url }}">Профиль</a></li>
+                        <li><a class="dropdown-item" href="{% url 'market:my-arts-view' %}">Мои работы</a></li>
+                        <li><a class="dropdown-item" href="{% url 'market:favourites-view' %}">Понравившиеся</a></li>
+                        <li><a class="dropdown-item" href="#">Загрузить работу</a></li>
                     </ul>
                 </li>
             </ul>
@@ -53,9 +53,9 @@
                         Мой профиль
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
-                        <li><a class="dropdown-item" href="registration.html">Профиль</a></li>
-                        <li><a class="dropdown-item" href="login.html">Мои альбомы</a></li>
-                        <li><a class="dropdown-item" href="login.html">Понравившиеся</a></li>
+                        <li><a class="dropdown-item" href="{{ request.user.get_absolute_url }}">Профиль</a></li>
+                        <li><a class="dropdown-item" href="{% url 'market:my-albums-view' %}">Мои альбомы</a></li>
+                        <li><a class="dropdown-item" href="{% url 'market:favourites-view' %}">Понравившиеся</a></li>
                     </ul>
                 </li>
             </ul>
@@ -76,8 +76,8 @@
                         Мой профиль
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
-                        <li><a class="dropdown-item" href="registration.html">Зарегестрироваться</a></li>
-                        <li><a class="dropdown-item" href="login.html">Войти</a></li>
+                        <li><a class="dropdown-item" href="{% url 'market:signup-view' %}">Зарегестрироваться</a></li>
+                        <li><a class="dropdown-item" href="{% url 'market:login-view' %}">Войти</a></li>
                     </ul>
                 </li>
             </ul>
