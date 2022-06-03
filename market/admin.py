@@ -19,6 +19,7 @@ class PictureAdmin(admin.ModelAdmin):
 
 admin.site.register(Picture, PictureAdmin)
 admin.site.register(Customer)
+admin.site.register(BuyerAlbum)
 admin.site.register(PictureImg)
 admin.site.register(Tag)
 admin.site.register(Review)

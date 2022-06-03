@@ -13,6 +13,7 @@ class Customer(AbstractUser):  # username, password, f_n, l_n, email
     class CustomerStatus(models.TextChoices):
         artist = "A", "Художник"
         buyer = "B", "Покупатель"
+
     """Модель пользователя"""
     first_name = models.CharField(verbose_name="Имя", max_length=20)
     last_name = models.CharField(verbose_name="Фамилия", max_length=30)
@@ -205,3 +206,32 @@ class Review(models.Model):
     class Meta:
         verbose_name = "Отзыв"
         verbose_name_plural = "Отзывы"
+
+
+class BuyerAlbum(models.Model):
+    name = models.CharField(max_length=25, verbose_name='Название альбома', default="Пустой альбом")
+    buyer = models.ForeignKey(Customer, verbose_name="Покупатель", on_delete=models.CASCADE, related_name="albums")
+    pictures = models.ManyToManyField(Picture, verbose_name="Лоты", blank=True)
+    slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, verbose_name='Ссылка')
+
+    def __str__(self):
+        return f'{self.slug}'
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            super().save(*args, **kwargs)
+            self.slug = slugify(f"{self.buyer}-{self.id}")
+        super().save(*args, **kwargs)
+
+    def cover(self):
+        count = self.pictures.all().count()
+        if count != 0:
+            return self.pictures.all()[count-1].muzzle().image.url
+        return "/static/img/blank_album.jpg"
+
+    def get_absolute_url(self):
+        return reverse('market:album-view', kwargs={'slug': self.slug})
+
+    class Meta:
+        verbose_name = "Альбом"
+        verbose_name_plural = "Альбомы"

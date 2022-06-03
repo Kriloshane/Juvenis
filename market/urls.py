@@ -8,16 +8,19 @@ app_name = MarketConfig.name
 
 urlpatterns = [
     path('', GalleryView.as_view(), name="gallery-view"),
-    path('lots/<str:slug>', LotView.as_view(), name="lot-view"),
+    path('lots/<str:slug>/', LotView.as_view(), name="lot-view"),
 
-    path('profiles/<str:slug>', ProfileView.as_view(), name="profile-view"),
-    path('my_albums', MyAlbumsView.as_view(), name="my-albums-view"),
-    path('my_arts', MyArtsView.as_view(), name="my-arts-view"),
-    path('favourites', FavouritesView.as_view(), name="favourites-view"),
-    path('cart', CartView.as_view(), name="cart-view"),
+    path('profiles/<str:slug>/', ProfileView.as_view(), name="profile-view"),
 
-    path('signup', SignUp.as_view(), name="my_signup"),
-    path('login', SignIn.as_view(), name="my_login"),
+    path('my_albums/', MyAlbumsView.as_view(), name="my-albums-view"),
+    path('my_albums/<str:slug>', AlbumView.as_view(), name="album-view"),
+
+    path('my_arts/', MyArtsView.as_view(), name="my-arts-view"),
+    path('favourites/', FavouritesView.as_view(), name="favourites-view"),
+    path('cart/', CartView.as_view(), name="cart-view"),
+
+    path('signup/', SignUp.as_view(), name="my_signup"),
+    path('login/', SignIn.as_view(), name="my_login"),
 ]
 
 if settings.DEBUG:

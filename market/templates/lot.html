@@ -69,64 +69,31 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="row row-cols-1 row-cols-md-2 g-4">
-                                        <div class="col">
-                                            <div class="card">
-                                                <img src="{% static 'img/джоцкер.jpg' %}" class="card-img-top"
-                                                     alt="обложка альбома">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Название альбома</h5>
-                                                    <input type="checkbox" class="btn-check" id="btn-check-2-outlined1"
-                                                           autocomplete="off">
-                                                    <label class="btn btn-outline-success"
-                                                           for="btn-check-2-outlined1">+</label><br>
-                                                </div>
+                                        {% for album in albums %}
+                                            <div class="col">
+                                                <form action="" method="POST">
+                                                    {% csrf_token %}
+                                                    <div class="card">
+                                                        <input name="album_id" hidden="true" value="{{ album.id }}">
+                                                        <img src="{{ album.cover }}" class="card-img-top"
+                                                             alt="обложка альбома">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">{{ album.name }}</h5>
+                                                            <!--<input type="checkbox" class="btn-check"
+                                                                   id="btn-check-2-outlined1"
+                                                                   autocomplete="off">-->
+                                                            <button type="submit" class="btn btn-outline-success">+</button>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="card">
-                                                <img src="{% static 'img/попарт.png' %}" class="card-img-top"
-                                                     alt="обложка альбома">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Название альбома</h5>
-                                                    <input type="checkbox" class="btn-check" id="btn-check-2-outlined2"
-                                                           autocomplete="off">
-                                                    <label class="btn btn-outline-success"
-                                                           for="btn-check-2-outlined2">+</label><br>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="card">
-                                                <img src="{% static 'img/анималистика.png' %}" class="card-img-top"
-                                                     alt="обложка альбома">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Название альбома</h5>
-                                                    <input type="checkbox" class="btn-check" id="btn-check-2-outlined3"
-                                                           autocomplete="off">
-                                                    <label class="btn btn-outline-success"
-                                                           for="btn-check-2-outlined3">+</label><br>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="card">
-                                                <img src="{% static 'img/1bbc.jpg' %}" class="card-img-top"
-                                                     alt="обложка альбома">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Название альбома</h5>
-                                                    <input type="checkbox" class="btn-check" id="btn-check-2-outlined4"
-                                                           autocomplete="off">
-                                                    <label class="btn btn-outline-success"
-                                                           for="btn-check-2-outlined4">+</label><br>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
                                     </button>
-                                    <button type="button" class="btn btn-primary">Сохранить</button>
                                 </div>
                             </div>
                         </div>

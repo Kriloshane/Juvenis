@@ -35,10 +35,7 @@ class GalleryView(View):
         styles_filter = request.GET.getlist('style[]', Picture.PictureStyle)
         genres_filter = request.GET.getlist('genre[]', Picture.PictureGenre)
         input_price = request.GET.get('input_price', max_price)
-        print(categories_filter)
-        print(styles_filter)
-        print(genres_filter)
-        print(input_price)
+
 
         pics = Picture.objects.filter(
             Q(category__in=categories_filter) & Q(style__in=styles_filter) & Q(genre__in=genres_filter) &
@@ -86,8 +83,16 @@ class LotView(View):
 
     def get(self, request, slug):
         lot = Picture.objects.get(slug=slug)
-        print(lot.reviews.all())
-        return render(request, 'lot.html', {'lot': lot})
+        albums = request.user.albums.all()
+        return render(request, 'lot.html', {'lot': lot, 'albums': albums})
+
+    def post(self, request, slug):
+        print(request.POST)
+        lot = Picture.objects.get(slug=slug)
+        album = BuyerAlbum.objects.get(id=request.POST['album_id'])
+        album.pictures.add(lot)
+        album.save()
+        return redirect(lot.get_absolute_url())
 
 
 class ProfileView(View):
@@ -104,7 +109,43 @@ class ProfileView(View):
 class MyAlbumsView(View):
 
     def get(self, request):
-        return render(request, 'albums.html')
+        albums = request.user.albums.all()
+
+        paginator = Paginator(albums, 4)
+        page = paginator.get_page(request.GET.get('page', 1))
+        is_paginated = page.has_other_pages()
+
+        if page.has_previous():
+            previous_url = '?page={}'.format(page.previous_page_number())
+        else:
+            previous_url = ''
+
+        if page.has_next():
+            next_url = '?page={}'.format(page.next_page_number())
+        else:
+            next_url = ''
+        return render(request, 'albums.html', {
+            'page': page,
+            'is_paginated': is_paginated,
+            'next_url': next_url,
+            'previous_url': previous_url,
+        })
+
+
+class AlbumView(View):
+
+    def get(self, request, slug):
+        album = BuyerAlbum.objects.get(slug=slug)
+        lots = album.pictures.all()
+        data = [list() for i in range(lots.count())]
+        i = 0
+        while i != lots.count():
+            data[i % 4].append(lots[i])
+            i += 1
+        return render(request, "albumview.html", {
+            'album': album,
+            'data': data,
+        })
 
 
 class FavouritesView(View):
