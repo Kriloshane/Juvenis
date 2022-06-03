@@ -16,8 +16,8 @@ urlpatterns = [
     path('favourites', FavouritesView.as_view(), name="favourites-view"),
     path('cart', CartView.as_view(), name="cart-view"),
 
-    path('signup', SignUp.as_view(), "signup-view"),
-    path('login', SignIn.as_view(), "login-view"),
+    path('signup', SignUp.as_view(), name="my_signup"),
+    path('login', SignIn.as_view(), name="my_login"),
 ]
 
 if settings.DEBUG:

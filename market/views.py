@@ -121,17 +121,17 @@ class MyArtsView(View):
 
 class CartView(View):
 
-    def get(self):
+    def get(self, request):
         return render(request, 'cart.html')
 
 
 class SignUp(View):
 
     def get(self, request):
-        return (request, "registration.html")
+        return render(request, "registration.html")
 
 
 class SignIn(View):
 
     def get(self, request):
-        return (request, "login.html")
+        return render(request, "login.html")

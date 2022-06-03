@@ -48,178 +48,197 @@
                 {% endfor %}
             </ul>
             <div class="pricepol">
-<!--                liked modal-->
-                <button  data-bs-toggle="modal" data-bs-target="#Modal1">
+                <!--                liked modal-->
+                <button data-bs-toggle="modal" data-bs-target="#Modal1">
                     <img src="{% static 'img/add.png' %}" alt="">
                 </button>
-<!--                cart modal-->
+                <!--                cart modal-->
                 <button class="mt-5" data-bs-toggle="modal" data-bs-target="#Modal2">
                     <img src="{% static 'img/cart.png' %}" alt="">
                 </button>
                 <h2 class="mt-5" class="price">
                     {{ lot.get_price }} <span class="text-dark fs-5">₽</span>
                 </h2>
-                <div class="modal fade" id="Modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="Modal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
                     {% if request.user.is_authenticated %}
-                            <div class="modal-dialog">
-                              <div class="modal-content">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Добавить в альбом</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Добавить в альбом</h5>
                                 </div>
                                 <div class="modal-body">
                                     <div class="row row-cols-1 row-cols-md-2 g-4">
                                         <div class="col">
-                                          <div class="card">
-                                            <img src="{% static 'img/джоцкер.jpg' %}" class="card-img-top" alt="обложка альбома">
-                                            <div class="card-body">
-                                              <h5 class="card-title">Название альбома</h5>
-                                              <input type="checkbox" class="btn-check" id="btn-check-2-outlined1" autocomplete="off">
-                                              <label class="btn btn-outline-success" for="btn-check-2-outlined1">+</label><br>
+                                            <div class="card">
+                                                <img src="{% static 'img/джоцкер.jpg' %}" class="card-img-top"
+                                                     alt="обложка альбома">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Название альбома</h5>
+                                                    <input type="checkbox" class="btn-check" id="btn-check-2-outlined1"
+                                                           autocomplete="off">
+                                                    <label class="btn btn-outline-success"
+                                                           for="btn-check-2-outlined1">+</label><br>
+                                                </div>
                                             </div>
-                                          </div>
                                         </div>
                                         <div class="col">
-                                          <div class="card">
-                                            <img src="{% static 'img/попарт.png' %}" class="card-img-top" alt="обложка альбома">
-                                            <div class="card-body">
-                                              <h5 class="card-title">Название альбома</h5>
-                                              <input type="checkbox" class="btn-check" id="btn-check-2-outlined2" autocomplete="off">
-                                              <label class="btn btn-outline-success" for="btn-check-2-outlined2">+</label><br>
+                                            <div class="card">
+                                                <img src="{% static 'img/попарт.png' %}" class="card-img-top"
+                                                     alt="обложка альбома">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Название альбома</h5>
+                                                    <input type="checkbox" class="btn-check" id="btn-check-2-outlined2"
+                                                           autocomplete="off">
+                                                    <label class="btn btn-outline-success"
+                                                           for="btn-check-2-outlined2">+</label><br>
+                                                </div>
                                             </div>
-                                          </div>
                                         </div>
                                         <div class="col">
-                                          <div class="card">
-                                            <img src="{% static 'img/анималистика.png' %}" class="card-img-top" alt="обложка альбома">
-                                            <div class="card-body">
-                                              <h5 class="card-title">Название альбома</h5>
-                                              <input type="checkbox" class="btn-check" id="btn-check-2-outlined3" autocomplete="off">
-                                              <label class="btn btn-outline-success" for="btn-check-2-outlined3">+</label><br>
+                                            <div class="card">
+                                                <img src="{% static 'img/анималистика.png' %}" class="card-img-top"
+                                                     alt="обложка альбома">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Название альбома</h5>
+                                                    <input type="checkbox" class="btn-check" id="btn-check-2-outlined3"
+                                                           autocomplete="off">
+                                                    <label class="btn btn-outline-success"
+                                                           for="btn-check-2-outlined3">+</label><br>
+                                                </div>
                                             </div>
-                                          </div>
                                         </div>
                                         <div class="col">
-                                          <div class="card">
-                                            <img src="{% static 'img/1bbc.jpg' %}" class="card-img-top" alt="обложка альбома">
-                                            <div class="card-body">
-                                              <h5 class="card-title">Название альбома</h5>
-                                              <input type="checkbox" class="btn-check" id="btn-check-2-outlined4" autocomplete="off">
-                                              <label class="btn btn-outline-success" for="btn-check-2-outlined4">+</label><br>
+                                            <div class="card">
+                                                <img src="{% static 'img/1bbc.jpg' %}" class="card-img-top"
+                                                     alt="обложка альбома">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Название альбома</h5>
+                                                    <input type="checkbox" class="btn-check" id="btn-check-2-outlined4"
+                                                           autocomplete="off">
+                                                    <label class="btn btn-outline-success"
+                                                           for="btn-check-2-outlined4">+</label><br>
+                                                </div>
                                             </div>
-                                          </div>
                                         </div>
-                                      </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                  <button type="button" class="btn btn-primary">Сохранить</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
+                                    </button>
+                                    <button type="button" class="btn btn-primary">Сохранить</button>
                                 </div>
-                              </div>
                             </div>
-                          </div>
+                        </div>
+
                     {% else %}
                         <div class="modal-dialog">
-                              <div class="modal-content">
+                            <div class="modal-content">
                                 <div class="modal-header">
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                   <h3>
-                                     Войдите, чтобы добавить в избранное.
-                                   </h3>
+                                    <h3>
+                                        Войдите, чтобы добавить в избранное.
+                                    </h3>
                                 </div>
                                 <div class="modal-footer">
                                 </div>
-                              </div>
                             </div>
+                        </div>
                     {% endif %}
-            </div>
-            <div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                {% if request.user.is_authenticated %}
-                            <div class="modal-dialog">
-                              <div class="modal-content">
+                </div>
+                <div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    {% if request.user.is_authenticated %}
+                        <div class="modal-dialog">
+                            <div class="modal-content">
                                 <div class="modal-header">
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                   <h3>
-                                     Добавлено в корзину.
-                                   </h3>
+                                    <h3>
+                                        Добавлено в корзину.
+                                    </h3>
                                 </div>
                                 <div class="modal-footer">
                                 </div>
-                              </div>
                             </div>
-                          </div>
-                {% else %}
-                             <div class="modal-dialog">
-                              <div class="modal-content">
+                        </div>
+
+                    {% else %}
+                        <div class="modal-dialog">
+                            <div class="modal-content">
                                 <div class="modal-header">
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                   <h3>
-                                     Войдите, чтобы добавить в корзину.
-                                   </h3>
+                                    <h3>
+                                        Войдите, чтобы добавить в корзину.
+                                    </h3>
                                 </div>
                                 <div class="modal-footer">
                                 </div>
-                              </div>
                             </div>
-                          </div>
-                {% endif %}
-        </div>
-        <div class="col-8">
-            <div class="mainpic">
-                <h2>
-                    {{ lot.name }}
-                </h2>
-                <a href="{{ author.get_absolute_url }}" class="">
-                    <h3>
-                        {{ lot.author }}
-                    </h3>
-                </a>
-                <img src="{{ lot.muzzle.image.url }}" alt="" class="pic">
+                        </div>
+
+                    {% endif %}
+                </div>
+
+                <div class="col-8">
+                    <div class="mainpic">
+                        <h2>
+                            {{ lot.name }}
+                        </h2>
+                        <a href="{{ author.get_absolute_url }}" class="">
+                            <h3>
+                                {{ lot.author }}
+                            </h3>
+                        </a>
+                        <img src="{{ lot.muzzle.image.url }}" alt="" class="pic">
+                    </div>
+                    <div class="description">
+                        <h3>
+                            Описание
+                        </h3>
+                        <hr>
+                        <p>
+                            {{ lot.description }}
+                        </p>
+                    </div>
+                    <table class="table" id="first">
+                        <thead>
+                        <tr>
+                            <th scope="col">Категория</th>
+                            <th scope="col">Стиль</th>
+                            <th scope="col">Жанр</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ lot.get_category_display }}</td>
+                            <td>{{ lot.get_style_display }}</td>
+                            <td>{{ lot.get_genre_display }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered" id="second">
+                        <tbody>
+                        <tr>
+                            <td id="main">Размер</td>
+                            <td>{{ lot.length }}x{{ lot.width }}</td>
+                        </tr>
+                        <tr>
+                            <td id="main">Техника</td>
+                            <td>{{ lot.technique }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="description">
-                <h3>
-                    Описание
-                </h3>
-                <hr>
-                <p>
-                    {{ lot.description }}
-                </p>
-            </div>
-            <table class="table" id="first">
-                <thead>
-                <tr>
-                    <th scope="col">Категория</th>
-                    <th scope="col">Стиль</th>
-                    <th scope="col">Жанр</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>{{ lot.get_category_display }}</td>
-                    <td>{{ lot.get_style_display }}</td>
-                    <td>{{ lot.get_genre_display }}</td>
-                </tr>
-                </tbody>
-            </table>
-            <table class="table table-bordered" id="second">
-                <tbody>
-                <tr>
-                    <td id="main">Размер</td>
-                    <td>{{ lot.length }}x{{ lot.width }}</td>
-                </tr>
-                <tr>
-                    <td id="main">Техника</td>
-                    <td>{{ lot.technique }}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
 </section>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
