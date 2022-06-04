@@ -36,10 +36,15 @@ class GalleryView(View):
         genres_filter = request.GET.getlist('genre[]', Picture.PictureGenre)
         input_price = request.GET.get('input_price', max_price)
 
-
         pics = Picture.objects.filter(
             Q(category__in=categories_filter) & Q(style__in=styles_filter) & Q(genre__in=genres_filter) &
             Q(price__lt=int(input_price) + 1))
+
+        try:
+            request.user.cart.pictures.all()
+        except:
+            BuyerCart.objects.create(buyer=request.user)
+            in_cart = False
 
         # Второй аргумент — кол-во фоток на странице
         paginator = Paginator(pics, 8)
@@ -84,14 +89,35 @@ class LotView(View):
     def get(self, request, slug):
         lot = Picture.objects.get(slug=slug)
         albums = request.user.albums.all()
-        return render(request, 'lot.html', {'lot': lot, 'albums': albums})
+        is_liked = False
+        for album in albums:
+            if lot in album.pictures.all():
+                is_liked = True
+        in_cart = lot in request.user.cart.pictures.all()
+        return render(request, 'lot.html', {
+            'lot': lot,
+            'albums': albums,
+            'is_liked': is_liked,
+            'in_cart': in_cart,
+        })
 
     def post(self, request, slug):
-        print(request.POST)
         lot = Picture.objects.get(slug=slug)
-        album = BuyerAlbum.objects.get(id=request.POST['album_id'])
-        album.pictures.add(lot)
-        album.save()
+        print(request.POST)
+        action = request.POST['action']
+        if action == "add_favour":
+            album = BuyerAlbum.objects.get(id=request.POST['album_id'])
+            album.pictures.add(lot)
+            album.save()
+        elif action == "delete_favour":
+            albums = request.user.albums.all()
+            for album in albums:
+                if lot in album.pictures.all():
+                    album.pictures.remove(lot)
+        elif action == "add_cart":
+            request.user.cart.pictures.add(lot)
+        elif action == "delete_cart":
+            request.user.cart.pictures.remove(lot)
         return redirect(lot.get_absolute_url())
 
 
@@ -151,18 +177,27 @@ class AlbumView(View):
 class FavouritesView(View):
 
     def get(self, request):
-        return render(request, "liked.html")
+        data = [list() for i in range(4)]
+        i = 0
+        for album in request.user.albums.all():
+            for lot in album.pictures.all():
+                data[i % 4].append(lot) if [lot] not in data else 0
+                i += 1
+        print(data)
+        return render(request, "liked.html", {
+            'data': data
+        })
 
 
 class MyArtsView(View):
 
     def get(self, request):
-        return render(request, 'artistgallery.html')
+        return render(request, 'artistsgallery.html')
 
 
 class CartView(View):
 
-    def get(self, request):
+    def get(self, request, slug):
         return render(request, 'cart.html')
 
 

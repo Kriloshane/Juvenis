@@ -17,7 +17,7 @@ urlpatterns = [
 
     path('my_arts/', MyArtsView.as_view(), name="my-arts-view"),
     path('favourites/', FavouritesView.as_view(), name="favourites-view"),
-    path('cart/', CartView.as_view(), name="cart-view"),
+    path('cart/<str:slug>', CartView.as_view(), name="cart-view"),
 
     path('signup/', SignUp.as_view(), name="my_signup"),
     path('login/', SignIn.as_view(), name="my_login"),

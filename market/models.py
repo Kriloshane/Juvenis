@@ -4,6 +4,8 @@ from django.shortcuts import reverse
 from django.utils.text import slugify
 from django.db.models import F, ExpressionWrapper, FloatField, Sum
 from time import time
+from django.utils import timezone
+
 
 
 # TODO:  разобраться с последней активностью пользователя
@@ -37,11 +39,11 @@ class Customer(AbstractUser):  # username, password, f_n, l_n, email
     def save(self, *args, **kwargs):
         if not self.id:
             self.slug = slugify(
-                f"{self.first_name}-"
-                f"{self.last_name}"
-                f"{self.pk}")
+                f"{self.username}-"
+                f"{self.status}-"
+                f"{timezone.now()}")
             print(self.slug)
-        super().save(*args, **kwargs)
+        super(Customer, self).save(*args, **kwargs)
 
     def is_artist(self):
         return self.status == Customer.CustomerStatus.artist
@@ -226,7 +228,7 @@ class BuyerAlbum(models.Model):
     def cover(self):
         count = self.pictures.all().count()
         if count != 0:
-            return self.pictures.all()[count-1].muzzle().image.url
+            return self.pictures.all()[count - 1].muzzle().image.url
         return "/static/img/blank_album.jpg"
 
     def get_absolute_url(self):
@@ -235,3 +237,30 @@ class BuyerAlbum(models.Model):
     class Meta:
         verbose_name = "Альбом"
         verbose_name_plural = "Альбомы"
+
+
+class BuyerCart(models.Model):
+    buyer = models.OneToOneField(Customer, verbose_name="Покупатель", on_delete=models.CASCADE, related_name="cart")
+    pictures = models.ManyToManyField(Picture, verbose_name="Лоты", blank=True)
+    slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, verbose_name='Ссылка')
+
+    def __str__(self):
+        return f'{self.slug}'
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = slugify(f"cart-{self.buyer}-{self.buyer.id}")
+        super(BuyerCart, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('market:cart-view', kwargs={'slug': self.slug})
+
+    def get_sum(self):
+        cart_sum = 0
+        for picture in self.pictures.all():
+            cart_sum += picture.price
+        return cart_sum
+
+    class Meta:
+        verbose_name = "Корзина"
+        verbose_name_plural = "Корзины"

@@ -50,54 +50,100 @@
             <div class="pricepol">
                 <!--                liked modal-->
                 <button data-bs-toggle="modal" data-bs-target="#Modal1">
-                    <img src="{% static 'img/add.png' %}" alt="">
+                    {% if is_liked %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    {% else %}
+                        <img src="{% static 'img/add.png' %}" alt="">
+                    {% endif %}
                 </button>
                 <!--                cart modal-->
-                <button class="mt-5" data-bs-toggle="modal" data-bs-target="#Modal2">
-                    <img src="{% static 'img/cart.png' %}" alt="">
-                </button>
+                {% if in_cart %}
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <input name="action" hidden="true" value="delete_cart">
+                        <button type="submit" class="mt-5" data-bs-toggle="modal" data-bs-target="#Modal2">
+                            Удалить из корзины
+                        </button>
+                    </form>
+                {% else %}
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <input name="action" hidden="true" value="add_cart">
+                        <button type="submit" class="mt-5" data-bs-toggle="modal" data-bs-target="#Modal2">
+                            <img src="{% static 'img/cart.png' %}" alt="">
+                        </button>
+                    </form>
+                {% endif %}
                 <h2 class="mt-5" class="price">
                     {{ lot.get_price }} <span class="text-dark fs-5">₽</span>
                 </h2>
                 <div class="modal fade" id="Modal1" tabindex="-1" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
                     {% if request.user.is_authenticated %}
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Добавить в альбом</h5>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row row-cols-1 row-cols-md-2 g-4">
-                                        {% for album in albums %}
-                                            <div class="col">
-                                                <form action="" method="POST">
-                                                    {% csrf_token %}
-                                                    <div class="card">
-                                                        <input name="album_id" hidden="true" value="{{ album.id }}">
-                                                        <img src="{{ album.cover }}" class="card-img-top"
-                                                             alt="обложка альбома">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">{{ album.name }}</h5>
-                                                            <!--<input type="checkbox" class="btn-check"
-                                                                   id="btn-check-2-outlined1"
-                                                                   autocomplete="off">-->
-                                                            <button type="submit" class="btn btn-outline-success">+</button>
-                                                            <br>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        {% endfor %}
+                        {% if is_liked %}
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Удалить из избранного</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3>Вы уверены, что хотите удалить лот из избранного?</h3>
+                                        <form action="" method="POST">
+                                            {% csrf_token %}
+                                            <input name="action" hidden="true" value="delete_favour">
+                                            <button type="submit" class="btn btn-outline-success w-25 h-50">Удалить
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
+                                        </button>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
-                                    </button>
+                            </div>
+                        {% else %}
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Добавить в альбом</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row row-cols-1 row-cols-md-2 g-4">
+                                            {% for album in albums %}
+                                                <div class="col">
+                                                    <form action="" method="POST">
+                                                        {% csrf_token %}
+                                                        <div class="card">
+                                                            <input name="action" hidden="true" value="add_favour">
+                                                            <input name="album_id" hidden="true" value="{{ album.id }}">
+                                                            <img src="{{ album.cover }}" class="card-img-top"
+                                                                 alt="обложка альбома">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">{{ album.name }}</h5>
+                                                                <!--<input type="checkbox" class="btn-check"
+                                                                       id="btn-check-2-outlined1"
+                                                                       autocomplete="off">-->
+                                                                <button type="submit"
+                                                                        class="btn btn-outline-success w-25 h-50">+
+                                                                </button>
+                                                                <br>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
+                        {% endif %}
                     {% else %}
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -134,7 +180,6 @@
                                 </div>
                             </div>
                         </div>
-
                     {% else %}
                         <div class="modal-dialog">
                             <div class="modal-content">
