@@ -68,7 +68,7 @@ class GalleryView(View):
         styles = Picture.PictureStyle
         genres = Picture.PictureGenre
 
-        return render(request, 'gallery.html',
+        return render(request, 'new/index.html',
                       {
                           'col1': column1,
                           'col2': column2,
