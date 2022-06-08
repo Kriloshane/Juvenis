@@ -29,9 +29,9 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
                         <li><a class="dropdown-item" href="{{ request.user.get_absolute_url }}">Профиль</a></li>
-                        <li><a class="dropdown-item" href="{% url 'market:my-arts-view' %}">Мои работы</a></li>
+                        <li><a class="dropdown-item" href="{% url 'market:my-arts-view' request.user.slug %}">Мои работы</a></li>
                         <li><a class="dropdown-item" href="{% url 'market:favourites-view' %}">Понравившиеся</a></li>
-                        <li><a class="dropdown-item" href="#">Загрузить работу</a></li>
+                        <li><a class="dropdown-item" href="{% url 'market:create-lot-view' %}">Загрузить работу</a></li>
                     </ul>
                 </li>
             </ul>
@@ -54,7 +54,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
                         <li><a class="dropdown-item" href="{{ request.user.get_absolute_url }}">Профиль</a></li>
-                        <li><a class="dropdown-item" href="{% url 'market:my-albums-view' %}">Мои альбомы</a></li>
+                        <li><a class="dropdown-item" href="{% url 'market:my-albums-view' request.user.slug %}">Мои альбомы</a></li>
                         <li><a class="dropdown-item" href="{% url 'market:favourites-view' %}">Понравившиеся</a></li>
                     </ul>
                 </li>

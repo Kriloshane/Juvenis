@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,128 +14,124 @@
 
 </head>
 <body>
-    <header>
-        <div class="container">
-            <nav>
-               <ul class="menu">
-                   <li class="menu_item"><a href="index.html" class="menu_link">Главная</a></li>
-                   <li class="menu_item"><a href="#" class="menu_link">О нас</a></li>
-                   <li class="menu_item"><a href="gallery.html" class="menu_link">Галерея</a></li>
-                   <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Мой профиль
+<header>
+    <div class="container">
+        <nav>
+            <ul class="menu">
+                <li class="menu_item"><a href="index.html" class="menu_link">Главная</a></li>
+                <li class="menu_item"><a href="#" class="menu_link">О нас</a></li>
+                <li class="menu_item"><a href="gallery.html" class="menu_link">Галерея</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Мой профиль
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                      <li><a class="dropdown-item" href="registration.html">Зарегестрироваться</a></li>
-                      <li><a class="dropdown-item" href="login.html">Войти</a></li>
+                        <li><a class="dropdown-item" href="registration.html">Зарегестрироваться</a></li>
+                        <li><a class="dropdown-item" href="login.html">Войти</a></li>
                     </ul>
-                  </li>
-               </ul>
-            </nav>
-        </div>
-    </header>
-    <section class="profile">
-        <div class="row">
-            <div class="col-2">
-                <div class="follows">
-                    <a href="#">
-                        <img src="../img/подписки.png" alt="">
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<section class="profile">
+    <div class="row">
+        <div class="col-2">
+            <div class="follows">
+                <a href="#">
+                    <img src="../img/подписки.png" alt="">
                     <h2>
                         Подписки
                     </h2>
                     <h3>
-                        1000
+                        {{ profile.subscriptions.all.count }}
                     </h3>
-                    </a>
-                </div>
-                <div class="followers">
-                    <a href="#">
-                        <img src="../img/подписчики.png" alt="">
+                </a>
+            </div>
+            <div class="followers">
+                <a href="#">
+                    <img src="../img/подписчики.png" alt="">
                     <h2>
                         Подписчики
                     </h2>
                     <h3>
-                        1000
+                        {{ profile.followers.all.count }}
                     </h3>
-                {% if request.user.is_authenticated %}
-                    <button id="sub">
-                        Подписаться
-                    </button>
-                {% else %}
-                    <h5>
-                        Войдите, чтобы подписаться
-                    </h5>
-                {% endif %}
-                    </a>
-                </div>
-            </div>
-            <div class="col-3" id="avatar">
-                <img id="avatarpic" src="../img/аватарка.png" alt="">
-                <div class="networks">
-                    <a href=""><img src="../img/instaicon.png" alt=""></a>
-                    <a href=""><img src="../img/vkicon.png" alt=""></a>
-                </div>
-                <div class="contacts">
-                    <h3>
-                        Телефон
-                    </h3>
-                    <p>+7 000 000 00 00</p>
-                    <h3>
-                        Почта
-                    </h3>
-                    <p>
-                        hui@gmail.com
-                    </p>
-                </div>
-            </div>
-            <div class="col-3" id="data">
-                <div class="maindata">
-                    <h1>
-                        Имя
-                    </h1>
-                    <h3>
-                        Город
-                    </h3>
-                </div>
-                <div class="biography">
-                    <h2>
-                        Биография
-                    </h2>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis sit iste ducimus dolorem doloribus quae ipsam iure impedit perferendis libero quidem consequatur vel delectus voluptatibus, obcaecati soluta harum eum ea. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, nihil tempore earum sed nobis fuga quas. Dolorem voluptatum vel delectus at nemo explicabo odio numquam, tempore ratione modi consequuntur sint.
-                        Facere culpa harum nisi molestias deleniti porro possimus, laudantium nihil pariatur, ducimus quia, quisquam esse temporibus repudiandae ipsum cumque ex iure. Sit nihil ab soluta, perferendis iste eum reprehenderit exercitationem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos dolores vero, beatae quibusdam quas odio commodi, ea minus repellendus porro adipisci saepe magni ratione aut! Tempora est accusamus maiores harum!
-                    </p>
-                </div>
-            </div>
-            <div class="col-4">
-                <ul class="albumcol">
-                        <div class="card">
-                            <a href="#"><img src="../img/1bbc.jpg" class="card-img-top" alt="обложка альбома"></a>
-                            <div class="card-body">
-                              <h5 class="card-title">Название альбома</h5>
-                            </div>
-                          </div>
-                        <div class="card">
-                            <a href="#"><img src="../img/джоцкер.jpg" class="card-img-top" alt="обложка альбома"></a>
-                            <div class="card-body">
-                              <h5 class="card-title">Название альбома</h5>
-                            </div>
-                          </div>
-                          <div class="card">
-                            <a href="#"><img src="../img/скульптура.png" class="card-img-top" alt="обложка альбома"></a>
-                            <div class="card-body">
-                              <h5 class="card-title">Название альбома</h5>
-                            </div>
-                          </div>
-                    <a href="artistsgallery.html" class="">
-                        <button>
-                            Cмотреть все доски
-                        </button>
-                    </a>
-                </ul>
+                    {% if request.user.is_authenticated %}
+                        {% if request.user != profile %}
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <button id="sub" type="submit">
+                                    Подписаться
+                                </button>
+                            </form>
+                        {% endif %}
+                    {% else %}
+                        <h5>
+                            Войдите, чтобы подписаться
+                        </h5>
+                    {% endif %}
+                </a>
             </div>
         </div>
-    </section>
+        <div class="col-3" id="avatar">
+            <img id="avatarpic" src="../img/аватарка.png" alt="">
+            <div class="networks">
+                <a href=""><img src="../img/instaicon.png" alt=""></a>
+                <a href=""><img src="../img/vkicon.png" alt=""></a>
+            </div>
+            <div class="contacts">
+                <h3>
+                    Телефон
+                </h3>
+                <p>{{ profile.phone_number }}</p>
+                <h3>
+                    Почта
+                </h3>
+                <p>
+                    {{ profile.email }}
+                </p>
+            </div>
+        </div>
+        <div class="col-3" id="data">
+            <div class="maindata">
+                <h1>
+                    {{ profile.first_name }} {{ profile.last_name }}
+                </h1>
+                <h3>
+                    {{ profile.city }}
+                </h3>
+            </div>
+            <div class="biography">
+                <h2>
+                    Биография
+                </h2>
+                <p>
+                    {{ profile.biography }}
+                </p>
+            </div>
+        </div>
+        <div class="col-4">
+            <ul class="albumcol">
+                {% for album in albums %}
+                    <div class="card">
+                        <a href="{{ album.get_absolute_url }}"><img src="{{ album.cover }}" class="card-img-top"
+                                                                    alt="обложка альбома"></a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ album.name }}</h5>
+                        </div>
+                    </div>
+                {% endfor %}
+                <a href="{% url 'market:my-albums-view' profile.slug %}" class="">
+                    <button>
+                        Cмотреть все доски
+                    </button>
+                </a>
+            </ul>
+        </div>
+    </div>
+</section>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>

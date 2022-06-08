@@ -12,12 +12,13 @@ urlpatterns = [
 
     path('profiles/<str:slug>/', ProfileView.as_view(), name="profile-view"),
 
-    path('my_albums/', MyAlbumsView.as_view(), name="my-albums-view"),
-    path('my_albums/<str:slug>', AlbumView.as_view(), name="album-view"),
+    path('profiles/<str:user_slug>/albums/', MyAlbumsView.as_view(), name="my-albums-view"),
+    path('profiles/<str:user_slug>/albums/<str:slug>', AlbumView.as_view(), name="album-view"),
 
-    path('my_arts/', MyArtsView.as_view(), name="my-arts-view"),
+    path('arts/<str:slug>', ArtsView.as_view(), name="my-arts-view"),
     path('favourites/', FavouritesView.as_view(), name="favourites-view"),
     path('cart/<str:slug>', CartView.as_view(), name="cart-view"),
+    path('lots/create_lot', CreateLotView.as_view(), name="create-lot-view"),
 
     path('signup/', SignUp.as_view(), name="my_signup"),
     path('login/', SignIn.as_view(), name="my_login"),

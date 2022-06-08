@@ -40,11 +40,11 @@ class GalleryView(View):
             Q(category__in=categories_filter) & Q(style__in=styles_filter) & Q(genre__in=genres_filter) &
             Q(price__lt=int(input_price) + 1))
 
-        try:
-            request.user.cart.pictures.all()
-        except:
-            BuyerCart.objects.create(buyer=request.user)
-            in_cart = False
+        if request.user.is_authenticated:
+            try:
+                request.user.cart.pictures.all()
+            except:
+                BuyerCart.objects.create(buyer=request.user)
 
         # Второй аргумент — кол-во фоток на странице
         paginator = Paginator(pics, 8)
@@ -127,15 +127,23 @@ class ProfileView(View):
         profile = Customer.objects.get(slug=slug)
         is_mine = request.user == profile
         if profile.is_artist():
-            return render(request, 'artist.html', {'is_mine': is_mine})
+            lots = Picture.objects.filter(author=profile).reverse()[0:2]
+            return render(request, 'artist.html', {'profile': profile, 'is_mine': is_mine, 'lots': lots})
         elif profile.is_buyer():
-            return render(request, 'buyer.html', {'is_mine': is_mine})
+            albums = BuyerAlbum.objects.filter(buyer=profile).reverse()[0:3]
+            return render(request, 'buyer.html', {'profile': profile, 'is_mine': is_mine, 'albums': albums})
+
+    def post(self, request, slug):
+        profile = Customer.objects.get(slug=slug)
+        request.user.subscriptions.add(profile)
+        profile.followers.add(request.user)
+        return redirect(profile.get_absolute_url())
 
 
 class MyAlbumsView(View):
 
-    def get(self, request):
-        albums = request.user.albums.all()
+    def get(self, request, user_slug):
+        albums = BuyerAlbum.objects.filter(buyer=Customer.objects.get(slug=user_slug))
 
         paginator = Paginator(albums, 4)
         page = paginator.get_page(request.GET.get('page', 1))
@@ -160,7 +168,7 @@ class MyAlbumsView(View):
 
 class AlbumView(View):
 
-    def get(self, request, slug):
+    def get(self, request, user_slug, slug):
         album = BuyerAlbum.objects.get(slug=slug)
         lots = album.pictures.all()
         data = [list() for i in range(lots.count())]
@@ -189,16 +197,57 @@ class FavouritesView(View):
         })
 
 
-class MyArtsView(View):
+class ArtsView(View):
 
-    def get(self, request):
-        return render(request, 'artistsgallery.html')
+    def get(self, request, slug):
+        data = [list() for i in range(4)]
+        i = 0
+        for lot in Picture.objects.filter(author=Customer.objects.get(slug = slug)):
+            data[i % 4].append(lot) if [lot] not in data else 0
+            i += 1
+        print(data)
+        return render(request, 'artistsgallery.html', {
+            'data': data
+        })
 
 
 class CartView(View):
 
     def get(self, request, slug):
         return render(request, 'cart.html')
+
+
+class CreateLotView(View):
+
+    def get(self, request):
+        categories = Picture.PictureCategory
+        styles = Picture.PictureStyle
+        genres = Picture.PictureGenre
+        return render(request, 'lotloading.html', {
+            'categories': categories,
+            'styles': styles,
+            'genres': genres,
+        })
+
+    def post(self, request):
+        print(request.POST)
+        print(request.FILES)
+
+        name = request.POST.get('name', 'Название')
+        price = request.POST.get('price', 0)
+        description = request.POST.get('description', '')
+        length = request.POST.get('length', 100)
+        width = request.POST.get('width', 100)
+        technique = request.POST.get('technique', '')
+        year_created = request.POST.get('year_created', 2000)
+
+        lot = Picture.objects.create(name=name, author=request.user, price=price, description=description,
+                                     length=length, width=width,
+                                     technique=technique, year_created=year_created)
+        for image in request.FILES.getlist('pictures[]'):
+            PictureImg.objects.create(image=image, announcement=lot)
+
+        return redirect('/my_arts/')
 
 
 class SignUp(View):

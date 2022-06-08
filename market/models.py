@@ -7,7 +7,6 @@ from time import time
 from django.utils import timezone
 
 
-
 # TODO:  разобраться с последней активностью пользователя
 
 
@@ -20,8 +19,12 @@ class Customer(AbstractUser):  # username, password, f_n, l_n, email
     first_name = models.CharField(verbose_name="Имя", max_length=20)
     last_name = models.CharField(verbose_name="Фамилия", max_length=30)
     email = models.EmailField(verbose_name="Электронная почта", max_length=100, unique=True)
+    city = models.CharField(verbose_name="Город", max_length=50, default="Москва", blank=True, null=True)
+    phone_number = models.CharField(verbose_name="Телефон", max_length=12, default="+79999999999",
+                                    blank=True, null=True)
     status = models.CharField(max_length=3, choices=CustomerStatus.choices, default=CustomerStatus.buyer, db_index=True,
                               verbose_name="Статус пользователя")
+    biography = models.TextField(blank=True, null=True)
     followers = models.ManyToManyField("Customer", verbose_name='Подписчики', blank=True,
                                        related_name="follower_set")
     photo = models.ImageField(verbose_name="Фотография", upload_to="users_photo", null=True, blank=True,
@@ -50,6 +53,9 @@ class Customer(AbstractUser):  # username, password, f_n, l_n, email
 
     def is_buyer(self):
         return self.status == Customer.CustomerStatus.buyer
+
+    def get_absolute_url(self):
+        return reverse('market:profile-view', kwargs={'slug': self.slug})
 
     class Meta:
         verbose_name = "Пользователь"
@@ -232,7 +238,7 @@ class BuyerAlbum(models.Model):
         return "/static/img/blank_album.jpg"
 
     def get_absolute_url(self):
-        return reverse('market:album-view', kwargs={'slug': self.slug})
+        return reverse('market:album-view', kwargs={'user_slug': self.buyer.slug, 'slug': self.slug})
 
     class Meta:
         verbose_name = "Альбом"
