@@ -20,6 +20,31 @@ from django.conf import settings
 # TODO: проверить еще раз работу почты
 
 
+class IndexView(View):
+
+    def get(self, request):
+        """Examples"""
+        photography = Picture.objects.filter(category=Picture.PictureCategory.photography)
+        abstraction = Picture.objects.filter(genre=Picture.PictureGenre.abstraction)
+        portrait = Picture.objects.filter(genre=Picture.PictureGenre.portrait)
+        sketch = Picture.objects.filter(category=Picture.PictureCategory.sketch)
+
+        """Albums"""
+        data = [list() for i in range(3)]
+        i = 0
+        for album in BuyerAlbum.objects.all().reverse()[0:10]:
+            data[i % 3].append(album) if [album] not in data else 0
+            i += 1
+
+        return render(request, 'new/index.html', {
+            'data': data,
+            'p': photography,
+            'a': abstraction,
+            'por': portrait,
+            's': sketch,
+        })
+
+
 class GalleryView(View):
 
     def get(self, request):
@@ -34,11 +59,13 @@ class GalleryView(View):
         categories_filter = request.GET.getlist('category[]', Picture.PictureCategory)
         styles_filter = request.GET.getlist('style[]', Picture.PictureStyle)
         genres_filter = request.GET.getlist('genre[]', Picture.PictureGenre)
-        input_price = request.GET.get('input_price', max_price)
+        input_price_min = int(request.GET.get('min_price', min_price))
+        input_price_max = int(request.GET.get('max_price', max_price))
 
         pics = Picture.objects.filter(
             Q(category__in=categories_filter) & Q(style__in=styles_filter) & Q(genre__in=genres_filter) &
-            Q(price__lt=int(input_price) + 1))
+            Q(price__lte=input_price_max) & Q(price__gte=input_price_min))
+        print(pics)
 
         if request.user.is_authenticated:
             try:
@@ -47,11 +74,14 @@ class GalleryView(View):
                 BuyerCart.objects.create(buyer=request.user)
 
         # Второй аргумент — кол-во фоток на странице
-        paginator = Paginator(pics, 8)
+        paginator = Paginator(pics, 9)
         page = paginator.get_page(request.GET.get('page', 1))
-        cnt = page.object_list.all().count()
-        column1 = page.object_list.all()[0:cnt // 2 + cnt % 2]
-        column2 = page.object_list.all()[cnt // 2 + cnt % 2:]
+        data = [list() for i in range(3)]
+        i = 0
+        for lot in page.object_list.all():
+            data[i % 3].append(lot)
+            i += 1
+        print(data)
         is_paginated = page.has_other_pages()
 
         if page.has_previous():
@@ -68,10 +98,9 @@ class GalleryView(View):
         styles = Picture.PictureStyle
         genres = Picture.PictureGenre
 
-        return render(request, 'new/index.html',
+        return render(request, 'new/shop.html',
                       {
-                          'col1': column1,
-                          'col2': column2,
+                          'data': data,
                           'categories': categories,
                           'styles': styles,
                           'genres': genres,
@@ -202,7 +231,7 @@ class ArtsView(View):
     def get(self, request, slug):
         data = [list() for i in range(4)]
         i = 0
-        for lot in Picture.objects.filter(author=Customer.objects.get(slug = slug)):
+        for lot in Picture.objects.filter(author=Customer.objects.get(slug=slug)):
             data[i % 4].append(lot) if [lot] not in data else 0
             i += 1
         print(data)

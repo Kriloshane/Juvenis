@@ -7,7 +7,8 @@ from .apps import MarketConfig
 app_name = MarketConfig.name
 
 urlpatterns = [
-    path('', GalleryView.as_view(), name="gallery-view"),
+    path('', IndexView.as_view(), name="index"),
+    path('gallery', GalleryView.as_view(), name="gallery-view"),
     path('lots/<str:slug>/', LotView.as_view(), name="lot-view"),
 
     path('profiles/<str:slug>/', ProfileView.as_view(), name="profile-view"),
