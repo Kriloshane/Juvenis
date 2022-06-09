@@ -13,7 +13,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
-    rel="stylesheet">
+          rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
@@ -27,156 +27,119 @@
 </head>
 
 <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
 
-{% include 'headers.html' %}
-    <!-- Breadcrumb Begin -->
-    <!-- Breadcrumb End -->
+{% include 'new/headers.html' %}
+<!-- Breadcrumb Begin -->
+<!-- Breadcrumb End -->
 
-    <!-- Product Details Section Begin -->
-    <section class="product-details spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-7">
-                    <div class="product__details__pic">
-                        <img data-hash="product-1" class="product__big__img" src="{% static 'img/product/details/анастейшапелиас.png' %}" alt="">
-                    </div>
+<!-- Product Details Section Begin -->
+<section class="product-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="product__details__pic">
+                    <img data-hash="product-1" class="product__big__img" src="{{ lot.muzzle.image.url }}" alt=""
+                         style="width:100%; height:100%; overflow:hidden;">
                 </div>
-                <div class="col-lg-5">
-                    <div class="product__details__text">
-                        <h3>Почему все так сложно, 2020 <a href="#"><span>Анастейша Пелиас</span></a></h3>
-                        <div class="product__details__price">₽ 87 000</div>
-                        <p>Масло на холсте</p>
-                        <p>60х60 см</p>
-                        <div class="product__details__button">
-                            <a href="#" class="site-btn">Приобрести</a>
-                            <ul>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+            </div>
+            <div class="col-lg-5">
+                <div class="product__details__text">
+                    <h3>{{ lot.name }}, {{ lot.year_created }} <a
+                            href="{{ lot.author.get_absolute_url }}"><span>{{ lot.author }}</span></a></h3>
+                    <div class="product__details__price">₽ {{ lot.get_price }}</div>
+                    <p>{{ lot.technique }}</p>
+                    <p>60х60 см</p>
+                    <div class="product__details__button">
+                        <a href="#" class="site-btn">Приобрести</a>
+                        <ul>
+                            {% if request.user.is_authenticated %}
+                                {% if is_liked %}
+                                    <input name="action" hidden="true" value="delete_favour">
+                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                {% else %}
+                                    <input name="action" hidden="true" value="add_favour">
+                                    <li><a href="#"><span class="icon_dislike_alt"></span></a></li>
+                                {% endif %}
                                 <!-- if buyer b -->
                                 <li><a href="#"><span class="icon_plus"></span></a></li>
-                                <!-- if buyer e -->   
-                            </ul>
-                        </div>
-                        <div class="product__details__widget">
-                            <ul>
-                                <li>
-                                    <p class="identifyer">Категория:</p><p class="answer">живопись</p>
-                                </li>
-                                <li>
-                                    <p class="identifyer">Жанр:</p><p class="answer">абстракция</p>
-                                </li>
-                                <li>
-                                    <p class="identifyer">Стиль:</p><p class="answer">аааа</p>
-                                </li>
-                            </ul>
-                        </div>
+                                <!-- if buyer e -->
+                            {% endif %}
+                        </ul>
                     </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="product__details__tab">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Описание</a>
+                    <div class="product__details__widget">
+                        <ul>
+                            <li>
+                                <p class="identifyer">Категория:</p>
+                                <p class="answer">{{ lot.get_category_display }}</p>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Комментарии</a>
+                            <li>
+                                <p class="identifyer">Жанр:</p>
+                                <p class="answer">{{ lot.get_genre_display }}</p>
+                            </li>
+                            <li>
+                                <p class="identifyer">Стиль:</p>
+                                <p class="answer">{{ lot.get_style_display }}</p>
                             </li>
                         </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                                <h6>Описание</h6>
-                                <p>NРаботы Пелиаса были представлены на известных выставках, в том числе «Весь барабан будет звучать: женщины в южной абстракции» в Музее южного искусства Огдена в 2018 году и «Пер (сестра): женщины-заключенные в Луизиане» в Художественном музее Ньюкомба в 2019 году и в музее Форда. Галерея Фонда в 2020 году. В 2018 году Художественный музей Макнея в Сан-Антонио, штат Техас, поручил Пелиасу создать скульптуру и живописную инсталляцию для конкретного места. В 2020 году доменные компании поручили Пелиасу создать 54-футовую фреску в здании Одеон в Новом Орлеане. В 2020 году она была удостоена художественной резиденции Фонда Джоан Митчелл. Пелиас была выбрана художником на триеннале Prospect.5, 2021-2022, где она представила мультисенсорную инсталляцию для конкретного места, включающую скульптуру, нарисованный пейзаж, звук и запах.</p>
-                            </div>
-                            <div class="tab-pane" id="tabs-2" role="tabpanel">
-                                <h6>Комментарии</h6>
-                                <div class="blog__comment__item">
-                                    <div class="blog__comment__item__pic">
-                                        <img src="{% static 'img/blog/details/comment-1.jpg" alt="">
-                                    </div>
-                                    <div class="blog__comment__item__text">
-                                        <h6>Brandon Kelley</h6>
-                                        <p>Duis voluptatum. Id vis consequat consetetur dissentiet, ceteros commune perpetua
-                                        mei et. Simul viderer facilisis egimus tractatos splendi.</p>
-                                        <ul>
-                                            <li><i class="fa fa-clock-o"></i> Seb 17, 2019</li>
-                                            <li><i class="fa fa-heart-o"></i> 12</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="related__title">
-                        <h5>Другие работы этого автора:</h5>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot" data-setbg="{% static 'img/product/анастейшапелиас2.png' %}">
-                            <ul class="product__hover">
-                                <li><a href="{% static 'img/product/анастейшапелиас2.png' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            </ul>
+            <div class="col-lg-12">
+                <div class="product__details__tab">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Описание</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Комментарии</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                            <h6>Описание</h6>
+                            <p>{{ lot.description }}</p>
                         </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Три сестры и Брат(Майкл)</a></h6>
-                            <div class="product__price">59000</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot" data-setbg="{% static 'img/product/анастейшапелиас4.png' %}">
-                            <ul class="product__hover">
-                                <li><a href="{% static 'img/product/анастейшапелиас4.png' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Артемида</a></h6>
-                            <div class="product__price">59000</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot" data-setbg="{% static 'img/product/анастейшапелиас2.png' %}">
-                            <ul class="product__hover">
-                                <li><a href="{% static 'img/product/анастейшапелиас2.png' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Ат Дельфи</a></h6>
-                            <div class="product__price">59000</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot" data-setbg="{% static 'img/product/анастейшапелиас2.png' %}">
-                            <ul class="product__hover">
-                                <li><a href="{% static 'img/product/анастейшапелиас2.png' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Три сестры и Брат(Майкл)</a></h6>
-                            <div class="product__price">59000</div>
+                        <div class="tab-pane" id="tabs-2" role="tabpanel">
+                            <h6>Комментарии</h6>
+                            {% for review in lot.reviews.all %}
+                                <div class="blog__comment__item">
+                                    <div class="blog__comment__item__pic">
+                                        <img src="{% static 'img/blog/details/comment-1.jpg' %}" alt="">
+                                    </div>
+                                    <div class="blog__comment__item__text">
+                                        <h6>{{ review.author }}</h6>
+                                        <p>{{ review.text }}</p>
+                                        <ul>
+                                            <li><i class="fa fa-clock-o"></i>{{ review.date|date:'d M, Y' }}</li>
+                                            <li><i class="fa fa-heart-o"></i>{{ review.likes }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Product Details Section End -->
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="related__title">
+                    <h5>Другие работы этого автора:</h5>
+                </div>
+            </div>
+            {% for lot in author_lots %}
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    {% include 'new/lot_card.html' %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Product Details Section End -->
 
 
 <!-- Footer Section Begin -->
@@ -189,7 +152,7 @@
                         <a href="./index.html"><img src="{% static 'img/logo.png' %}" alt=""></a>
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                    cilisis.</p>
+                        cilisis.</p>
                     <div class="footer__payment">
                         <a href="#"><img src="{% static 'img/payment/payment-1.png' %}" alt=""></a>
                         <a href="#"><img src="{% static 'img/payment/payment-2.png' %}" alt=""></a>
@@ -249,8 +212,8 @@
 </div>
 <!-- Search End -->
 
-    <!-- Js Plugins -->
-    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<!-- Js Plugins -->
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
 <script src="{% static 'js/jquery-ui.min.js' %}"></script>

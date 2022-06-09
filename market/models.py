@@ -121,10 +121,12 @@ class Picture(models.Model):
                              default=PictureStyle.is_absent, db_index=True)
     category = models.CharField(verbose_name="Категория", choices=PictureCategory.choices, max_length=3,
                                 default=PictureCategory.is_absent, db_index=True)
+    for_sale = models.BooleanField(default=True, verbose_name='На продажу')
     theme = models.TextField(verbose_name="Тема")
     technique = models.CharField(verbose_name="Техника", max_length=50)
     tags = models.ManyToManyField("Tag", verbose_name="Тэги", blank=True)
-    slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, verbose_name='Ссылка')
+    slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, verbose_name='Ссылка',
+                            allow_unicode=True)
     year_created = models.SmallIntegerField(verbose_name="Год создания", null=True, blank=True)
 
     def __str__(self):
@@ -199,13 +201,13 @@ class Tag(models.Model):
 
 class Review(models.Model):
     """Отзывы"""
-    email = models.EmailField()
-    name = models.CharField("Имя", max_length=100)
+    author = models.ForeignKey(Customer, verbose_name='Автор', on_delete=models.CASCADE, related_name="reviews")
     text = models.TextField("Сообщение", max_length=5000)
     parent = models.ForeignKey(
         'self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True
     )
     movie = models.ForeignKey(Picture, verbose_name="Картина", on_delete=models.CASCADE, related_name="reviews")
+    likes = models.IntegerField(default=0, blank=True)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

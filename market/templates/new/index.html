@@ -32,7 +32,7 @@
 <div id="preloder">
     <div class="loader"></div>
 </div>
-{% include 'headers.html' %}
+{% include 'new/headers.html' %}
 
 <!-- Categories Section Begin -->
 <section class="categories">
@@ -109,82 +109,26 @@
             </div>
         </div>
         <div class="row property__gallery">
-            <div class="col-lg-3 col-md-4 col-sm-6 mix sketch">
-                {% for lot in s %}
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot"
-                             data-setbg="{{ lot.muzzle.image.url }}">
-                            <ul class="product__hover">
-                                <li><a href="{{ lot.muzzle.image.url }}" class="image-popup"><span
-                                        class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="{{ pic.get_absolute_url }}">{{ lot.name }}</a></h6>
-                            <h6><a href="#">{{ lot.author }}</a></h6>
-                            <div class="product__price">{{ lot.get_price }} Р</div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix photo">
-                {% for lot in p %}
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot"
-                             data-setbg="{{ lot.muzzle.image.url }}">
-                            <ul class="product__hover">
-                                <li><a href="{{ lot.muzzle.image.url }}" class="image-popup"><span
-                                        class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="{{ pic.get_absolute_url }}">{{ lot.name }}</a></h6>
-                            <h6><a href="#">{{ lot.author }}</a></h6>
-                            <div class="product__price">{{ lot.get_price }} Р</div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix abstraction">
-                {% for lot in a %}
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot"
-                             data-setbg="{{ lot.muzzle.image.url }}">
-                            <ul class="product__hover">
-                                <li><a href="{{ lot.muzzle.image.url }}" class="image-popup"><span
-                                        class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="{{ pic.get_absolute_url }}">{{ lot.name }}</a></h6>
-                            <h6><a href="#">{{ lot.author }}</a></h6>
-                            <div class="product__price">{{ lot.get_price }} Р</div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix abstraction ukranian">
-                {% for lot in por %}
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot"
-                             data-setbg="{{ lot.muzzle.image.url }}">
-                            <ul class="product__hover">
-                                <li><a href="{{ lot.muzzle.image.url }}" class="image-popup"><span
-                                        class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="{{ pic.get_absolute_url }}">{{ lot.name }}</a></h6>
-                            <h6><a href="#">{{ lot.author }}</a></h6>
-                            <div class="product__price">{{ lot.get_price }} Р</div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
+            {% for lot in s %}
+                <div class="col-lg-3 col-md-4 col-sm-6 mix sketch">
+                    {% include 'new/lot_card.html' %}
+                </div>
+            {% endfor %}
+            {% for lot in p %}
+                <div class="col-lg-3 col-md-4 col-sm-6 mix photo">
+                    {% include 'new/lot_card.html' %}
+                </div>
+            {% endfor %}
+            {% for lot in a %}
+                <div class="col-lg-3 col-md-4 col-sm-6 mix abstraction">
+                    {% include 'new/lot_card.html' %}
+                </div>
+            {% endfor %}
+            {% for lot in por %}
+                <div class="col-lg-3 col-md-4 col-sm-6 mix ukranian">
+                    {% include 'new/lot_card.html' %}
+                </div>
+            {% endfor %}
         </div>
 </section>
 <!-- Banner Section End -->
@@ -245,25 +189,9 @@
             <h4>Открытые альбомы</h4>
         </div>
         <div class="row">
-            {% for albums in data %}
+            {% for album in albums %}
                 <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="album__content">
-                        {% for album in albums %}
-                            <div class="album__item">
-                                <div class="album__item__pic set-bg-album"
-                                     data-setbg="{{ album.cover }}">
-                                    <ul class="album__hover">
-                                        <li><a href="{{ album.get_absolute_url }}"><span class="icon_heart_alt"></span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="{{ album.get_absolute_url }}">{{ album.name }}</a></h6>
-                                    <h6><a href="{{ album.get_absolute_url }}">{{ album.buyer }}</a></h6>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
+                {% include 'new/album_card.html' %}
                 </div>
             {% endfor %}
         </div>

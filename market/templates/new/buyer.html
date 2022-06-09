@@ -13,7 +13,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+          rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
@@ -27,112 +27,79 @@
 </head>
 
 <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
 
-{% include 'headers.html' %}
-    <!-- Breadcrumb Begin -->
-    <!-- Breadcrumb End -->
+{% include 'new/headers.html' %}
+<!-- Breadcrumb Begin -->
+<!-- Breadcrumb End -->
 
-    <!-- if buyer -->
-    <section class="blog-details spad">
-        <div class="container">
-            <div class="blog__comment__item">
-                <div class="blog__comment__item__pic">
-                    <img src="{% static 'img/trend/антонтарасюк.png' %}" alt="">
+<!-- if buyer -->
+<section class="blog-details spad">
+    <div class="container">
+        <div class="blog__comment__item">
+            <div class="blog__comment__item__pic">
+                <img src="{{ profile.photo.url }}" alt="">
+            </div>
+            <div class="blog__comment__item__text">
+                <h6>{{ profile }}</h6>
+                <p>{{ profile.biography }}.</p>
+            </div>
+            {% if not is_mine %}
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="site-btn">Подписаться</button>
+                </form>
+            {% endif %}
+            <div class="followers">
+                {{ profile.followers.count }} подписчика
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+                <div class="blog__details__content">
+                    <div class="section-title">
+                        <h4>Обзор</h4>
+                    </div>
                 </div>
-                <div class="blog__comment__item__text">
-                    <h6>Джим Дайн</h6>
-                    <p>Duis voluptatum. Id vis consequat consetetur dissentiet, ceteros commune perpetua
-                    mei et. Simul viderer facilisis egimus tractatos splendi.</p>
-                </div>
-                    <a href="#" class="site-btn">Подписаться</a>
-                <div class="followers">
-                    123 подписчика
+                <div class="row">
+                    {% for album in albums %}
+                        {% include 'new/album_card.html' %}
+                    {% endfor %}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-8 col-md-8">
-                    <div class="blog__details__content">
+            <div class="col-lg-4 col-md-4">
+                <div class="blog__sidebar">
+                    <div class="blog__sidebar__item">
                         <div class="section-title">
-                            <h4>Обзор</h4>
+                            <h4>Альбомы</h4>
                         </div>
+                        <ul>
+                            <li><a href="{% url 'market:my-albums-view' profile.slug %}">Все <span>(25)</span></a></li>
+                        </ul>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-6">
-                            <div class="album__item">
-                                <div class="album__item__pic set-bg-album" data-setbg="{% static 'img/trend/айвейвей.png' %}">
-                                    <ul class="album__hover">
-                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">Домашний уют</a></h6>
-                                </div>
-                            </div>
+                    <div class="blog__sidebar__item">
+                        <div class="section-title">
+                            <h4>Тэги</h4>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6">
-                            <div class="album__item">
-                                <div class="album__item__pic set-bg-album" data-setbg="{% static 'img/trend/айвейвей.png' %}">
-                                    <ul class="album__hover">
-                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">Домашний уют</a></h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6">
-                            <div class="album__item">
-                                <div class="album__item__pic set-bg-album" data-setbg="{% static 'img/trend/айвейвей.png' %}">
-                                    <ul class="album__hover">
-                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">Домашний уют</a></h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                    <div class="blog__sidebar">
-                        <div class="blog__sidebar__item">
-                            <div class="section-title">
-                                <h4>Альбомы</h4>
-                            </div>
-                            <ul>
-                                <li><a href="#">Все <span>(25)</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="blog__sidebar__item">
-                            <div class="section-title">
-                                <h4>Тэги</h4>
-                            </div>
-                            <div class="blog__sidebar__tags">
-                                <a href="#">Абстракция</a>
-                                <a href="#">Люди</a>
-                                <a href="#">Хуета</a>
-                                <a href="#">Я хз</a>
-                            </div>
+                        <div class="blog__sidebar__tags">
+                            <a href="#">Абстракция</a>
+                            <a href="#">Люди</a>
+                            <a href="#">Хуета</a>
+                            <a href="#">Я хз</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 
-
-
-
-
-    <!-- Instagram Begin -->
-    <!-- Instagram End -->
+<!-- Instagram Begin -->
+<!-- Instagram End -->
 
 <!-- Footer Section Begin -->
 <footer class="footer">
@@ -144,7 +111,7 @@
                         <a href="./index.html"><img src="{% static 'img/logo.png' %}" alt=""></a>
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                    cilisis.</p>
+                        cilisis.</p>
                     <div class="footer__payment">
                         <a href="#"><img src="{% static 'img/payment/payment-1.png' %}" alt=""></a>
                         <a href="#"><img src="{% static 'img/payment/payment-2.png' %}" alt=""></a>
@@ -204,7 +171,7 @@
 </div>
 <!-- Search End -->
 
-    <!-- Js Plugins -->
+<!-- Js Plugins -->
 <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>

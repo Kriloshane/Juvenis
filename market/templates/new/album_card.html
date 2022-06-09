@@ -1,0 +1,15 @@
+<div class="album__content">
+    <div class="album__item">
+        <div class="album__item__pic set-bg-album"
+             data-setbg="{{ album.cover }}">
+            <ul class="album__hover">
+                <li><a href="{{ album.get_absolute_url }}"><span class="icon_heart_alt"></span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="product__item__text">
+            <h6><a href="{{ album.get_absolute_url }}">{{ album.name }}</a></h6>
+            <h6><a href="{{ album.get_absolute_url }}">{{ album.buyer }}</a></h6>
+        </div>
+    </div>
+</div>

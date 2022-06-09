@@ -33,7 +33,7 @@
     <div class="loader"></div>
 </div>
 
-{% include 'headers.html' %}
+{% include 'new/headers.html' %}
 <!-- Breadcrumb Begin -->
 <!-- Breadcrumb End -->
 
@@ -136,21 +136,7 @@
                     {% for col in data %}
                         <div class="col-lg-4 col-md-6">
                             {% for lot in col %}
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg-lot"
-                                         data-setbg="{{ lot.muzzle.image.url }}">
-                                        <ul class="product__hover">
-                                            <li><a href="{{ lot.muzzle.image.url }}" class="image-popup"><span
-                                                    class="arrow_expand"></span></a></li>
-                                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <h6><a href="{{ pic.get_absolute_url }}">{{ lot.name }}</a></h6>
-                                        <h6><a href="{{ author.get_absolute_url }}">{{ lot.author }}</a></h6>
-                                        <div class="product__price">{{ lot.get_price }} Р</div>
-                                    </div>
-                                </div>
+                                {% include 'new/lot_card.html' %}
                             {% endfor %}
                         </div>
                     {% endfor %}

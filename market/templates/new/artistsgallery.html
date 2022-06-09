@@ -32,7 +32,7 @@
         <div class="loader"></div>
     </div>
 
-{% include 'headers.html' %}
+{% include 'new/headers.html' %}
 
     <!-- Breadcrumb Begin -->
     <!-- Breadcrumb End -->
@@ -44,9 +44,11 @@
             <div class="section-title">
                 <h4>Мои работы</h4>
             </div>
+            {% if is_mine %}
             <div class="product__details__button">
-                <a href="#" class="site-btn" style="float: right; margin: 0;">Новая работа</a>
+                <a href="{% url 'market:create-lot-view' %}" class="site-btn" style="float: right; margin: 0;">Новая работа</a>
             </div>
+            {% endif %}
            
             <!-- else  -->
             <!-- <div class="section-title">
@@ -67,155 +69,16 @@
             <br>
             <br>
             <div class="row">
+                {% for lot in lots %}
                 <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot" data-setbg="{% static 'img/trend/айвейвей.png' %}">
-                            <ul class="product__hover">
-                                <li><a href="{% static 'img/trend/айвейвей.png' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_close"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Кокакола</a></h6>
-                            <h6><a href="#">Антон Тарасюк</a></h6>
-                            <div class="product__price">8000</div>
-                        </div>
-                    </div>
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot" data-setbg="{% static 'img/trend/антонтарасюк.png' %}">
-                            <ul class="product__hover">
-                                <li><a href="{% static 'img/trend/айвейвей.png' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_close"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Кокакола</a></h6>
-                            <h6><a href="#">Антон Тарасюк</a></h6>
-                            <div class="product__price">8000</div>
-                        </div>
-                    </div>
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot" data-setbg="{% static 'img/trend/кудзанайчиурай.png' %}">
-                            <ul class="product__hover">
-                                <li><a href="{% static 'img/trend/айвейвей.png' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_close"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Кокакола</a></h6>
-                            <h6><a href="#">Антон Тарасюк</a></h6>
-                            <div class="product__price">8000</div>
-                        </div>
-                    </div>
+                    {% include 'new/lot_card.html' %}
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot" data-setbg="{% static 'img/categories/категории1.png' %}">
-                            <ul class="product__hover">
-                                <li><a href="{% static 'img/trend/айвейвей.png' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_close"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Кокакола</a></h6>
-                            <h6><a href="#">Антон Тарасюк</a></h6>
-                            <div class="product__price">8000</div>
-                        </div>
-                    </div>
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot" data-setbg="{% static 'img/categories/категории.png' %}">
-                            <ul class="product__hover">
-                                <li><a href="{% static 'img/trend/айвейвей.png' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_close"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Кокакола</a></h6>
-                            <h6><a href="#">Антон Тарасюк</a></h6>
-                            <div class="product__price">8000</div>
-                        </div>
-                    </div>
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot" data-setbg="{% static 'img/trend/айвейвей.png' %}">
-                            <ul class="product__hover">
-                                <li><a href="{% static 'img/trend/айвейвей.png' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_close"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Кокакола</a></h6>
-                            <h6><a href="#">Антон Тарасюк</a></h6>
-                            <div class="product__price">8000</div>
-                        </div>
-                    </div>
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot" data-setbg="{% static 'img/trend/айвейвей.png' %}">
-                            <ul class="product__hover">
-                                <li><a href="{% static 'img/trend/айвейвей.png' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_close"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Кокакола</a></h6>
-                            <h6><a href="#">Антон Тарасюк</a></h6>
-                            <div class="product__price">8000</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot" data-setbg="{% static 'img/trend/айвейвей.png' %}">
-                            <ul class="product__hover">
-                                <li><a href="{% static 'img/trend/айвейвей.png' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_close"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Кокакола</a></h6>
-                            <h6><a href="#">Антон Тарасюк</a></h6>
-                            <div class="product__price">8000</div>
-                        </div>
-                    </div>
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot" data-setbg="{% static 'img/trend/айвейвей.png' %}">
-                            <ul class="product__hover">
-                                <li><a href="{% static 'img/trend/айвейвей.png' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_close"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Кокакола</a></h6>
-                            <h6><a href="#">Антон Тарасюк</a></h6>
-                            <div class="product__price">8000</div>
-                        </div>
-                    </div>
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg-lot" data-setbg="{% static 'img/trend/айвейвей.png' %}">
-                            <ul class="product__hover">
-                                <li><a href="{% static 'img/trend/айвейвей.png' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_close"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Кокакола</a></h6>
-                            <h6><a href="#">Антон Тарасюк</a></h6>
-                            <div class="product__price">8000</div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
+                {% if is_mine %}
                 <div class="col-lg-12 text-center">
-                    <a href="#" class="primary-btn load-btn">Загрузить еще</a>
+                    <a href="{% url 'market:create-lot-view' %}" class="primary-btn load-btn">Загрузить еще</a>
                 </div>
+                {% endif %}
             </div>
         </div>
     </section>

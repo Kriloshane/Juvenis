@@ -30,14 +30,10 @@ class IndexView(View):
         sketch = Picture.objects.filter(category=Picture.PictureCategory.sketch)
 
         """Albums"""
-        data = [list() for i in range(3)]
-        i = 0
-        for album in BuyerAlbum.objects.all().reverse()[0:10]:
-            data[i % 3].append(album) if [album] not in data else 0
-            i += 1
+        albums = BuyerAlbum.objects.all().reverse()[0:10]
 
         return render(request, 'new/index.html', {
-            'data': data,
+            'albums': albums,
             'p': photography,
             'a': abstraction,
             'por': portrait,
@@ -123,11 +119,13 @@ class LotView(View):
             if lot in album.pictures.all():
                 is_liked = True
         in_cart = lot in request.user.cart.pictures.all()
+        author_lots = Picture.objects.filter(author=lot.author).reverse()[0:5]
         return render(request, 'new/lot.html', {
             'lot': lot,
             'albums': albums,
             'is_liked': is_liked,
             'in_cart': in_cart,
+            'author_lots': author_lots
         })
 
     def post(self, request, slug):
@@ -156,8 +154,9 @@ class ProfileView(View):
         profile = Customer.objects.get(slug=slug)
         is_mine = request.user == profile
         if profile.is_artist():
-            lots = Picture.objects.filter(author=profile).reverse()[0:2]
-            return render(request, 'new/artist.html', {'profile': profile, 'is_mine': is_mine, 'lots': lots})
+            lots = Picture.objects.filter(author=profile).reverse()[0:4]
+            sale_count = Picture.objects.filter(author=profile, for_sale=True).count()
+            return render(request, 'new/artist.html', {'profile': profile, 'is_mine': is_mine, 'lots': lots, 'fs_cnt': sale_count})
         elif profile.is_buyer():
             albums = BuyerAlbum.objects.filter(buyer=profile).reverse()[0:3]
             return render(request, 'new/buyer.html', {'profile': profile, 'is_mine': is_mine, 'albums': albums})
@@ -172,26 +171,12 @@ class ProfileView(View):
 class MyAlbumsView(View):
 
     def get(self, request, user_slug):
-        albums = BuyerAlbum.objects.filter(buyer=Customer.objects.get(slug=user_slug))
-
-        paginator = Paginator(albums, 4)
-        page = paginator.get_page(request.GET.get('page', 1))
-        is_paginated = page.has_other_pages()
-
-        if page.has_previous():
-            previous_url = '?page={}'.format(page.previous_page_number())
-        else:
-            previous_url = ''
-
-        if page.has_next():
-            next_url = '?page={}'.format(page.next_page_number())
-        else:
-            next_url = ''
+        profile = Customer.objects.get(slug=user_slug)
+        albums = BuyerAlbum.objects.filter(buyer=profile)
         return render(request, 'new/albums.html', {
-            'page': page,
-            'is_paginated': is_paginated,
-            'next_url': next_url,
-            'previous_url': previous_url,
+            'albums': albums,
+            'is_mine': request.user == Customer.objects.get(slug=user_slug),
+            'profile': profile
         })
 
 
@@ -228,15 +213,11 @@ class FavouritesView(View):
 
 class ArtsView(View):
 
-    def get(self, request, slug):
-        data = [list() for i in range(4)]
-        i = 0
-        for lot in Picture.objects.filter(author=Customer.objects.get(slug=slug)):
-            data[i % 4].append(lot) if [lot] not in data else 0
-            i += 1
-        print(data)
+    def get(self, request, slug, for_sale=True):
+        lots = Picture.objects.filter(author=Customer.objects.get(slug=slug))
         return render(request, 'new/artistsgallery.html', {
-            'data': data
+            'lots': lots,
+            'is_mine': request.user == Customer.objects.get(slug=slug)
         })
 
 

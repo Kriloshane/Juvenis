@@ -1,0 +1,15 @@
+<div class="product__item">
+    <div class="product__item__pic set-bg-lot"
+         data-setbg="{{ lot.muzzle.image.url }}">
+        <ul class="product__hover">
+            <li><a href="{{ lot.muzzle.image.url }}" class="image-popup"><span
+                    class="arrow_expand"></span></a></li>
+            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+        </ul>
+    </div>
+    <div class="product__item__text">
+        <h6><a href="{{ lot.get_absolute_url }}">{{ lot.name }}</a></h6>
+        <h6><a href="{{ lot.author.get_absolute_url }}">{{ lot.author }}</a></h6>
+        <div class="product__price">{{ lot.get_price }} Р</div>
+    </div>
+</div>
