@@ -123,7 +123,7 @@ class LotView(View):
             if lot in album.pictures.all():
                 is_liked = True
         in_cart = lot in request.user.cart.pictures.all()
-        return render(request, 'lot.html', {
+        return render(request, 'new/lot.html', {
             'lot': lot,
             'albums': albums,
             'is_liked': is_liked,
@@ -157,10 +157,10 @@ class ProfileView(View):
         is_mine = request.user == profile
         if profile.is_artist():
             lots = Picture.objects.filter(author=profile).reverse()[0:2]
-            return render(request, 'artist.html', {'profile': profile, 'is_mine': is_mine, 'lots': lots})
+            return render(request, 'new/artist.html', {'profile': profile, 'is_mine': is_mine, 'lots': lots})
         elif profile.is_buyer():
             albums = BuyerAlbum.objects.filter(buyer=profile).reverse()[0:3]
-            return render(request, 'buyer.html', {'profile': profile, 'is_mine': is_mine, 'albums': albums})
+            return render(request, 'new/buyer.html', {'profile': profile, 'is_mine': is_mine, 'albums': albums})
 
     def post(self, request, slug):
         profile = Customer.objects.get(slug=slug)
@@ -187,7 +187,7 @@ class MyAlbumsView(View):
             next_url = '?page={}'.format(page.next_page_number())
         else:
             next_url = ''
-        return render(request, 'albums.html', {
+        return render(request, 'new/albums.html', {
             'page': page,
             'is_paginated': is_paginated,
             'next_url': next_url,
@@ -205,7 +205,7 @@ class AlbumView(View):
         while i != lots.count():
             data[i % 4].append(lots[i])
             i += 1
-        return render(request, "albumview.html", {
+        return render(request, "new/album.html", {
             'album': album,
             'data': data,
         })
@@ -221,7 +221,7 @@ class FavouritesView(View):
                 data[i % 4].append(lot) if [lot] not in data else 0
                 i += 1
         print(data)
-        return render(request, "liked.html", {
+        return render(request, "new/favourites.html", {
             'data': data
         })
 
@@ -235,7 +235,7 @@ class ArtsView(View):
             data[i % 4].append(lot) if [lot] not in data else 0
             i += 1
         print(data)
-        return render(request, 'artistsgallery.html', {
+        return render(request, 'new/artistsgallery.html', {
             'data': data
         })
 

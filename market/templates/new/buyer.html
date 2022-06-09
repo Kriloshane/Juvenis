@@ -8,7 +8,8 @@
     <meta name="keywords" content="Ashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JuvenisArts</title>
+    <title>Ashion | Template</title>
+
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
@@ -35,112 +36,103 @@
     <!-- Breadcrumb Begin -->
     <!-- Breadcrumb End -->
 
-    <!-- Checkout Section Begin -->
-    <section class="checkout spad">
+    <!-- if buyer -->
+    <section class="blog-details spad">
         <div class="container">
-            <form action="#" class="checkout__form">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <h5>Ваш заказ</h5>
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="checkout__form__input">
-                                    <p>Имя <span>*</span></p>
-                                    <input type="text">
+            <div class="blog__comment__item">
+                <div class="blog__comment__item__pic">
+                    <img src="{% static 'img/trend/антонтарасюк.png' %}" alt="">
+                </div>
+                <div class="blog__comment__item__text">
+                    <h6>Джим Дайн</h6>
+                    <p>Duis voluptatum. Id vis consequat consetetur dissentiet, ceteros commune perpetua
+                    mei et. Simul viderer facilisis egimus tractatos splendi.</p>
+                </div>
+                    <a href="#" class="site-btn">Подписаться</a>
+                <div class="followers">
+                    123 подписчика
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div class="blog__details__content">
+                        <div class="section-title">
+                            <h4>Обзор</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <div class="album__item">
+                                <div class="album__item__pic set-bg-album" data-setbg="{% static 'img/trend/айвейвей.png' %}">
+                                    <ul class="album__hover">
+                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                    </ul>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="checkout__form__input">
-                                    <p>Фамилия <span>*</span></p>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="checkout__form__input">
-                                    <p>Город <span>*</span></p>
-                                    <input type="text">
-                                </div>
-                                <div class="checkout__form__input">
-                                    <p>Postcode/Zip <span>*</span></p>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="checkout__form__input">
-                                    <p>Phone <span>*</span></p>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="checkout__form__input">
-                                    <p>Email <span>*</span></p>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="checkout__form__checkbox">
-                                    <label for="acc">
-                                        Create an acount?
-                                        <input type="checkbox" id="acc">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <p>Create am acount by entering the information below. If you are a returing
-                                        customer login at the <br />top of the page</p>
-                                    </div>
-                                    <div class="checkout__form__input">
-                                        <p>Account Password <span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                    <div class="checkout__form__checkbox">
-                                        <label for="note">
-                                            Note about your order, e.g, special noe for delivery
-                                            <input type="checkbox" id="note">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="checkout__form__input">
-                                        <p>Oder notes <span>*</span></p>
-                                        <input type="text"
-                                        placeholder="Note about your order, e.g, special noe for delivery">
-                                    </div>
+                                <div class="product__item__text">
+                                    <h6><a href="#">Домашний уют</a></h6>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="checkout__order">
-                                <h5>Ваш заказ</h5>
-                                <div class="checkout__order__product">
-                                    <ul>
-                                        <li>
-                                            <span class="top__text">Лот</span>
-                                            <span class="top__text__right">Цена</span>
-                                        </li>
-                                        <li>Женщины и Вода</li>
-                                        <li>Джим Дайн</li>
-                                        <li><div class="product__item__pic set-bg-lot" data-setbg="{% static 'img/product/джимдайн.png' %}">
-                                            <ul class="product__hover">
-                                                <li><a href="{% static 'img/product/джимдайн.png' %}" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                            </ul>
-                                        </div></li>
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <div class="album__item">
+                                <div class="album__item__pic set-bg-album" data-setbg="{% static 'img/trend/айвейвей.png' %}">
+                                    <ul class="album__hover">
+                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                     </ul>
                                 </div>
-                                <div class="checkout__order__total">
-                                    <ul>
-                                        <li>Всего:<span>75000 Р</span></li>
+                                <div class="product__item__text">
+                                    <h6><a href="#">Домашний уют</a></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <div class="album__item">
+                                <div class="album__item__pic set-bg-album" data-setbg="{% static 'img/trend/айвейвей.png' %}">
+                                    <ul class="album__hover">
+                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                     </ul>
                                 </div>
-                                <button type="submit" class="site-btn">Далее</button>
+                                <div class="product__item__text">
+                                    <h6><a href="#">Домашний уют</a></h6>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="blog__sidebar">
+                        <div class="blog__sidebar__item">
+                            <div class="section-title">
+                                <h4>Альбомы</h4>
+                            </div>
+                            <ul>
+                                <li><a href="#">Все <span>(25)</span></a></li>
+                            </ul>
+                        </div>
+                        <div class="blog__sidebar__item">
+                            <div class="section-title">
+                                <h4>Тэги</h4>
+                            </div>
+                            <div class="blog__sidebar__tags">
+                                <a href="#">Абстракция</a>
+                                <a href="#">Люди</a>
+                                <a href="#">Хуета</a>
+                                <a href="#">Я хз</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
-        <!-- Checkout Section End -->
+        </div>
+    </section>
 
-        <!-- Instagram Begin -->
-        <!-- Instagram End -->
+
+
+
+
+
+    <!-- Instagram Begin -->
+    <!-- Instagram End -->
 
 <!-- Footer Section Begin -->
 <footer class="footer">
@@ -212,7 +204,7 @@
 </div>
 <!-- Search End -->
 
-        <!-- Js Plugins -->
+    <!-- Js Plugins -->
 <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
@@ -223,6 +215,6 @@
 <script src="{% static 'js/owl.carousel.min.js' %}"></script>
 <script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
-    </body>
+</body>
 
-    </html>
+</html>

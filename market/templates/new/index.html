@@ -32,81 +32,7 @@
 <div id="preloder">
     <div class="loader"></div>
 </div>
-
-<!-- Offcanvas Menu Begin -->
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-    <div class="offcanvas__close">+</div>
-    <ul class="offcanvas__widget">
-        <li><span class="icon_search search-switch"></span></li>
-        <li><a href="#"><span class="icon_heart_alt"></span>
-            <div class="tip">2</div>
-        </a></li>
-        <li><a href="#"><span class="icon_bag_alt"></span>
-            <div class="tip">2</div>
-        </a></li>
-    </ul>
-    <div class="offcanvas__logo">
-        <a href="./index.html"><img src={% static 'img/logo.png' %}" alt=""></a>
-    </div>
-    <div id="mobile-menu-wrap"></div>
-    <div class="offcanvas__auth">
-        <a href="#">Login</a>
-        <a href="#">Register</a>
-    </div>
-</div>
-<!-- Offcanvas Menu End -->
-
-<!-- Header Section Begin -->
-<header class="header">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-3 col-lg-2">
-                <div class="header__logo">
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-7">
-                <nav class="header__menu">
-                    <ul>
-                        <li class="active"><a href="./index.html">Домой</a></li>
-                        <li><a href="#">О нас</a></li>
-                        <li><a href="./shop.html">Галерея</a></li>
-                        <li><a href="#">Профиль</a>
-                            <ul class="dropdown">
-                                <li><a href="./shop-cart.html">Мой Профиль</a></li>
-                                <li><a href="./checkout.html">Checkout</a></li>
-                                <li><a href="./blog-details.html">Blog Details</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="./blog.html">Blog</a></li>
-                        <li><a href="./contact.html">Контакты</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-lg-3">
-                <div class="header__right">
-                    <div class="header__right__auth">
-                        <a href="#">Войти</a>
-                        <a href="#">Зарегестрироваться</a>
-                    </div>
-                    <ul class="header__right__widget">
-                        <li><span class="icon_search search-switch"></span></li>
-                        <li><a href="#"><span class="icon_heart_alt"></span>
-                            <div class="tip">2</div>
-                        </a></li>
-                        <li><a href="#"><span class="icon_bag_alt"></span>
-                            <div class="tip">2</div>
-                        </a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="canvas__open">
-            <i class="fa fa-bars"></i>
-        </div>
-    </div>
-</header>
-<!-- Header Section End -->
+{% include 'headers.html' %}
 
 <!-- Categories Section Begin -->
 <section class="categories">
@@ -192,11 +118,10 @@
                                 <li><a href="{{ lot.muzzle.image.url }}" class="image-popup"><span
                                         class="arrow_expand"></span></a></li>
                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">
-                            <h6><a href="#">{{ lot.name }}</a></h6>
+                            <h6><a href="{{ pic.get_absolute_url }}">{{ lot.name }}</a></h6>
                             <h6><a href="#">{{ lot.author }}</a></h6>
                             <div class="product__price">{{ lot.get_price }} Р</div>
                         </div>
@@ -212,11 +137,10 @@
                                 <li><a href="{{ lot.muzzle.image.url }}" class="image-popup"><span
                                         class="arrow_expand"></span></a></li>
                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">
-                            <h6><a href="#">{{ lot.name }}</a></h6>
+                            <h6><a href="{{ pic.get_absolute_url }}">{{ lot.name }}</a></h6>
                             <h6><a href="#">{{ lot.author }}</a></h6>
                             <div class="product__price">{{ lot.get_price }} Р</div>
                         </div>
@@ -232,11 +156,10 @@
                                 <li><a href="{{ lot.muzzle.image.url }}" class="image-popup"><span
                                         class="arrow_expand"></span></a></li>
                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">
-                            <h6><a href="#">{{ lot.name }}</a></h6>
+                            <h6><a href="{{ pic.get_absolute_url }}">{{ lot.name }}</a></h6>
                             <h6><a href="#">{{ lot.author }}</a></h6>
                             <div class="product__price">{{ lot.get_price }} Р</div>
                         </div>
@@ -252,11 +175,10 @@
                                 <li><a href="{{ lot.muzzle.image.url }}" class="image-popup"><span
                                         class="arrow_expand"></span></a></li>
                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">
-                            <h6><a href="#">{{ lot.name }}</a></h6>
+                            <h6><a href="{{ pic.get_absolute_url }}">{{ lot.name }}</a></h6>
                             <h6><a href="#">{{ lot.author }}</a></h6>
                             <div class="product__price">{{ lot.get_price }} Р</div>
                         </div>
@@ -282,28 +204,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="owl-item cloned" style="width: 652.5px;">
-                                <div class="banner__item">
-                                    <div class="banner__text">
-                                        <span>The Chloe Collection</span>
-                                        <h1>The Project Jacket</h1>
-                                        <a href="#">Shop now</a>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="owl-item active" style="width: 652.5px;">
                                 <div class="banner__item">
                                     <div class="banner__text">
                                         <h1>Что такое JuvenisArts?</h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="owl-item" style="width: 652.5px;">
-                                <div class="banner__item">
-                                    <div class="banner__text">
-                                        <span>The Chloe Collection</span>
-                                        <h1>The Project Jacket</h1>
-                                        <a href="#">Shop now</a>
                                     </div>
                                 </div>
                             </div>
