@@ -1,0 +1,177 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ashion Template">
+    <meta name="keywords" content="Ashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.min.css' %}" type="text/css">
+</head>
+
+<body>
+
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+{% include 'new/headers.html' %}
+
+<section class="checkout spad">
+    <div class="container">
+        <form action="#" class="checkout__form">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h5>Ваша работа</h5>
+                    <div class="checkout__form__input">
+                        <p>Название<span>*</span></p>
+                        <input type="text">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="checkout__form__input">
+                                <p>Цена<span>*</span></p>
+                                <input type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="categories__accordion">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-heading active">
+                                    <a data-toggle="collapse" data-target="#collapseOne">Категории</a>
+                                </div>
+                                <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="checks__list">
+                                            {% for category in categories %}
+                                            <label for="{{ category }}">
+                                                {{ category.label }}
+                                                <input type="radio" id="{{ category }}" name="category[]"
+                                                       value="{{ category }}">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseTwo">Стили</a>
+                                </div>
+                                <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="checks__list">
+                                            {% for style in styles %}
+                                            <label for="{{ style }}">
+                                                {{ style.label }}
+                                                <input type="radio" id="{{ style }}" name="style[]"
+                                                       value="{{ style }}">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseThree">Жанры</a>
+                                </div>
+                                <div id="collapseThree" class="collapse" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="checks__list">
+                                            {% for genre in genres %}
+                                            <label for="{{ genre }}">
+                                                {{ genre.label }}
+                                                <input type="radio" id="{{ genre }}" name="genre[]"
+                                                       value="{{ genre }}">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="checkout__form__input">
+                                <p>Высота<span>*</span></p>
+                                <input type="text">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="checkout__form__input">
+                                <p>Ширина<span>*</span></p>
+                                <input type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="checkout__form__input">
+                        <p>Описание<span>*</span></p>
+                        <input style="height: 100px" type="text">
+                    </div>
+                    <div class="checkout__form__input">
+                        <p>Тема<span>*</span></p>
+                        <input style="height: 70px" type="text">
+                    </div>
+                    <div class="checkout__form__input">
+                        <p>Техника<span>*</span></p>
+                        <input style="height: 50px" type="text">
+                    </div>
+                    <div class="checkout__form__input">
+                        <p>Год создания<span>*</span></p>
+                        <input style="height: 50px" type="text">
+                    </div>
+                    тут как-то тэги надо сделать но я не знаю как
+                    <div class="checkout__form__input">
+                        <p>Файл<span>*</span></p>
+                        <input type="file">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/mixitup.min.js' %}"></script>
+<script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+<script src="{% static 'js/jquery.slicknav.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

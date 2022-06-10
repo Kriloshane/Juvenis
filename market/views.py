@@ -252,7 +252,7 @@ class CreateLotView(View):
         categories = Picture.PictureCategory
         styles = Picture.PictureStyle
         genres = Picture.PictureGenre
-        return render(request, 'lotloading.html', {
+        return render(request, 'new/lot_creating.html', {
             'categories': categories,
             'styles': styles,
             'genres': genres,
