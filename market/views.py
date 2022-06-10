@@ -109,6 +109,12 @@ class GalleryView(View):
                       })
 
 
+class ContactView(View):
+
+    def get(self, request):
+        return render(request, 'new/contact.html')
+
+
 class LotView(View):
 
     def get(self, request, slug):
@@ -148,6 +154,18 @@ class LotView(View):
         return redirect(lot.get_absolute_url())
 
 
+def add_favour(request, slug):
+    lot = Picture.objects.get(slug=slug)
+    request.user.favorites.add(lot)
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+def delete_favour(request, slug):
+    lot = Picture.objects.get(slug=slug)
+    request.user.favorites.remove(lot)
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
 class ProfileView(View):
 
     def get(self, request, slug):
@@ -156,7 +174,8 @@ class ProfileView(View):
         if profile.is_artist():
             lots = Picture.objects.filter(author=profile).reverse()[0:4]
             sale_count = Picture.objects.filter(author=profile, for_sale=True).count()
-            return render(request, 'new/artist.html', {'profile': profile, 'is_mine': is_mine, 'lots': lots, 'fs_cnt': sale_count})
+            return render(request, 'new/artist.html',
+                          {'profile': profile, 'is_mine': is_mine, 'lots': lots, 'fs_cnt': sale_count})
         elif profile.is_buyer():
             albums = BuyerAlbum.objects.filter(buyer=profile).reverse()[0:3]
             return render(request, 'new/buyer.html', {'profile': profile, 'is_mine': is_mine, 'albums': albums})

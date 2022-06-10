@@ -10,11 +10,14 @@ urlpatterns = [
     path('', IndexView.as_view(), name="index"),
     path('gallery', GalleryView.as_view(), name="gallery-view"),
     path('lots/<str:slug>/', LotView.as_view(), name="lot-view"),
+    path('lots/<str:slug>/add_favor', add_favour, name="add_favor"),
+    path('lots/<str:slug>/delete_favor', delete_favour, name="delete_favor"),
 
     path('profiles/<str:slug>/', ProfileView.as_view(), name="profile-view"),
-
     path('profiles/<str:user_slug>/albums/', MyAlbumsView.as_view(), name="my-albums-view"),
     path('profiles/<str:user_slug>/albums/<str:slug>', AlbumView.as_view(), name="album-view"),
+
+    path('contact/', ContactView.as_view(), name="contact-view"),
 
     path('arts/<str:slug>', ArtsView.as_view(), name="my-arts-view"),
     path('favourites/', FavouritesView.as_view(), name="favourites-view"),

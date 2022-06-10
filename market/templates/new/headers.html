@@ -63,11 +63,11 @@
                         <li><a href="#">Профиль</a>
                             <ul class="dropdown">
                                 <li><a href="{{ request.user.get_absolute_url }}">Мой Профиль</a></li>
-                                <li><a href="#">Мои работы</a></li>
-                                <li><a href="#">Новая работа</a></li>
+                                <li><a href="{% url 'market:my-arts-view' request.user.slug %}">Мои работы</a></li>
+                                <li><a href="{% url 'market:create-lot-view' %}">Новая работа</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Контакты</a></li>
+                        <li><a href="{% url 'market:contact-view' %}">Контакты</a></li>
                     </ul>
                 </nav>
             </div>
@@ -124,12 +124,12 @@
                         <li><a href="{% url 'market:gallery-view' %}">Галерея</a></li>
                         <li><a href="#">Профиль</a>
                             <ul class="dropdown">
-                                <li><a href="./shop-cart.html">Мой Профиль</a></li>
-                                <li><a href="./checkout.html">Мои альбомы</a></li>
+                                <li><a href="{{ request.user.get_absolute_url }}">Мой Профиль</a></li>
+                                <li><a href="{% url 'market:my-albums-view' request.user.slug %}">Мои альбомы</a></li>
                                 <li><a href="./blog-details.html">Новый альбом</a></li>
                             </ul>
                         </li>
-                        <li><a href="./contact.html">Контакты</a></li>
+                        <li><a href="{% url 'market:contact-view' %}">Контакты</a></li>
                     </ul>
                 </nav>
             </div>
@@ -182,7 +182,7 @@
                         <li><a href="#">О нас</a></li>
                         <li><a href="{% url 'market:gallery-view' %}">Галерея</a></li>
                         <li><a href="#">Профиль</a></li>
-                        <li><a href="#">Контакты</a></li>
+                        <li><a href="{% url 'market:contact-view' %}">Контакты</a></li>
                     </ul>
                 </nav>
             </div>

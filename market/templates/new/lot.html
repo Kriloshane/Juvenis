@@ -108,7 +108,7 @@
                             {% for review in lot.reviews.all %}
                                 <div class="blog__comment__item">
                                     <div class="blog__comment__item__pic">
-                                        <img src="{% static 'img/blog/details/comment-1.jpg' %}" alt="">
+                                        <img src="{{ review.author.photo.url }}" alt="">
                                     </div>
                                     <div class="blog__comment__item__text">
                                         <h6>{{ review.author }}</h6>

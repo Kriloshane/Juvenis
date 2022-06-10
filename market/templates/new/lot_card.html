@@ -4,7 +4,11 @@
         <ul class="product__hover">
             <li><a href="{{ lot.muzzle.image.url }}" class="image-popup"><span
                     class="arrow_expand"></span></a></li>
-            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+            {% if lot in request.user.favorites.all %}
+                <li><a href="{% url 'market:delete_favor' lot.slug %}"><span class="icon_dislike_alt"></span></a></li>
+            {% else %}
+                <li><a href="{% url 'market:add_favor' lot.slug %}"><span class="icon_heart_alt"></span></a></li>
+            {% endif %}
         </ul>
     </div>
     <div class="product__item__text">

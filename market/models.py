@@ -32,6 +32,7 @@ class Customer(AbstractUser):  # username, password, f_n, l_n, email
     subscriptions = models.ManyToManyField("Customer", verbose_name='Подписки', blank=True)
     last_activity = models.DateTimeField(blank=True, null=True, verbose_name="Последняя активность")
     art_currency = models.IntegerField(default=0, verbose_name="Валюта")
+    favorites = models.ManyToManyField('Picture', verbose_name='Избранное', related_name='lovers')
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, verbose_name='Ссылка')
 
     def __str__(self):
