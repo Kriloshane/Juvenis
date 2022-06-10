@@ -35,7 +35,7 @@ class Customer(AbstractUser):  # username, password, f_n, l_n, email
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, verbose_name='Ссылка')
 
     def __str__(self):
-        if self.first_name and self.last_name:
+        if self.first_name and self.last_name and self.id:
             return f"{self.first_name} {self.last_name}"
         return f"{self.username}"
 

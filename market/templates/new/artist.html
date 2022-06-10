@@ -44,6 +44,9 @@
             <div class="blog__comment__item__pic">
                 <img src="{{ profile.photo.url }}" alt="">
             </div>
+            {% if is_mine %}
+            <a href="#" class="site-btn" style="float: right">Редактировать профиль</a>
+            {% endif %}
             <div class="blog__comment__item__text">
                 <h6>{{ profile }}</h6>
                 <p>{{ profile.biography }}.</p>

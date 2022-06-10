@@ -64,9 +64,9 @@
                                     <input name="action" hidden="true" value="add_favour">
                                     <li><a href="#"><span class="icon_dislike_alt"></span></a></li>
                                 {% endif %}
-                                <!-- if buyer b -->
+                                {% if request.user.is_buyer %}
                                 <li><a href="#"><span class="icon_plus"></span></a></li>
-                                <!-- if buyer e -->
+                                {% endif %}
                             {% endif %}
                         </ul>
                     </div>
