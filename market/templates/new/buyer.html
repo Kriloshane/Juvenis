@@ -66,7 +66,9 @@
                 </div>
                 <div class="row">
                     {% for album in albums %}
-                        {% include 'new/album_card.html' %}
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            {% include 'new/album_card.html' %}
+                        </div>
                     {% endfor %}
                 </div>
             </div>
@@ -77,7 +79,7 @@
                             <h4>Альбомы</h4>
                         </div>
                         <ul>
-                            <li><a href="{% url 'market:my-albums-view' profile.slug %}">Все <span>(25)</span></a></li>
+                            <li><a href="{% url 'market:my-albums-view' profile.slug %}">Все <span>{{ profile.albums.count }}</span></a></li>
                         </ul>
                     </div>
                     <div class="blog__sidebar__item">

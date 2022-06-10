@@ -52,20 +52,20 @@
                             href="{{ lot.author.get_absolute_url }}"><span>{{ lot.author }}</span></a></h3>
                     <div class="product__details__price">₽ {{ lot.get_price }}</div>
                     <p>{{ lot.technique }}</p>
-                    <p>60х60 см</p>
+                    <p>{{ lot.width }}х{{ lot.length }} см</p>
                     <div class="product__details__button">
                         <a href="#" class="site-btn">Приобрести</a>
                         <ul>
                             {% if request.user.is_authenticated %}
-                                {% if is_liked %}
-                                    <input name="action" hidden="true" value="delete_favour">
-                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                {% if lot in request.user.favorites.all %}
+                                    <li><a href="{% url 'market:delete_favor' lot.slug %}"><span
+                                            class="icon_dislike_alt"></span></a></li>
                                 {% else %}
-                                    <input name="action" hidden="true" value="add_favour">
-                                    <li><a href="#"><span class="icon_dislike_alt"></span></a></li>
+                                    <li><a href="{% url 'market:add_favor' lot.slug %}"><span
+                                            class="icon_heart_alt"></span></a></li>
                                 {% endif %}
                                 {% if request.user.is_buyer %}
-                                <li><a href="#"><span class="icon_plus"></span></a></li>
+                                    <li><a href="#"><span class="icon_plus"></span></a></li>
                                 {% endif %}
                             {% endif %}
                         </ul>

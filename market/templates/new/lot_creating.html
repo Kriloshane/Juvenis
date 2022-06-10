@@ -38,13 +38,14 @@
 
 <section class="checkout spad">
     <div class="container">
-        <form action="#" class="checkout__form">
+        <form action="" class="checkout__form" method="POST" enctype='multipart/form-data'>
+        {% csrf_token %}
             <div class="row">
                 <div class="col-lg-6">
                     <h5>Ваша работа</h5>
                     <div class="checkout__form__input">
                         <p>Название<span>*</span></p>
-                        <input type="text">
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="name" required>
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
@@ -52,7 +53,8 @@
                         <div class="col-lg-6">
                             <div class="checkout__form__input">
                                 <p>Цена<span>*</span></p>
-                                <input type="text">
+                                <input type="number" class="form-control" id="exampleInputEmail1"
+                                       aria-describedby="emailHelp" name="price" required>
                             </div>
                         </div>
                     </div>
@@ -66,12 +68,12 @@
                                     <div class="card-body">
                                         <div class="checks__list">
                                             {% for category in categories %}
-                                            <label for="{{ category }}">
-                                                {{ category.label }}
-                                                <input type="radio" id="{{ category }}" name="category[]"
-                                                       value="{{ category }}">
-                                                <span class="checkmark"></span>
-                                            </label>
+                                                <label for="{{ category }}">
+                                                    {{ category.label }}
+                                                    <input type="radio" id="{{ category }}" name="category"
+                                                           value="{{ category }}">
+                                                    <span class="checkmark"></span>
+                                                </label>
                                             {% endfor %}
                                         </div>
                                     </div>
@@ -85,12 +87,12 @@
                                     <div class="card-body">
                                         <div class="checks__list">
                                             {% for style in styles %}
-                                            <label for="{{ style }}">
-                                                {{ style.label }}
-                                                <input type="radio" id="{{ style }}" name="style[]"
-                                                       value="{{ style }}">
-                                                <span class="checkmark"></span>
-                                            </label>
+                                                <label for="{{ style }}">
+                                                    {{ style.label }}
+                                                    <input type="radio" id="{{ style }}" name="style"
+                                                           value="{{ style }}">
+                                                    <span class="checkmark"></span>
+                                                </label>
                                             {% endfor %}
                                         </div>
                                     </div>
@@ -104,12 +106,12 @@
                                     <div class="card-body">
                                         <div class="checks__list">
                                             {% for genre in genres %}
-                                            <label for="{{ genre }}">
-                                                {{ genre.label }}
-                                                <input type="radio" id="{{ genre }}" name="genre[]"
-                                                       value="{{ genre }}">
-                                                <span class="checkmark"></span>
-                                            </label>
+                                                <label for="{{ genre }}">
+                                                    {{ genre.label }}
+                                                    <input type="radio" id="{{ genre }}" name="genre"
+                                                           value="{{ genre }}">
+                                                    <span class="checkmark"></span>
+                                                </label>
                                             {% endfor %}
                                         </div>
                                     </div>
@@ -122,13 +124,13 @@
                         <div class="col-lg-6">
                             <div class="checkout__form__input">
                                 <p>Высота<span>*</span></p>
-                                <input type="text">
+                                <input type="number" class="form-control" id="inputPassword4" name="width" required>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="checkout__form__input">
                                 <p>Ширина<span>*</span></p>
-                                <input type="text">
+                                <input type="number" class="form-control" id="inputEmail4" name="length" required>
                             </div>
                         </div>
                     </div>
@@ -136,25 +138,31 @@
                 <div class="col-lg-6">
                     <div class="checkout__form__input">
                         <p>Описание<span>*</span></p>
-                        <input style="height: 100px" type="text">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                  name="description"></textarea>
                     </div>
                     <div class="checkout__form__input">
                         <p>Тема<span>*</span></p>
-                        <input style="height: 70px" type="text">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="theme"
+                                  required></textarea>
                     </div>
                     <div class="checkout__form__input">
                         <p>Техника<span>*</span></p>
-                        <input style="height: 50px" type="text">
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="technique">
                     </div>
                     <div class="checkout__form__input">
                         <p>Год создания<span>*</span></p>
-                        <input style="height: 50px" type="text">
+                        <input type="number" class="form-control" id="exampleFormControlInput1" name="year_created"
+                               maxlength="4" required>
                     </div>
                     тут как-то тэги надо сделать но я не знаю как
                     <div class="checkout__form__input">
                         <p>Файл<span>*</span></p>
-                        <input type="file">
+                        <input class="form-control" type="file" id="formFile" name="pictures[]" required>
                     </div>
+                    <button type="submit">
+                        Готово
+                    </button>
                 </div>
             </div>
         </form>

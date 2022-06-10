@@ -16,6 +16,7 @@ urlpatterns = [
     path('profiles/<str:slug>/', ProfileView.as_view(), name="profile-view"),
     path('profiles/<str:user_slug>/albums/', MyAlbumsView.as_view(), name="my-albums-view"),
     path('profiles/<str:user_slug>/albums/<str:slug>', AlbumView.as_view(), name="album-view"),
+    path('profiles/<str:user_slug>/albums/<str:slug>/delete', album_delete, name="album-delete"),
 
     path('contact/', ContactView.as_view(), name="contact-view"),
 

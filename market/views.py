@@ -202,17 +202,16 @@ class MyAlbumsView(View):
 class AlbumView(View):
 
     def get(self, request, user_slug, slug):
-        album = BuyerAlbum.objects.get(slug=slug)
-        lots = album.pictures.all()
-        data = [list() for i in range(lots.count())]
-        i = 0
-        while i != lots.count():
-            data[i % 4].append(lots[i])
-            i += 1
+        album = BuyerAlbum.objects.get(slug=slug).reverse()
         return render(request, "new/album.html", {
             'album': album,
-            'data': data,
+            'is_mine': request.user == Customer.objects.get(slug=user_slug)
         })
+
+
+def album_delete(request, user_slug, slug):
+    BuyerAlbum.objects.get(slug=slug).delete()
+    return reverse("market:my-albums-view", kwargs={'user_slug': request.user.slug})
 
 
 class FavouritesView(View):
@@ -233,7 +232,7 @@ class FavouritesView(View):
 class ArtsView(View):
 
     def get(self, request, slug, for_sale=True):
-        lots = Picture.objects.filter(author=Customer.objects.get(slug=slug))
+        lots = Picture.objects.filter(author=Customer.objects.get(slug=slug)).reverse()
         return render(request, 'new/artistsgallery.html', {
             'lots': lots,
             'is_mine': request.user == Customer.objects.get(slug=slug)
@@ -269,14 +268,17 @@ class CreateLotView(View):
         width = request.POST.get('width', 100)
         technique = request.POST.get('technique', '')
         year_created = request.POST.get('year_created', 2000)
+        category = request.POST.get('category', Picture.PictureCategory.is_absent)
+        genre = request.POST.get('category', Picture.PictureGenre.is_absent)
+        style = request.POST.get('style', Picture.PictureStyle.is_absent)
 
         lot = Picture.objects.create(name=name, author=request.user, price=price, description=description,
-                                     length=length, width=width,
+                                     length=length, width=width, category=category, genre=genre, style=style,
                                      technique=technique, year_created=year_created)
         for image in request.FILES.getlist('pictures[]'):
             PictureImg.objects.create(image=image, announcement=lot)
 
-        return redirect('/my_arts/')
+        return redirect(lot.get_absolute_url())
 
 
 class SignUp(View):

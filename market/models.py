@@ -243,6 +243,9 @@ class BuyerAlbum(models.Model):
     def get_absolute_url(self):
         return reverse('market:album-view', kwargs={'user_slug': self.buyer.slug, 'slug': self.slug})
 
+    def get_absolute_url_delete(self):
+        return reverse('market:album-delete', kwargs={'user_slug': self.buyer.slug, 'slug': self.slug})
+
     class Meta:
         verbose_name = "Альбом"
         verbose_name_plural = "Альбомы"
