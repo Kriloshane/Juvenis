@@ -57,16 +57,27 @@
                         <a href="#" class="site-btn">Приобрести</a>
                         <ul>
                             {% if request.user.is_authenticated %}
-                                {% if is_liked %}
-                                    <input name="action" hidden="true" value="delete_favour">
-                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                {% else %}
-                                    <input name="action" hidden="true" value="add_favour">
-                                    <li><a href="#"><span class="icon_dislike_alt"></span></a></li>
-                                {% endif %}
-                                {% if request.user.is_buyer %}
-                                <li><a href="#"><span class="icon_plus"></span></a></li>
-                                {% endif %}
+                            {% if not is_liked %}
+                            <input name="action" hidden="true" value="delete_favour">
+                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                            {% else %}
+                            <input name="action" hidden="true" value="add_favour">
+                            <li><a href="#"><span class="icon_dislike_alt"></span></a></li>
+                            {% endif %}
+                            {% if request.user.is_buyer %}
+                            <li>
+                                <button id="callback-button"><span class="icon_plus"></span></button>
+                            </li>
+                            <div class="modal" id="modal-1">
+                                <div class="modal__content">
+                                    <button class="modal__close-button"><img src="#" width="12" alt="">
+                                    </button>
+                                    <h1 class="modal__title">Контент для примера</h1>
+                                    <p class="modal__description">Статья с уроком - <a
+                                            href="#">тут</a></p>
+                                </div>
+                            </div>
+                            {% endif %}
                             {% endif %}
                         </ul>
                     </div>
@@ -106,19 +117,19 @@
                         <div class="tab-pane" id="tabs-2" role="tabpanel">
                             <h6>Комментарии</h6>
                             {% for review in lot.reviews.all %}
-                                <div class="blog__comment__item">
-                                    <div class="blog__comment__item__pic">
-                                        <img src="{{ review.author.photo.url }}" alt="">
-                                    </div>
-                                    <div class="blog__comment__item__text">
-                                        <h6>{{ review.author }}</h6>
-                                        <p>{{ review.text }}</p>
-                                        <ul>
-                                            <li><i class="fa fa-clock-o"></i>{{ review.date|date:'d M, Y' }}</li>
-                                            <li><i class="fa fa-heart-o"></i>{{ review.likes }}</li>
-                                        </ul>
-                                    </div>
+                            <div class="blog__comment__item">
+                                <div class="blog__comment__item__pic">
+                                    <img src="{{ review.author.photo.url }}" alt="">
                                 </div>
+                                <div class="blog__comment__item__text">
+                                    <h6>{{ review.author }}</h6>
+                                    <p>{{ review.text }}</p>
+                                    <ul>
+                                        <li><i class="fa fa-clock-o"></i>{{ review.date|date:'d M, Y' }}</li>
+                                        <li><i class="fa fa-heart-o"></i>{{ review.likes }}</li>
+                                    </ul>
+                                </div>
+                            </div>
                             {% endfor %}
                         </div>
                     </div>
@@ -132,9 +143,9 @@
                 </div>
             </div>
             {% for lot in author_lots %}
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    {% include 'new/lot_card.html' %}
-                </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                {% include 'new/lot_card.html' %}
+            </div>
             {% endfor %}
         </div>
     </div>

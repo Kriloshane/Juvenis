@@ -34,7 +34,7 @@
 <div class="offcanvas-menu-wrapper">
     <div class="offcanvas__close">+</div>
     <div class="offcanvas__logo">
-        <a href="../index.html"><img src="{% static 'img/logo.png' %}" alt=""></a>
+        <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt="" ></a>
     </div>
     <div id="mobile-menu-wrap"></div>
     <ul class="offcanvas__widget">
@@ -52,6 +52,7 @@
         <div class="row">
             <div class="col-xl-3 col-lg-2">
                 <div class="header__logo">
+                    <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt="" style="height: 50px"></a>
                 </div>
             </div>
             <div class="col-xl-6 col-lg-7">
@@ -65,6 +66,7 @@
                                 <li><a href="{{ request.user.get_absolute_url }}">Мой Профиль</a></li>
                                 <li><a href="{% url 'market:my-arts-view' request.user.slug %}">Мои работы</a></li>
                                 <li><a href="{% url 'market:create-lot-view' %}">Новая работа</a></li>
+                                <li><a href="#">Подписки</a></li>
                             </ul>
                         </li>
                         <li><a href="{% url 'market:contact-view' %}">Контакты</a></li>
@@ -102,7 +104,7 @@
         </a></li>
     </ul>
     <div class="offcanvas__logo">
-        <a href="../index.html"><img src="{% static 'img/logo.png' %}" alt=""></a>
+        <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt="" style="height: 50px"></a>
     </div>
     <div id="mobile-menu-wrap"></div>
 </div>
@@ -114,6 +116,7 @@
         <div class="row">
             <div class="col-xl-3 col-lg-2">
                 <div class="header__logo">
+                    <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt="" style="height: 50px"></a>
                 </div>
             </div>
             <div class="col-xl-6 col-lg-7">
@@ -127,6 +130,7 @@
                                 <li><a href="{{ request.user.get_absolute_url }}">Мой Профиль</a></li>
                                 <li><a href="{% url 'market:my-albums-view' request.user.slug %}">Мои альбомы</a></li>
                                 <li><a href="./blog-details.html">Новый альбом</a></li>
+                                <li><a href="#">Подписки</a></li>
                             </ul>
                         </li>
                         <li><a href="{% url 'market:contact-view' %}">Контакты</a></li>
@@ -157,7 +161,7 @@
 <div class="offcanvas-menu-wrapper">
     <div class="offcanvas__close">+</div>
     <div class="offcanvas__logo">
-        <a href="../index.html"><img src="{% static 'img/logo.png' %}" alt=""></a>
+        <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt="" style="height: 50px"></a>
     </div>
     <div id="mobile-menu-wrap"></div>
     <div class="offcanvas__auth">
@@ -173,6 +177,7 @@
         <div class="row">
             <div class="col-xl-3 col-lg-2">
                 <div class="header__logo">
+                    <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt="" style="height: 50px"></a>
                 </div>
             </div>
             <div class="col-xl-6 col-lg-7">
