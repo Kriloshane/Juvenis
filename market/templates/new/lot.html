@@ -58,7 +58,6 @@
                         <a href="#" class="site-btn">Приобрести</a>
                         <ul>
                             {% if request.user.is_authenticated %}
-<<<<<<< HEAD
                                 {% if lot in request.user.favorites.all %}
                                     <li><a href="{% url 'market:delete_favor' lot.slug %}"><span
                                             class="icon_dislike_alt"></span></a></li>
@@ -67,39 +66,29 @@
                                             class="icon_heart_alt"></span></a></li>
                                 {% endif %}
                                 {% if request.user.is_buyer %}
-                                    <li><a href="#"><span class="icon_plus"></span></a></li>
+                                    <li>
+                                        <a data-fancybox href="#hidden"><span class="icon_plus"></span></a>
+                                    </li>
+                                    <form action="{% url 'market:ata' %}" style="display: none; width: 500px;" method="POST"
+                                          id="hidden">
+                                        {% csrf_token %}
+                                        <input hidden="true" name="lot_slug" value="{{ lot.slug }}"/>
+                                        <h2>Добавить в альбом</h2>
+                                        <div class="albums__list">
+                                            {% for album in albums %}
+                                                {% if lot not in album.pictures.all %}
+                                                <label for="album{{ album.id }}">
+                                                    <input type="checkbox" id="album{{ album.id }}" name="slugs[]" value="{{ album.slug }}" >
+                                                    <span class="checkmark"></span>
+                                                    {{ album.name }}
+                                                </label>
+                                                    <br>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <button type="submit" class="site-btn">Сохранить</button>
+                                    </form>
                                 {% endif %}
-=======
-                            {% if not is_liked %}
-                            <input name="action" hidden="true" value="delete_favour">
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            {% else %}
-                            <input name="action" hidden="true" value="add_favour">
-                            <li><a href="#"><span class="icon_dislike_alt"></span></a></li>
-                            {% endif %}
-                            {% if request.user.is_buyer %}
-                            <li>
-                                <a data-fancybox href="#hidden"><span class="icon_plus"></span></a>
-                            </li>
-                            <div style="display: none; width: 500px;" id="hidden">
-                                <h2>Добавить в альбом</h2>
-                                <br>
-                                    <div class="albums__list">
-                                    <label for="abstract">
-                                        Абстракционизм
-                                        <input type="checkbox" id="abstract">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label for="abstract">
-                                        Абстракционизм
-                                        <input type="checkbox" id="abstract">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <div class="site-btn">Сохранить</div>
-                            </div>
-                            {% endif %}
->>>>>>> 50bedd53760ca77d3aabd229542a6adc75f4bc1b
                             {% endif %}
                         </ul>
                     </div>
@@ -139,19 +128,19 @@
                         <div class="tab-pane" id="tabs-2" role="tabpanel">
                             <h6>Комментарии</h6>
                             {% for review in lot.reviews.all %}
-                            <div class="blog__comment__item">
-                                <div class="blog__comment__item__pic">
-                                    <img src="{{ review.author.photo.url }}" alt="">
+                                <div class="blog__comment__item">
+                                    <div class="blog__comment__item__pic">
+                                        <img src="{{ review.author.photo.url }}" alt="">
+                                    </div>
+                                    <div class="blog__comment__item__text">
+                                        <h6>{{ review.author }}</h6>
+                                        <p>{{ review.text }}</p>
+                                        <ul>
+                                            <li><i class="fa fa-clock-o"></i>{{ review.date|date:'d M, Y' }}</li>
+                                            <li><i class="fa fa-heart-o"></i>{{ review.likes }}</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="blog__comment__item__text">
-                                    <h6>{{ review.author }}</h6>
-                                    <p>{{ review.text }}</p>
-                                    <ul>
-                                        <li><i class="fa fa-clock-o"></i>{{ review.date|date:'d M, Y' }}</li>
-                                        <li><i class="fa fa-heart-o"></i>{{ review.likes }}</li>
-                                    </ul>
-                                </div>
-                            </div>
                             {% endfor %}
                         </div>
                     </div>
@@ -165,9 +154,9 @@
                 </div>
             </div>
             {% for lot in author_lots %}
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                {% include 'new/lot_card.html' %}
-            </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    {% include 'new/lot_card.html' %}
+                </div>
             {% endfor %}
         </div>
     </div>

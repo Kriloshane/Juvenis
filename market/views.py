@@ -209,6 +209,28 @@ class AlbumView(View):
         })
 
 
+def add_to_album(request):
+    if request.method == "POST":
+        lot = Picture.objects.get(slug=request.POST.get('lot_slug', None))
+        print(request.POST)
+        for slug in request.POST.getlist('slugs[]', ''):
+            print(slug)
+            album = BuyerAlbum.objects.get(slug=slug)
+            album.pictures.add(lot)
+            album.save()
+        return redirect(request.META.get('HTTP_REFERER'))
+
+
+def delete_from_album(request):
+    if request.method == "POST":
+        lot = Picture.objects.get(slug=request.POST.get('lot_slug', None))
+        for slug in request.POST.getlist('slugs[]', ''):
+            album = BuyerAlbum.objects.get(slug=slug)
+            album.pictures.remove(lot)
+            album.save()
+        return redirect(request.META.get('HTTP_REFERER'))
+
+
 def album_delete(request, user_slug, slug):
     BuyerAlbum.objects.get(slug=slug).delete()
     return reverse("market:my-albums-view", kwargs={'user_slug': request.user.slug})

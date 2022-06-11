@@ -20,6 +20,9 @@ urlpatterns = [
 
     path('contact/', ContactView.as_view(), name="contact-view"),
 
+    path('add_to_album', add_to_album, name="ata"),
+    path('delete_from_album', delete_from_album, name="dla"),
+
     path('arts/<str:slug>', ArtsView.as_view(), name="my-arts-view"),
     path('favourites/', FavouritesView.as_view(), name="favourites-view"),
     path('cart/<str:slug>', CartView.as_view(), name="cart-view"),
