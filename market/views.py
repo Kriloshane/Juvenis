@@ -284,10 +284,10 @@ class CreateLotView(View):
 class SignUp(View):
 
     def get(self, request):
-        return render(request, "registration.html")
+        return render(request, "new/signup.html")
 
 
 class SignIn(View):
 
     def get(self, request):
-        return render(request, "login.html")
+        return render(request, "new/signin.html")

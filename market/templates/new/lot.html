@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/jquery.fancybox.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/style.min.css' %}" type="text/css">
 </head>
 
@@ -57,6 +58,7 @@
                         <a href="#" class="site-btn">Приобрести</a>
                         <ul>
                             {% if request.user.is_authenticated %}
+<<<<<<< HEAD
                                 {% if lot in request.user.favorites.all %}
                                     <li><a href="{% url 'market:delete_favor' lot.slug %}"><span
                                             class="icon_dislike_alt"></span></a></li>
@@ -67,6 +69,37 @@
                                 {% if request.user.is_buyer %}
                                     <li><a href="#"><span class="icon_plus"></span></a></li>
                                 {% endif %}
+=======
+                            {% if not is_liked %}
+                            <input name="action" hidden="true" value="delete_favour">
+                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                            {% else %}
+                            <input name="action" hidden="true" value="add_favour">
+                            <li><a href="#"><span class="icon_dislike_alt"></span></a></li>
+                            {% endif %}
+                            {% if request.user.is_buyer %}
+                            <li>
+                                <a data-fancybox href="#hidden"><span class="icon_plus"></span></a>
+                            </li>
+                            <div style="display: none; width: 500px;" id="hidden">
+                                <h2>Добавить в альбом</h2>
+                                <br>
+                                    <div class="albums__list">
+                                    <label for="abstract">
+                                        Абстракционизм
+                                        <input type="checkbox" id="abstract">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label for="abstract">
+                                        Абстракционизм
+                                        <input type="checkbox" id="abstract">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="site-btn">Сохранить</div>
+                            </div>
+                            {% endif %}
+>>>>>>> 50bedd53760ca77d3aabd229542a6adc75f4bc1b
                             {% endif %}
                         </ul>
                     </div>
@@ -106,19 +139,19 @@
                         <div class="tab-pane" id="tabs-2" role="tabpanel">
                             <h6>Комментарии</h6>
                             {% for review in lot.reviews.all %}
-                                <div class="blog__comment__item">
-                                    <div class="blog__comment__item__pic">
-                                        <img src="{{ review.author.photo.url }}" alt="">
-                                    </div>
-                                    <div class="blog__comment__item__text">
-                                        <h6>{{ review.author }}</h6>
-                                        <p>{{ review.text }}</p>
-                                        <ul>
-                                            <li><i class="fa fa-clock-o"></i>{{ review.date|date:'d M, Y' }}</li>
-                                            <li><i class="fa fa-heart-o"></i>{{ review.likes }}</li>
-                                        </ul>
-                                    </div>
+                            <div class="blog__comment__item">
+                                <div class="blog__comment__item__pic">
+                                    <img src="{{ review.author.photo.url }}" alt="">
                                 </div>
+                                <div class="blog__comment__item__text">
+                                    <h6>{{ review.author }}</h6>
+                                    <p>{{ review.text }}</p>
+                                    <ul>
+                                        <li><i class="fa fa-clock-o"></i>{{ review.date|date:'d M, Y' }}</li>
+                                        <li><i class="fa fa-heart-o"></i>{{ review.likes }}</li>
+                                    </ul>
+                                </div>
+                            </div>
                             {% endfor %}
                         </div>
                     </div>
@@ -132,9 +165,9 @@
                 </div>
             </div>
             {% for lot in author_lots %}
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    {% include 'new/lot_card.html' %}
-                </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                {% include 'new/lot_card.html' %}
+            </div>
             {% endfor %}
         </div>
     </div>
@@ -222,6 +255,7 @@
 <script src="{% static 'js/jquery.slicknav.js' %}"></script>
 <script src="{% static 'js/owl.carousel.min.js' %}"></script>
 <script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+<script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 </body>
 
