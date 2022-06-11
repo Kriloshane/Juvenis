@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/jquery.fancybox.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/style.min.css' %}" type="text/css">
 </head>
 
@@ -66,15 +67,21 @@
                             {% endif %}
                             {% if request.user.is_buyer %}
                             <li>
-                                <button id="callback-button"><span class="icon_plus"></span></button>
+                                <a data-fancybox href="#hidden"><span class="icon_plus"></span></a>
                             </li>
-                            <div class="modal" id="modal-1">
-                                <div class="modal__content">
-                                    <button class="modal__close-button"><img src="#" width="12" alt="">
-                                    </button>
-                                    <h1 class="modal__title">Контент для примера</h1>
-                                    <p class="modal__description">Статья с уроком - <a
-                                            href="#">тут</a></p>
+                            <div style="display: none; width: 500px;" id="hidden">
+                                <h2>Добавить в альбом</h2>
+                                    <div class="albums__list">
+                                    <label for="abstract">
+                                        Абстракционизм
+                                        <input type="checkbox" id="abstract">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label for="abstract">
+                                        Абстракционизм
+                                        <input type="checkbox" id="abstract">
+                                        <span class="checkmark"></span>
+                                    </label>
                                 </div>
                             </div>
                             {% endif %}
@@ -233,6 +240,7 @@
 <script src="{% static 'js/jquery.slicknav.js' %}"></script>
 <script src="{% static 'js/owl.carousel.min.js' %}"></script>
 <script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+<script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 </body>
 
