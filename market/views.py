@@ -202,7 +202,7 @@ class MyAlbumsView(View):
 class AlbumView(View):
 
     def get(self, request, user_slug, slug):
-        album = BuyerAlbum.objects.get(slug=slug).reverse()
+        album = BuyerAlbum.objects.get(slug=slug)
         return render(request, "new/album.html", {
             'album': album,
             'is_mine': request.user == Customer.objects.get(slug=user_slug)
