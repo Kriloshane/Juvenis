@@ -46,7 +46,20 @@
                 <h4>Мои альбомы</h4>
             </div>
             <div class="product__details__button">
-                <a href="#" class="site-btn">Новый альбом</a>
+                <a class="site-btn" data-fancybox href="#new">Новый альбом</a>
+                <div style="display: none; width: 500px;" id="new">
+                    <form method="post" action="{% url 'market:create-album' request.user.slug %}">
+                        {% csrf_token %}
+                        <h2>Новый альбом</h2>
+                        <br>
+                        <div class="checkout__form__input">
+                            <p>Название</p>
+                            <input name="name" style="height: 50px" type="text">
+                        </div>
+                        <br>
+                        <button type="submit" class="site-btn">Сохранить</button>
+                    </form>
+                </div>
             </div>
         {% else %}
             <div class="section-title">
@@ -64,14 +77,14 @@
         <!-- else e  -->
         <div class="row">
             {% for album in albums %}
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                {% include 'new/album_card.html' %}
-            </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    {% include 'new/album_card.html' %}
+                </div>
             {% endfor %}
             {% if is_mine %}
-            <div class="col-lg-12 text-center">
-                <a href="#" class="primary-btn load-btn">Загрузить еще</a>
-            </div>
+                <div class="col-lg-12 text-center">
+                    <a href="#" class="primary-btn load-btn">Загрузить еще</a>
+                </div>
             {% endif %}
         </div>
     </div>

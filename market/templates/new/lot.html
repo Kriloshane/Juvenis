@@ -58,38 +58,39 @@
                         <a href="#" class="site-btn">Приобрести</a>
                         <ul>
                             {% if request.user.is_authenticated %}
-                            {% if lot in request.user.favorites.all %}
-                            <li><a href="{% url 'market:delete_favor' lot.slug %}"><span
-                                    class="icon_dislike_alt"></span></a></li>
-                            {% else %}
-                            <li><a href="{% url 'market:add_favor' lot.slug %}"><span
-                                    class="icon_heart_alt"></span></a></li>
-                            {% endif %}
-                            {% if request.user.is_buyer %}
-                            <li>
-                                <a data-fancybox href="#hidden"><span class="icon_plus"></span></a>
-                            </li>
-                            <form action="{% url 'market:ata' %}" style="display: none; width: 500px;" method="POST"
-                                  id="hidden">
-                                {% csrf_token %}
-                                <input hidden="true" name="lot_slug" value="{{ lot.slug }}"/>
-                                <h2>Добавить в альбом</h2>
-                                <div class="albums__list">
-                                    {% for album in albums %}
-                                    {% if lot not in album.pictures.all %}
-                                    <label for="album{{ album.id }}">
-                                        <input type="checkbox" id="album{{ album.id }}" name="slugs[]"
-                                               value="{{ album.slug }}">
-                                        <span class="checkmark"></span>
-                                        {{ album.name }}
-                                    </label>
-                                    <br>
-                                    {% endif %}
-                                    {% endfor %}
-                                </div>
-                                <button type="submit" class="site-btn">Сохранить</button>
-                            </form>
-                            {% endif %}
+                                {% if lot in request.user.favorites.all %}
+                                    <li><a href="{% url 'market:delete_favor' lot.slug %}"><span
+                                            class="icon_dislike_alt"></span></a></li>
+                                {% else %}
+                                    <li><a href="{% url 'market:add_favor' lot.slug %}"><span
+                                            class="icon_heart_alt"></span></a></li>
+                                {% endif %}
+                                {% if request.user.is_buyer %}
+                                    <li>
+                                        <a data-fancybox href="#hidden"><span class="icon_plus"></span></a>
+                                    </li>
+                                    <form action="{% url 'market:ata' %}" style="display: none; width: 500px;"
+                                          method="POST"
+                                          id="hidden">
+                                        {% csrf_token %}
+                                        <input hidden="true" name="lot_slug" value="{{ lot.slug }}"/>
+                                        <h2>Добавить в альбом</h2>
+                                        <div class="albums__list">
+                                            {% for album in albums %}
+                                                {% if lot not in album.pictures.all %}
+                                                    <label for="album{{ album.id }}">
+                                                        <input type="checkbox" id="album{{ album.id }}" name="slugs[]"
+                                                               value="{{ album.slug }}">
+                                                        <span class="checkmark"></span>
+                                                        {{ album.name }}
+                                                    </label>
+                                                    <br>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <button type="submit" class="site-btn">Сохранить</button>
+                                    </form>
+                                {% endif %}
                             {% endif %}
                         </ul>
                     </div>
@@ -132,30 +133,41 @@
                                 <a data-toggle="collapse" data-target="#collapseTwo"><span
                                         class="icon_pencil"></span></a>
                                 <div class="card" style="border: 0px">
-                                    <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
-                                        <textarea name="comment" cols="40" rows="3" style="width: 100%"></textarea>
-                                        <a href="#" style="width: 60%">
-                                            <div class="site-btn">Отправить</div>
-                                        </a>
-                                    </div>
+                                    <form method="post" action="{% url 'market:add_comment' %}">
+                                        {% csrf_token %}
+                                        <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
+                                            <input type="hidden" value="{{ lot.slug }}" name="lot_slug">
+                                            <textarea name="text" cols="40" rows="3" style="width: 100%"></textarea>
+                                            <a href="#" style="width: 60%">
+                                                <button type="submit" class="site-btn">Отправить</button>
+                                            </a>
+                                        </div>
+                                    </form>
                                 </div>
 
                             </div>
 
                             {% for review in lot.reviews.all %}
-                            <div class="blog__comment__item">
-                                <div class="blog__comment__item__pic">
-                                    <img src="{{ review.author.photo.url }}" alt="">
+                                <div class="blog__comment__item">
+                                    <div class="blog__comment__item__pic">
+                                        <img src="{{ review.author.photo.url }}" alt="">
+                                    </div>
+                                    <div class="blog__comment__item__text">
+                                        <h6>{{ review.author }}</h6>
+                                        <p>{{ review.text }}</p>
+                                        <ul>
+                                            <li><i class="fa fa-clock-o"></i>{{ review.date|date:'d M, Y' }}</li>
+                                            {% if request.user in review.likes.all %}
+                                                <li><a href="{% url 'market:dislike_comment' lot.slug review.id %}"><i class="fa fa-heart-o"></i></a>{{ review.likes.all.count }}</li>
+                                            {% else %}
+                                                <li><a href="{% url 'market:like_comment' lot.slug review.id %}"><i class="fa fa-heart-o"></i></a>{{ review.likes.all.count }}</li>
+                                            {% endif %}
+                                            {% if request.user == review.author %}
+                                                <a href="{% url 'market:delete_comment' lot.slug review.id %}">Х</a>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="blog__comment__item__text">
-                                    <h6>{{ review.author }}</h6>
-                                    <p>{{ review.text }}</p>
-                                    <ul>
-                                        <li><i class="fa fa-clock-o"></i>{{ review.date|date:'d M, Y' }}</li>
-                                        <li><i class="fa fa-heart-o"></i>{{ review.likes }}</li>
-                                    </ul>
-                                </div>
-                            </div>
                             {% endfor %}
                         </div>
                     </div>
@@ -169,9 +181,9 @@
                 </div>
             </div>
             {% for lot in author_lots %}
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                {% include 'new/lot_card.html' %}
-            </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    {% include 'new/lot_card.html' %}
+                </div>
             {% endfor %}
         </div>
     </div>

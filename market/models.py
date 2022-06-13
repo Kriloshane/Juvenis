@@ -208,11 +208,11 @@ class Review(models.Model):
         'self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True
     )
     movie = models.ForeignKey(Picture, verbose_name="Картина", on_delete=models.CASCADE, related_name="reviews")
-    likes = models.IntegerField(default=0, blank=True)
+    likes = models.ManyToManyField(Customer, verbose_name='Оценившие', related_name="liked_comments")
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.name} - {self.movie}"
+        return f"{self.author} - {self.movie}"
 
     class Meta:
         verbose_name = "Отзыв"
@@ -221,7 +221,8 @@ class Review(models.Model):
 
 class BuyerAlbum(models.Model):
     name = models.CharField(max_length=25, verbose_name='Название альбома', default="Пустой альбом")
-    buyer = models.ForeignKey(Customer, verbose_name="Покупатель", on_delete=models.CASCADE, related_name="albums")
+    buyer = models.ForeignKey(Customer, verbose_name="Покупатель", on_delete=models.CASCADE, related_name="albums",
+                              null=True, blank=True)
     pictures = models.ManyToManyField(Picture, verbose_name="Лоты", blank=True)
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, verbose_name='Ссылка')
 
@@ -229,9 +230,8 @@ class BuyerAlbum(models.Model):
         return f'{self.slug}'
 
     def save(self, *args, **kwargs):
-        if not self.id:
-            super().save(*args, **kwargs)
-            self.slug = slugify(f"{self.buyer}-{self.id}")
+        if not self.slug:
+            self.slug = slugify(f"{self.buyer}-{self.name}-{timezone.now()}")
         super().save(*args, **kwargs)
 
     def cover(self):

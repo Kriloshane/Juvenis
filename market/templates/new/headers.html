@@ -29,190 +29,199 @@
 <body>
 {% if request.user.is_artist %}
 
-<!-- Offcanvas Menu Begin -->
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-    <div class="offcanvas__close">+</div>
-    <div class="offcanvas__logo">
-        <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt=""></a>
-    </div>
-    <div id="mobile-menu-wrap"></div>
-    <ul class="offcanvas__widget">
-        <li><span class="icon_search search-switch"></span></li>
-        <li><a href="{% url 'market:favourites-view' %}"><span class="icon_heart_alt"></span>
-        </a></li>
-    </ul>
-</div>
-<!-- Offcanvas Menu End -->
-
-<!-- Header Section Begin -->
-<header class="header">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-3 col-lg-2">
-                <div class="header__logo">
-                    <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt="" style="height: 65px; margin-top: 10px;"></a>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-7">
-                <nav class="header__menu">
-                    <ul>
-                        <li class="active"><a href="{% url 'market:index' %}">Домой</a></li>
-                        <li><a href="#">О нас</a></li>
-                        <li><a href="{% url 'market:gallery-view' %}">Галерея</a></li>
-                        <li><a href="#">Профиль</a>
-                            <ul class="dropdown">
-                                <li><a href="{{ request.user.get_absolute_url }}">Мой Профиль</a></li>
-                                <li><a href="{% url 'market:my-arts-view' request.user.slug %}">Мои работы</a></li>
-                                <li><a href="{% url 'market:create-lot-view' %}">Новая работа</a></li>
-                                <li><a href="#">Подписки</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="{% url 'market:contact-view' %}">Контакты</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-lg-3">
-                <div class="header__right">
-                    <ul class="header__right__widget">
-                        <li><a href="{% url 'market:favourites-view' %}"><span class="icon_heart_alt"></span>
-                        </a></li>
-                        <li><span class="icon_search search-switch"></span></li>
-                    </ul>
-                </div>
-            </div>
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__close">+</div>
+        <div class="offcanvas__logo">
+            <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt=""></a>
         </div>
-        <div class="canvas__open">
-            <i class="fa fa-bars"></i>
-        </div>
+        <div id="mobile-menu-wrap"></div>
+        <ul class="offcanvas__widget">
+            <li><span class="icon_search search-switch"></span></li>
+            <li><a href="{% url 'market:favourites-view' %}"><span class="icon_heart_alt"></span>
+            </a></li>
+        </ul>
     </div>
-</header>
-<!-- Header Section End -->
+    <!-- Offcanvas Menu End -->
 
-
-{% elif request.user.is_buyer %}
-<!-- Offcanvas Menu Begin -->
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-    <div class="offcanvas__close">+</div>
-    <ul class="offcanvas__widget">
-        <li><span class="icon_search search-switch"></span></li>
-        <li><a href="{% url 'market:favourites-view' %}"><span class="icon_heart_alt"></span>
-            <div class="tip">2</div>
-        </a></li>
-    </ul>
-    <div class="offcanvas__logo">
-        <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt="" style="height: 65px; margin-top: 10px;"></a>
-    </div>
-    <div id="mobile-menu-wrap"></div>
-</div>
-<!-- Offcanvas Menu End -->
-
-<!-- Header Section Begin -->
-<header class="header">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-3 col-lg-2">
-                <div class="header__logo">
-                    <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt="" style="height: 65px; margin-top: 10px;"></a>
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-lg-2">
+                    <div class="header__logo">
+                        <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt=""
+                                                     style="height: 65px; margin-top: 10px;"></a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-xl-6 col-lg-7">
-                <nav class="header__menu">
-                    <ul>
-                        <li class="active"><a href="../index.html">Домой</a></li>
-                        <li><a href="#">О нас</a></li>
-                        <li><a href="{% url 'market:gallery-view' %}">Галерея</a></li>
-                        <li><a href="#">Профиль</a>
-                            <ul class="dropdown">
-                                <li><a href="{{ request.user.get_absolute_url }}">Мой Профиль</a></li>
-                                <li><a href="{% url 'market:my-albums-view' request.user.slug %}">Мои альбомы</a></li>
-                                <li><a data-fancybox href="#new">Новый альбом</a></li>
-                                <div style="display: none; width: 500px;" id="new">
-                                    <h2>Новый альбом</h2>
-                                    <br>
-                                    <div class="checkout__form__input">
-                                        <p>Название</p>
-                                        <input style="height: 50px" type="text">
-                                    </div>
-                                    <br>
-                                    <a href="#"><div class="site-btn">Сохранить</div></a>
-                                </div>
-                                <li><a href="#">Подписки</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="{% url 'market:contact-view' %}">Контакты</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-lg-3">
-                <div class="header__right">
-                    <ul class="header__right__widget">
-                        <li><span class="icon_search search-switch"></span></li>
-                        <li><a href="{% url 'market:favourites-view' %}"><span class="icon_heart_alt"></span>
-                        </a></li>
-                    </ul>
+                <div class="col-xl-6 col-lg-7">
+                    <nav class="header__menu">
+                        <ul>
+                            <li class="active"><a href="{% url 'market:index' %}">Домой</a></li>
+                            <li><a href="#">О нас</a></li>
+                            <li><a href="{% url 'market:gallery-view' %}">Галерея</a></li>
+                            <li><a href="#">Профиль</a>
+                                <ul class="dropdown">
+                                    <li><a href="{{ request.user.get_absolute_url }}">Мой Профиль</a></li>
+                                    <li><a href="{% url 'market:my-arts-view' request.user.slug %}">Мои работы</a></li>
+                                    <li><a href="{% url 'market:create-lot-view' %}">Новая работа</a></li>
+                                    <li><a href="#">Подписки</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url 'market:contact-view' %}">Контакты</a></li>
+                        </ul>
+                    </nav>
                 </div>
-            </div>
-        </div>
-        <div class="canvas__open">
-            <i class="fa fa-bars"></i>
-        </div>
-    </div>
-</header>
-
-{% else %}
-
-<!-- Offcanvas Menu Begin -->
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-    <div class="offcanvas__close">+</div>
-    <div class="offcanvas__logo">
-        <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt="" style="height: 65px; margin-top: 10px;"></a>
-    </div>
-    <div id="mobile-menu-wrap"></div>
-    <div class="offcanvas__auth">
-        <a href="#">Войти</a>
-        <a href="#">Зарегестрироваться</a>
-    </div>
-</div>
-<!-- Offcanvas Menu End -->
-
-<!-- Header Section Begin -->
-<header class="header">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-3 col-lg-2">
-                <div class="header__logo">
-                    <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt="" style="height: 65px; margin-top: 10px;"></a>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-7">
-                <nav class="header__menu">
-                    <ul>
-                        <li class="active"><a href="../index.html">Домой</a></li>
-                        <li><a href="#">О нас</a></li>
-                        <li><a href="{% url 'market:gallery-view' %}">Галерея</a></li>
-                        <li><a href="#">Профиль</a></li>
-                        <li><a href="{% url 'market:contact-view' %}">Контакты</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-lg-3">
-                <div class="header__right">
-                    <div class="header__right__auth">
-                        <a href="{% url 'market:my_login' %}">Войти</a>
-                        <a href="{% url 'market:my_signup' %}">Зарегестрироваться</a>
+                <div class="col-lg-3">
+                    <div class="header__right">
+                        <ul class="header__right__widget">
+                            <li><a href="{% url 'market:favourites-view' %}"><span class="icon_heart_alt"></span>
+                            </a></li>
+                            <li><span class="icon_search search-switch"></span></li>
+                        </ul>
                     </div>
                 </div>
             </div>
+            <div class="canvas__open">
+                <i class="fa fa-bars"></i>
+            </div>
         </div>
-        <div class="canvas__open">
-            <i class="fa fa-bars"></i>
+    </header>
+    <!-- Header Section End -->
+
+
+{% elif request.user.is_buyer %}
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__close">+</div>
+        <ul class="offcanvas__widget">
+            <li><span class="icon_search search-switch"></span></li>
+            <li><a href="{% url 'market:favourites-view' %}"><span class="icon_heart_alt"></span>
+                <div class="tip">2</div>
+            </a></li>
+        </ul>
+        <div class="offcanvas__logo">
+            <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt=""
+                                         style="height: 65px; margin-top: 10px;"></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-lg-2">
+                    <div class="header__logo">
+                        <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt=""
+                                                     style="height: 65px; margin-top: 10px;"></a>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-7">
+                    <nav class="header__menu">
+                        <ul>
+                            <li class="active"><a href="../index.html">Домой</a></li>
+                            <li><a href="#">О нас</a></li>
+                            <li><a href="{% url 'market:gallery-view' %}">Галерея</a></li>
+                            <li><a href="#">Профиль</a>
+                                <ul class="dropdown">
+                                    <li><a href="{{ request.user.get_absolute_url }}">Мой Профиль</a></li>
+                                    <li><a href="{% url 'market:my-albums-view' request.user.slug %}">Мои альбомы</a>
+                                    </li>
+                                    <li><a data-fancybox href="#new">Новый альбом</a></li>
+                                    <div style="display: none; width: 500px;" id="new">
+                                        <form method="post" action="{% url 'market:create-album' request.user.slug %}">
+                                            {% csrf_token %}
+                                            <h2>Новый альбом</h2>
+                                            <br>
+                                            <div class="checkout__form__input">
+                                                <p>Название</p>
+                                                <input name="name" style="height: 50px" type="text">
+                                            </div>
+                                            <br>
+                                            <button type="submit" class="site-btn">Сохранить</button>
+                                        </form>
+                                    </div>
+                                    <li><a href="#">Подписки</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url 'market:contact-view' %}">Контакты</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__right">
+                        <ul class="header__right__widget">
+                            <li><span class="icon_search search-switch"></span></li>
+                            <li><a href="{% url 'market:favourites-view' %}"><span class="icon_heart_alt"></span>
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+{% else %}
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__close">+</div>
+        <div class="offcanvas__logo">
+            <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt=""
+                                         style="height: 65px; margin-top: 10px;"></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__auth">
+            <a href="#">Войти</a>
+            <a href="#">Зарегестрироваться</a>
         </div>
     </div>
-</header>
-<!-- Header Section End -->
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-lg-2">
+                    <div class="header__logo">
+                        <a href="../index.html"><img src="{% static 'img/bruh.svg' %}" alt=""
+                                                     style="height: 65px; margin-top: 10px;"></a>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-7">
+                    <nav class="header__menu">
+                        <ul>
+                            <li class="active"><a href="../index.html">Домой</a></li>
+                            <li><a href="#">О нас</a></li>
+                            <li><a href="{% url 'market:gallery-view' %}">Галерея</a></li>
+                            <li><a href="#">Профиль</a></li>
+                            <li><a href="{% url 'market:contact-view' %}">Контакты</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__right">
+                        <div class="header__right__auth">
+                            <a href="{% url 'market:my_login' %}">Войти</a>
+                            <a href="{% url 'market:my_signup' %}">Зарегестрироваться</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
 {% endif %}
 
 <!-- Search Begin -->
