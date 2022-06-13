@@ -41,14 +41,16 @@
         <div class="section-title">
             Мои подписки
         </div>
-        <div class="blog__comment__item">
-            <div class="blog__comment__item__pic">
-                <img src="{% static 'img/trend/айвейвей.png' %}" alt="">
+        {% for follower in profile.followers.all %}
+            <div class="blog__comment__item">
+                <div class="blog__comment__item__pic">
+                    <img src="{{ follower.photo.url }}" alt="">
+                </div>
+                <div class="blog__comment__item__text">
+                    <h6>{{ follower }}</h6>
+                </div>
             </div>
-            <div class="blog__comment__item__text">
-                <h6>Имя</h6>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </section>
 

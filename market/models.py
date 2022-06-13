@@ -35,6 +35,9 @@ class Customer(AbstractUser):  # username, password, f_n, l_n, email
     favorites = models.ManyToManyField('Picture', verbose_name='Избранное', related_name='lovers')
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, verbose_name='Ссылка')
 
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
     def __str__(self):
         if self.first_name and self.last_name and self.id:
             return f"{self.first_name} {self.last_name}"
@@ -57,6 +60,9 @@ class Customer(AbstractUser):  # username, password, f_n, l_n, email
 
     def get_absolute_url(self):
         return reverse('market:profile-view', kwargs={'slug': self.slug})
+
+    def get_absolute_url_follows(self):
+        return reverse('market:follows-view', kwargs={'slug': self.slug})
 
     class Meta:
         verbose_name = "Пользователь"

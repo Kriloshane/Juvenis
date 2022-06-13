@@ -64,6 +64,7 @@
                             <li><a href="#">Профиль</a>
                                 <ul class="dropdown">
                                     <li><a href="{{ request.user.get_absolute_url }}">Мой Профиль</a></li>
+                                    <li><a href="{{ request.user.get_absolute_url_follows }}">Подписки</a></li>
                                     <li><a href="{% url 'market:my-arts-view' request.user.slug %}">Мои работы</a></li>
                                     <li><a href="{% url 'market:create-lot-view' %}">Новая работа</a></li>
                                     <li><a href="#">Подписки</a></li>
@@ -129,6 +130,7 @@
                             <li><a href="#">Профиль</a>
                                 <ul class="dropdown">
                                     <li><a href="{{ request.user.get_absolute_url }}">Мой Профиль</a></li>
+                                    <li><a href="{{ request.user.get_absolute_url_follows }}">Подписки</a></li>
                                     <li><a href="{% url 'market:my-albums-view' request.user.slug %}">Мои альбомы</a>
                                     </li>
                                     <li><a data-fancybox href="#new">Новый альбом</a></li>

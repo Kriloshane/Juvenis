@@ -187,6 +187,15 @@ class ProfileView(View):
         return redirect(profile.get_absolute_url())
 
 
+class FollowsView(View):
+
+    def get(self, request, slug):
+        profile = Customer.objects.get(slug=slug)
+        return render(request, 'new/follows.html', {
+            'profile': profile
+        })
+
+
 class MyAlbumsView(View):
 
     def get(self, request, user_slug):
@@ -271,15 +280,8 @@ def album_delete(request, user_slug, slug):
 class FavouritesView(View):
 
     def get(self, request):
-        data = [list() for i in range(4)]
-        i = 0
-        for album in request.user.albums.all():
-            for lot in album.pictures.all():
-                data[i % 4].append(lot) if [lot] not in data else 0
-                i += 1
-        print(data)
         return render(request, "new/favourites.html", {
-            'data': data
+            'lots': request.user.favorites.all()
         })
 
 
@@ -345,3 +347,16 @@ class SignIn(View):
 
     def get(self, request):
         return render(request, "new/signin.html")
+    
+    def post(self, request):
+        email = request.POST.get('email')
+        password = request.POST.get('passwd')
+        user = authenticate(email=email, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return reverse('market:index')
+            else:
+                return reverse('market:index')
+        else:
+            return reverse('market:index')

@@ -39,15 +39,18 @@
     <div class="container">
         <form action="#" class="checkout__form">
             <div class="col-lg-4" style="margin:0 auto">
-                <div class="checkout__form__input">
-                    <p>Почта</p>
-                    <input type="text">
-                </div>
-                <div class="checkout__form__input">
-                    <p>Пароль</p>
-                    <input type="text">
-                </div>
-                <a href="#"><div class="site-btn">Войти</div></a>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="checkout__form__input">
+                        <p>Почта</p>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="checkout__form__input">
+                        <p>Пароль</p>
+                        <input type="password" name="password" required>
+                    </div>
+                    <button class="site-btn" type="submit">Войти</button>
+                </form>
             </div>
         </form>
     </div>

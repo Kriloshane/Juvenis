@@ -17,6 +17,7 @@ urlpatterns = [
     path('lots/<str:slug>/reviews/<int:id>/remove', delete_comment, name="delete_comment"),
 
     path('profiles/<str:slug>/', ProfileView.as_view(), name="profile-view"),
+    path('profiles/<str:slug>/follows', FollowsView.as_view(), name="follows-view"),
     path('profiles/<str:user_slug>/albums/', MyAlbumsView.as_view(), name="my-albums-view"),
     path('profiles/<str:user_slug>/albums/create', create_album, name="create-album"),
     path('profiles/<str:user_slug>/albums/<str:slug>', AlbumView.as_view(), name="album-view"),
