@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ashion Template">
+    <meta name="keywords" content="Ashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/jquery.fancybox.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.min.css' %}" type="text/css">
+</head>
+
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+{% include 'new/headers.html' %}
+
+<section class="result spad">
+    <div class="container">
+        <div class="section-title">
+            Результаты поиска
+        </div>
+        <ul class="filter__controls">
+            <li class="active" data-filter=".lots">Работы</li>
+            <li data-filter=".albums">Альбомы</li>
+            <li data-filter=".users">Пользователи</li>
+        </ul>
+    </div>
+
+    <div class="row mix lots">
+        <div class="col-lg-4">
+            {% include 'new/lot_card.html' %}
+        </div>
+        <div class="col-lg-4">
+            {% include 'new/lot_card.html' %}
+        </div>
+        <div class="col-lg-4">
+            {% include 'new/lot_card.html' %}
+        </div>
+    </div>
+
+    <div class="row mix albums">
+        <div class="col-lg-4">
+            {% include 'new/album_card.html' %}
+        </div>
+        <div class="col-lg-4">
+            {% include 'new/album_card.html' %}
+        </div>
+        <div class="col-lg-4">
+            {% include 'new/album_card.html' %}
+        </div>
+    </div>
+
+    <div class="row mix users">
+        <div class="blog__comment__item">
+            <div class="blog__comment__item__pic">
+                <img src="{% static 'img/джейндиксон.png' %}" alt="">
+            </div>
+            <div class="blog__comment__item__text">
+                <h6>Он такой</h6>
+            </div>
+        </div>
+        <div class="blog__comment__item">
+            <div class="blog__comment__item__pic">
+                <img src="{% static 'img/джейндиксон.png' %}" alt="">
+            </div>
+            <div class="blog__comment__item__text">
+                <h6>А он другой</h6>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/mixitup.min.js' %}"></script>
+<script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+<script src="{% static 'js/jquery.slicknav.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
+</body>
+
+</html>
