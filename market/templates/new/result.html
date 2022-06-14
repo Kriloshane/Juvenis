@@ -46,36 +46,39 @@
             <li data-filter=".album">Альбомы</li>
             <li data-filter=".user">Пользователи</li>
         </ul>
-    </div>
-
-    <div class="row mix ">
-        {% for lot in lots %}
-            <div class="col-lg-4 col-md-6">
-                {% include 'new/lot_card.html' %}
+        <div class="property__gallery">
+            <div class="row mix lot">
+                {% for lot in lots %}
+                    <div class="col-lg-4 col-md-6">
+                        {% include 'new/lot_card.html' %}
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    </div>
 
-    <div class="row mix ">
-        {% for album in albums %}
-            <div class="col-lg-4 col-md-6">
-                {% include 'new/album_card.html' %}
+            <div class="row mix album">
+                {% for album in albums %}
+                    <div class="col-lg-4 col-md-6">
+                        {% include 'new/album_card.html' %}
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    </div>
 
-    <div class="row mix ">
-        {% for user in users %}
-        <div class="blog__comment__item user">
-            <div class="blog__comment__item__pic">
-                <img src="{{ user.photo.url }}" alt="">
-            </div>
-            <div class="blog__comment__item__text">
-                <h6>{{ user.first_name }} {{ user.last_name }} {% if user.is_artist %} {{ user.username }} {% endif %}</h6>
+            <div class="row mix user">
+                {% for user in users %}
+                    <div class="blog__comment__item">
+                        <div class="blog__comment__item__pic">
+                            <img src="{{ user.photo.url }}" alt="">
+                        </div>
+                        <div class="blog__comment__item__text">
+                            <h6>{{ user.first_name }} {{ user.last_name }} {% if user.is_artist %}
+                                {{ user.username }} {% endif %}</h6>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
-        {% endfor %}
     </div>
+
 </section>
 
 
