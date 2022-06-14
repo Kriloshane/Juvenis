@@ -41,53 +41,40 @@
             Результаты поиска
         </div>
         <ul class="filter__controls">
-            <li class="active" data-filter=".lots">Работы</li>
-            <li data-filter=".albums">Альбомы</li>
-            <li data-filter=".users">Пользователи</li>
+            <li class="active" data-filter="*">Все</li>
+            <li data-filter=".lot">Работы</li>
+            <li data-filter=".album">Альбомы</li>
+            <li data-filter=".user">Пользователи</li>
         </ul>
     </div>
 
-    <div class="row mix lots">
-        <div class="col-lg-4">
-            {% include 'new/lot_card.html' %}
-        </div>
-        <div class="col-lg-4">
-            {% include 'new/lot_card.html' %}
-        </div>
-        <div class="col-lg-4">
-            {% include 'new/lot_card.html' %}
-        </div>
+    <div class="row mix ">
+        {% for lot in lots %}
+            <div class="col-lg-4 col-md-6">
+                {% include 'new/lot_card.html' %}
+            </div>
+        {% endfor %}
     </div>
 
-    <div class="row mix albums">
-        <div class="col-lg-4">
-            {% include 'new/album_card.html' %}
-        </div>
-        <div class="col-lg-4">
-            {% include 'new/album_card.html' %}
-        </div>
-        <div class="col-lg-4">
-            {% include 'new/album_card.html' %}
-        </div>
+    <div class="row mix ">
+        {% for album in albums %}
+            <div class="col-lg-4 col-md-6">
+                {% include 'new/album_card.html' %}
+            </div>
+        {% endfor %}
     </div>
 
-    <div class="row mix users">
-        <div class="blog__comment__item">
+    <div class="row mix ">
+        {% for user in users %}
+        <div class="blog__comment__item user">
             <div class="blog__comment__item__pic">
-                <img src="{% static 'img/джейндиксон.png' %}" alt="">
+                <img src="{{ user.photo.url }}" alt="">
             </div>
             <div class="blog__comment__item__text">
-                <h6>Он такой</h6>
+                <h6>{{ user.first_name }} {{ user.last_name }} {% if user.is_artist %} {{ user.username }} {% endif %}</h6>
             </div>
         </div>
-        <div class="blog__comment__item">
-            <div class="blog__comment__item__pic">
-                <img src="{% static 'img/джейндиксон.png' %}" alt="">
-            </div>
-            <div class="blog__comment__item__text">
-                <h6>А он другой</h6>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </section>
 

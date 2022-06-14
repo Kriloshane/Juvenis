@@ -40,7 +40,7 @@ class Customer(AbstractUser):  # username, password, f_n, l_n, email
 
     def __str__(self):
         if self.first_name and self.last_name and self.id:
-            return f"{self.first_name} {self.last_name}"
+            return f"{self.username} {self.first_name} {self.last_name}"
         return f"{self.username}"
 
     def save(self, *args, **kwargs):

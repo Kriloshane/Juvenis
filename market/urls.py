@@ -9,6 +9,7 @@ app_name = MarketConfig.name
 urlpatterns = [
     path('', IndexView.as_view(), name="index"),
     path('gallery', GalleryView.as_view(), name="gallery-view"),
+    path('search', ResultView.as_view(), name="result-view"),
     path('lots/<str:slug>/', LotView.as_view(), name="lot-view"),
     path('lots/<str:slug>/add_favor', add_favour, name="add_favor"),
     path('lots/<str:slug>/delete_favor', delete_favour, name="delete_favor"),

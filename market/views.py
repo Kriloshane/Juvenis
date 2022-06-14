@@ -41,6 +41,29 @@ class IndexView(View):
         })
 
 
+class ResultView(View):
+
+    def get(self, request):
+        return render(request, 'new/result.html', {
+            'lots': Picture.objects.all()[0:6],
+            'albums': BuyerAlbum.objects.all()[0:6],
+            'users': Customer.objects.all()[0:6],
+        })
+
+    def post(self, request):
+        search_request = request.POST.get('search_request')
+        lots = Picture.objects.filter(Q(name__icontains=search_request))
+        albums = BuyerAlbum.objects.filter(name__icontains=search_request)
+        users = Customer.objects.filter(Q(first_name__icontains=search_request) |
+                                        Q(last_name__icontains=search_request) |
+                                        Q(username__icontains=search_request))
+        return render(request, 'new/result.html', {
+            'lots': lots,
+            'albums': albums,
+            'users': users,
+        })
+
+
 class GalleryView(View):
 
     def get(self, request):

@@ -1,0 +1,10 @@
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form" method="POST" action="{% url 'market:result-view' %}">
+            {% csrf_token %}
+            <input type="text" id="search-input" name="search_request" placeholder="Поиск.....">
+            <button type="submit" hidden>Поиск</button>
+        </form>
+    </div>
+</div>
