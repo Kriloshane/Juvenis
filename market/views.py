@@ -51,8 +51,8 @@ class ResultView(View):
         })
 
     def post(self, request):
-        search_request = request.POST.get('search_request')
-        lots = Picture.objects.filter(Q(name__icontains=search_request))
+        search_request = request.POST.get('search_request')[0].upper() + request.POST.get('search_request')[1:]
+        lots = Picture.objects.filter(name__icontains=search_request)
         albums = BuyerAlbum.objects.filter(name__icontains=search_request)
         users = Customer.objects.filter(Q(first_name__icontains=search_request) |
                                         Q(last_name__icontains=search_request) |
@@ -370,7 +370,7 @@ class SignIn(View):
 
     def get(self, request):
         return render(request, "new/signin.html")
-    
+
     def post(self, request):
         email = request.POST.get('email')
         password = request.POST.get('passwd')
@@ -383,5 +383,3 @@ class SignIn(View):
                 return reverse('market:index')
         else:
             return reverse('market:index')
-
-

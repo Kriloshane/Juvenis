@@ -214,7 +214,8 @@ class Review(models.Model):
         'self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True
     )
     movie = models.ForeignKey(Picture, verbose_name="Картина", on_delete=models.CASCADE, related_name="reviews")
-    likes = models.ManyToManyField(Customer, verbose_name='Оценившие', related_name="liked_comments")
+    likes = models.ManyToManyField(Customer, verbose_name='Оценившие', related_name="liked_comments",
+                                   null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
