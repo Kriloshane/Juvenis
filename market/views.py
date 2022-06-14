@@ -297,7 +297,7 @@ def dislike_comment(request, slug, id):
 
 def album_delete(request, user_slug, slug):
     BuyerAlbum.objects.get(slug=slug).delete()
-    return redirect(f'profiles/{request.user.slug}/albums/')
+    return redirect(f'/profiles/{request.user.slug}/albums/')
 
 
 class FavouritesView(View):
