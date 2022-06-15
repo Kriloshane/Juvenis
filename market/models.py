@@ -32,7 +32,7 @@ class Customer(AbstractUser):  # username, password, f_n, l_n, email
     subscriptions = models.ManyToManyField("Customer", verbose_name='Подписки', blank=True)
     last_activity = models.DateTimeField(blank=True, null=True, verbose_name="Последняя активность")
     art_currency = models.IntegerField(default=0, verbose_name="Валюта")
-    favorites = models.ManyToManyField('Picture', verbose_name='Избранное', related_name='lovers')
+    favorites = models.ManyToManyField('Picture', verbose_name='Избранное', related_name='lovers', blank=True)
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, verbose_name='Ссылка')
 
     USERNAME_FIELD = 'email'
@@ -135,6 +135,7 @@ class Picture(models.Model):
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, verbose_name='Ссылка',
                             allow_unicode=True)
     year_created = models.SmallIntegerField(verbose_name="Год создания", null=True, blank=True)
+    is_archived = models.BooleanField(verbose_name="Архивация", default=False, null=True, blank=True)
 
     def __str__(self):
         return f"{self.name} - {self.author}"

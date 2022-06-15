@@ -148,7 +148,7 @@ class LotView(View):
             if lot in album.pictures.all():
                 is_liked = True
         in_cart = lot in request.user.cart.pictures.all()
-        author_lots = Picture.objects.filter(author=lot.author).reverse()[0:5]
+        author_lots = Picture.objects.filter(author=lot.author).exclude(slug=slug).reverse()[0:5]
         return render(request, 'new/lot.html', {
             'lot': lot,
             'albums': albums,
@@ -383,3 +383,12 @@ class SignIn(View):
                 return reverse('market:index')
         else:
             return reverse('market:index')
+
+
+class PurchaseView(View):
+    def get(self, request, slug):
+        lot = Picture.objects.select_related("author").get(slug=slug)
+        lot.is_archived = True
+        lot.save()
+
+        return render(request, template_name="new/purchase.html", context={"lot": lot})

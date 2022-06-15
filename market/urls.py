@@ -38,6 +38,7 @@ urlpatterns = [
 
     path('signup/', SignUp.as_view(), name="my_signup"),
     path('login/', SignIn.as_view(), name="my_login"),
+    path("purchase/<str:slug>", PurchaseView.as_view(), name="purchase_url")
 ]
 
 if settings.DEBUG:
